@@ -1,0 +1,138 @@
+.controlBarContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 2rem;
+  width: 100%;
+  box-shadow: 0px 5px 5px -5px rgba(0, 0, 0, 0.75);
+}
+
+.controlBarContent {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  width: 75%;
+}
+
+.controlComponent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  margin-left: 0.5rem;
+}
+
+.controlItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  height: 100%;
+  cursor: pointer;
+  padding: 0px 8px;
+  border-left: 1px solid transparent;
+  border-right: 1px solid transparent;
+}
+
+.controlIcon {
+  width: 1rem;
+  height: 1rem;
+  padding: 0.25rem;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.controlIcon:hover {
+  background-color: #4e4e4e;
+}
+
+.controlSelect {
+  border: none;
+  outline: none;
+}
+
+.kernelSettingsContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.sourceCodeRedirectContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0 8px;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.sourceCodeRedirectContainer:hover {
+  background-color: #4e4e4e;
+}
+
+.sourceCodeRedirectText {
+  font-size: 13px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.sourceCodeRedirectIcon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.pythonItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  height: 100%;
+  cursor: pointer;
+  padding: 0px 8px;
+  border-left: 1px solid transparent;
+  border-right: 1px solid transparent;
+}
+
+.pythonItem:hover {
+  background-color: #4e4e4e;
+}
+
+@media (max-width: 1200px) {
+  .homePageContainer {
+    width: 90%;
+  }
+}
+
+@media (max-width: 1000px) {
+  .homePageContainer {
+    width: 100%;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .controlBarContainer {
+    background-color: #ffffff;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .controlBarContainer {
+    background-color: #212121;
+    color: #ffffff;
+  }
+
+  .controlSelect {
+    background-color: #212121;
+    color: #ffffff;
+  }
+}
