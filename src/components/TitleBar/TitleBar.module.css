@@ -1,0 +1,90 @@
+.titleBarContainer {
+  height: 3rem;
+  width: 100%;
+}
+
+.titleBarContent {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 75%;
+}
+
+.nameComponent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}
+
+.profileImageContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  padding-left: 1rem;
+}
+
+.profileImage {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.name {
+  font-size: 18px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  cursor: pointer;
+}
+
+.name:hover {
+  background-color: #323232;
+}
+
+.lastCheckpoint {
+  font-size: 15px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.githubIconContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  padding-right: 1rem;
+}
+
+.githubIcon {
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+}
+
+@media (max-width: 1200px) {
+  .homePageContainer {
+    width: 90%;
+  }
+}
+
+@media (max-width: 1000px) {
+  .homePageContainer {
+    width: 100%;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .titleBarContainer {
+    background-color: #ffffff;
+    border-bottom: 1px solid #bdbdbd;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .titleBarContainer {
+    background-color: #212121;
+    border-bottom: 1px solid #606060;
+    color: #ffffff;
+  }
+}
