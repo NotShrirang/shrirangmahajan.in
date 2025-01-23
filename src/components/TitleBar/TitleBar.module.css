@@ -51,10 +51,6 @@
   height: 100%;
 }
 
-.name:hover {
-  background-color: #323232;
-}
-
 .lastCheckpoint {
   font-size: 15px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -121,6 +117,10 @@
     background-color: #ffffff;
     border-bottom: 1px solid #bdbdbd;
   }
+
+  .name:hover {
+    background-color: #f0f0f0;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -128,5 +128,9 @@
     background-color: #212121;
     border-bottom: 1px solid #606060;
     color: #ffffff;
+  }
+
+  .name:hover {
+    background-color: #424242;
   }
 }

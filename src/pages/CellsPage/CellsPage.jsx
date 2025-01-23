@@ -12,8 +12,14 @@ const CellsPage = () => {
   const [projects, setProjects] = useState([]);
   const [experiences, setExperiences] = useState([]);
   const [languageData, setLanguageData] = useState(null);
+  const [theme, setTheme] = useState("light");
 
   useEffect(() => {
+    const theme = window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+    setTheme(theme);
+
     const username = "NotShrirang";
     fetchPinnedRepos(username).then((data) => {
       setProjects(data);
@@ -38,9 +44,12 @@ const CellsPage = () => {
                 <div
                   style={{
                     display: "flex",
-                    flexDirection: "row",
-                    alignItems: "space-between",
-                    justifyContent: "space-between",
+                    flexDirection: window.innerWidth > 600 ? "row" : "column",
+                    // alignItems: "space-between",
+                    alignItems:
+                      window.innerWidth > 600 ? "space-between" : "center",
+                    justifyContent:
+                      window.innerWidth > 600 ? "center" : "space-between",
                     width: "100%",
                   }}
                 >
@@ -51,7 +60,9 @@ const CellsPage = () => {
                       className={styles.markdownHyperlink}
                     >
                       <img
-                        src="https://img.icons8.com/?size=30&id=sop9ROXku5bb&format=png&color=000000"
+                        src={`https://img.icons8.com/?size=30&id=sop9ROXku5bb&format=png&color=${
+                          theme == "dark" ? "ffffff" : "000000"
+                        }`}
                         alt="Hugging Face"
                       />
                     </a>
@@ -60,7 +71,9 @@ const CellsPage = () => {
                       className={styles.markdownHyperlink}
                     >
                       <img
-                        src="https://img.icons8.com/?size=20&id=QrYhwpUzAcoy&format=png&color=000000"
+                        src={`https://img.icons8.com/?size=20&id=QrYhwpUzAcoy&format=png&color=${
+                          theme == "dark" ? "ffffff" : "000000"
+                        }`}
                         alt="Kaggle"
                       />
                     </a>
@@ -69,7 +82,9 @@ const CellsPage = () => {
                       className={styles.markdownHyperlink}
                     >
                       <img
-                        src="https://img.icons8.com/?size=30&id=13930&format=png&color=000000"
+                        src={`https://img.icons8.com/?size=30&id=13930&format=png&color=${
+                          theme == "dark" ? "ffffff" : "000000"
+                        }`}
                         alt="LinkedIn"
                       />
                     </a>
@@ -78,7 +93,9 @@ const CellsPage = () => {
                       className={styles.markdownHyperlink}
                     >
                       <img
-                        src="https://img.icons8.com/?size=30&id=106564&format=png&color=ffffff"
+                        src={`https://img.icons8.com/?size=30&id=106564&format=png&color=${
+                          theme == "dark" ? "ffffff" : "000000"
+                        }`}
                         alt="GitHub"
                       />
                     </a>
@@ -87,7 +104,9 @@ const CellsPage = () => {
                       className={styles.markdownHyperlink}
                     >
                       <img
-                        src="https://img.icons8.com/?size=30&id=12580&format=png&color=ffffff"
+                        src={`https://img.icons8.com/?size=30&id=12580&format=png&color=${
+                          theme == "dark" ? "ffffff" : "000000"
+                        }`}
                         alt="Email"
                       />
                     </a>
@@ -143,7 +162,7 @@ const CellsPage = () => {
                         </div>
                         <div className={styles.projectLanguages}>
                           {project.languages.nodes.map((lang) => (
-                            <div className={styles.projectLang}>
+                            <div className={styles.projectLang} key={lang.name}>
                               {lang.name}
                             </div>
                           ))}
@@ -191,7 +210,10 @@ const CellsPage = () => {
                 <div className={styles.experienceContainer}>
                   {experiences.map((experience) => {
                     return (
-                      <div className={styles.experienceCard}>
+                      <div
+                        className={styles.experienceCard}
+                        key={experience.title}
+                      >
                         <div
                           style={{
                             display: "flex",
@@ -212,7 +234,7 @@ const CellsPage = () => {
                         </div>
                         <div className={styles.experienceDescription}>
                           {experience.description.map((point) => (
-                            <div>• {point}</div>
+                            <div key={point}>• {point}</div>
                           ))}
                         </div>
                       </div>
@@ -250,6 +272,7 @@ const CellsPage = () => {
                           alignItems: "center",
                           gap: "1rem",
                         }}
+                        key={language}
                       >
                         <div className={styles.languageName}>
                           {languageData[language][0]}
