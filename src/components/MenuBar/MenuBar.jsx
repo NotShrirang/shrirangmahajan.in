@@ -6,21 +6,18 @@ const MenuBar = () => {
     <div className={styles.menuBarContainer}>
       <div className={styles.menuBarContent}>
         <div className={styles.menuComponent}>
-          <div className={styles.menuItem}>
-            <div>About</div>
-          </div>
-          <div className={styles.menuItem}>
-            <div>Projects</div>
-          </div>
-          <div className={styles.menuItem}>
-            <div>Experience</div>
-          </div>
-          <div className={styles.menuItem}>
-            <div>Education</div>
-          </div>
-          <div className={styles.menuItem}>
-            <div>Contact</div>
-          </div>
+          <a className={styles.menuItem} href="#projects">
+            Projects
+          </a>
+          <a className={styles.menuItem} href="#experience">
+            Experience
+          </a>
+          <a className={styles.menuItem} href="#education">
+            Education
+          </a>
+          <a className={styles.menuItem} href="#contact">
+            Contact
+          </a>
         </div>
         <div className={styles.trustedContainer}>
           <div className={styles.trusted}>Trusted</div>

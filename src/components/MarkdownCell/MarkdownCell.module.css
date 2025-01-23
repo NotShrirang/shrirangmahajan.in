@@ -1,0 +1,144 @@
+.cell {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #000;
+  border-radius: 4px;
+  background-color: #000;
+  gap: 0.5rem;
+  padding: 0.5rem;
+}
+
+.cellInput {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: start;
+  gap: 1rem;
+  width: 100%;
+  height: 100%;
+}
+
+.cellOutput {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: start;
+  gap: 1rem;
+  width: 100%;
+  height: 100%;
+}
+
+.cellActive {
+  background-color: #2196f3;
+  height: 100%;
+  width: 4px;
+  border: 1px solid transparent;
+  border-radius: 2px;
+}
+
+.cellInactive {
+  background-color: transparent;
+  height: 100%;
+  width: 4px;
+  border: 1px solid transparent;
+  border-radius: 2px;
+}
+
+.cellContent {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: start;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 1rem;
+}
+
+.controlItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  height: 100%;
+  cursor: pointer;
+  padding: 0px 2px;
+  border: 1px solid transparent;
+}
+
+.controlIcon {
+  width: 1rem;
+  height: 1rem;
+  padding: 0.25rem;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.controlIcon:hover {
+  background-color: #4e4e4e;
+}
+
+.codeContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  padding-left: 0.5rem;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  border: 1px solid #4e4e4e;
+}
+
+.textarea {
+  width: 100%;
+  font-size: 13px;
+  font-family: monospace;
+  font-weight: 400;
+  padding: 0px;
+  margin: 0px;
+  resize: none;
+  border: none;
+  outline: none;
+}
+
+.outputItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0px 2px;
+}
+
+.outputIcon {
+  width: 1rem;
+  height: 1rem;
+  padding: 0.25rem;
+  border-radius: 2px;
+}
+
+.outputContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  width: 100%;
+  background-color: #000;
+}
+
+.outputContent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  padding-left: 0.5rem;
+  width: 100%;
+  height: 100%;
+  padding-bottom: 1rem;
+  background-color: #000;
+  border: 1px solid #4e4e4e;
+}
