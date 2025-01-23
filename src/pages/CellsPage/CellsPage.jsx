@@ -16,12 +16,12 @@ const CellsPage = () => {
 
   useEffect(() => {
     fetchPinnedRepos("NotShrirang").then((data) => {
-      console.log(data);
+      // console.log(data);
       setProjects(data);
     });
 
     fetchLanguageAnalysis("NotShrirang").then((data) => {
-      console.log(data);
+      // console.log(data);
       const labels = data.map((lang) => lang[0]);
       const percentages = data.map((lang) => parseFloat(lang[1]));
       const displayData = [
