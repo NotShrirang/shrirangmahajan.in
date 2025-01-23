@@ -3,6 +3,7 @@ import TitleBar from "../../components/TitleBar/TitleBar";
 import MenuBar from "../../components/MenuBar/MenuBar";
 import styles from "./HomePage.module.css";
 import ControlBar from "../../components/ControlBar/ControlBar";
+import CellsPage from "../CellsPage/CellsPage";
 
 const HomePage = () => {
   return (
@@ -10,6 +11,7 @@ const HomePage = () => {
       <TitleBar />
       <MenuBar />
       <ControlBar />
+      <CellsPage />
     </div>
   );
 };

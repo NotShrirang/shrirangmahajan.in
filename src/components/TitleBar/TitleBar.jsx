@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./TitleBar.module.css";
+import profilePic from "../../assets/shrirang.png";
 
 const TitleBar = () => {
   return (
@@ -11,7 +12,7 @@ const TitleBar = () => {
             className={styles.profileImageContainer}
           >
             <img
-              src="https://media.licdn.com/dms/image/v2/D4D03AQGhluRHwBQXXw/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1731242504044?e=1743033600&v=beta&t=TSj3TNglXTV38DM8WcGXurBCMKs0ucVH0Ir1asTRebU"
+              src={profilePic}
               alt="Shrirang Mahajan"
               className={styles.profileImage}
             />
