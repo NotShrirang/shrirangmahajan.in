@@ -13,15 +13,14 @@
   flex-direction: column;
   align-items: center;
   justify-content: start;
-  gap: 0.5rem;
   width: 75%;
   background-color: #000000;
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   padding-left: 0.75rem;
   padding-right: 0.75rem;
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 }
 
@@ -40,7 +39,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: start;
+  justify-content: end;
   gap: 1rem;
   width: 100%;
 }
@@ -59,6 +58,7 @@
   font-size: 40px;
   font-weight: lighter;
   color: #ffffff;
+  width: 100%;
 }
 
 .markdownQuote {
@@ -67,6 +67,15 @@
   font-weight: lighter;
   font-style: italic;
   color: #ffffff;
+  width: 100%;
+}
+
+.markdownDescription {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 15px;
+  font-weight: lighter;
+  color: #ffffff;
+  width: 100%;
 }
 
 .projectContainerTitle {
@@ -112,7 +121,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  font-size: 30px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   cursor: pointer;
   height: 100%;
