@@ -22,7 +22,6 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  margin-left: 1rem;
 }
 
 .menuItem {
@@ -37,10 +36,13 @@
   padding: 0px 8px;
   border-left: 1px solid transparent;
   border-right: 1px solid transparent;
+  color: #ffffff;
+  text-decoration: none;
 }
 
 .menuItem:hover {
   background-color: #323232;
+  color: #ffffff;
 }
 
 .lastCheckpoint {
@@ -70,14 +72,20 @@
 }
 
 @media (max-width: 1200px) {
-  .homePageContainer {
+  .menuBarContent {
     width: 90%;
   }
 }
 
 @media (max-width: 1000px) {
-  .homePageContainer {
+  .menuBarContent {
     width: 100%;
+  }
+}
+
+@media (max-width: 800px) {
+  .menuComponent {
+    margin-left: 0.5rem;
   }
 }
 

@@ -31,6 +31,10 @@
   background: #374f62;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
 }

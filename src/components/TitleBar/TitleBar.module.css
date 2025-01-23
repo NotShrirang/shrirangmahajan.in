@@ -31,7 +31,6 @@
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  padding-left: 1rem;
 }
 
 .profileImage {
@@ -48,7 +47,7 @@
   justify-content: center;
   font-size: 18px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  cursor: pointer;
+  cursor: text;
   height: 100%;
 }
 
@@ -84,14 +83,28 @@
 }
 
 @media (max-width: 1200px) {
-  .homePageContainer {
+  .titleBarContent {
     width: 90%;
   }
 }
 
 @media (max-width: 1000px) {
-  .homePageContainer {
+  .titleBarContent {
     width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .name {
+    font-size: 13px;
+  }
+
+  .lastCheckpoint {
+    display: none;
+  }
+
+  .githubIconContainer {
+    display: none;
   }
 }
 

@@ -23,7 +23,6 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  margin-left: 0.5rem;
 }
 
 .controlItem {
@@ -108,14 +107,20 @@
 }
 
 @media (max-width: 1200px) {
-  .homePageContainer {
+  .controlBarContent {
     width: 90%;
   }
 }
 
 @media (max-width: 1000px) {
-  .homePageContainer {
+  .controlBarContent {
     width: 100%;
+  }
+}
+
+@media (max-width: 650px) {
+  .controlBarContainer {
+    display: none;
   }
 }
 

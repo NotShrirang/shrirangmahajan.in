@@ -2,20 +2,8 @@ import React, { useState } from "react";
 import styles from "./Cell.module.css";
 
 const Cell = ({ cell, activeCell, setActiveCell }) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [content, setContent] = useState(cell.content);
-
-  const handleDoubleClick = () => {
-    setIsEditing(true);
-  };
-
-  const handleChange = (e) => {
-    setContent(e.target.value);
-  };
-
-  const handleBlur = () => {
-    setIsEditing(false);
-  };
+  const [showOutput, setShowOutput] = useState(true);
+  const [executionState, setExecutionState] = useState(0);
 
   return (
     <div
@@ -37,45 +25,52 @@ const Cell = ({ cell, activeCell, setActiveCell }) => {
           }
         ></div>
         <div className={styles.cellContent}>
-          <div className={styles.controlItem}>
+          <div
+            className={styles.controlItem}
+            onClick={() => {
+              setShowOutput(false);
+              setExecutionState(1);
+              setTimeout(() => {
+                setExecutionState(2);
+              }, 500);
+              setTimeout(() => {
+                setShowOutput(true);
+                setExecutionState(0);
+              }, 1000);
+            }}
+          >
             <img
-              src="https://img.icons8.com/?size=100&id=59862&format=png&color=BDBDBD"
+              src={
+                executionState === 0
+                  ? "https://img.icons8.com/?size=100&id=59862&format=png&color=BDBDBD"
+                  : executionState === 1
+                  ? "https://img.icons8.com/?size=100&id=clUTZbeFfSbc&format=png&color=BDBDBD"
+                  : "https://img.icons8.com/?size=100&id=91463&format=png&color=BDBDBD"
+              }
               alt="Run this cell"
               className={styles.controlIcon}
             />
           </div>
           <div className={styles.codeContainer}>
-            {isEditing ? (
-              <textarea
-                className={styles.textarea}
-                value={content}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-            ) : (
-              <div
-                onDoubleClick={handleDoubleClick}
-                className={styles.textarea}
-              >
-                {content}
-              </div>
-            )}
+            <pre className={styles.textarea}>{cell.content}</pre>
           </div>
         </div>
       </div>
-      <div className={styles.cellOutput}>
-        <div
-          className={
-            activeCell === cell.id ? styles.cellActive : styles.cellInactive
-          }
-        ></div>
-        <div className={styles.outputContainer}>
-          <div className={styles.outputItem}>
-            <div className={styles.outputIcon} />
+      {showOutput && (
+        <div className={styles.cellOutput}>
+          <div
+            className={
+              activeCell === cell.id ? styles.cellActive : styles.cellInactive
+            }
+          ></div>
+          <div className={styles.outputContainer}>
+            <div className={styles.outputItem}>
+              <div className={styles.outputIcon} />
+            </div>
+            <div className={styles.outputContent}>{cell.output}</div>
           </div>
-          <div className={styles.outputContent}>Output</div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

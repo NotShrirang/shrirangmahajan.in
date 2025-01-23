@@ -17,7 +17,7 @@ const TitleBar = () => {
               className={styles.profileImage}
             />
           </a>
-          <div className={styles.name}>Shrirang Mahajan</div>
+          <div className={styles.name}>Shrirang Mahajan - Portfolio.ipynb</div>
           <div className={styles.lastCheckpoint}>
             Last Checkpoint: 7 days ago
           </div>
