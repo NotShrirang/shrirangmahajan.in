@@ -35,29 +35,73 @@ const CellsPage = () => {
             id: 1,
             output: (
               <div className={styles.markdownContainer}>
-                <div className={styles.markdownTitle}>Shrirang Mahajan</div>
-                <div className={styles.markdownHyperlinkRow}>
-                  <a
-                    href="https://www.linkedin.com/in/shrirang-mahajan"
-                    className={styles.markdownHyperlink}
-                  >
-                    LinkedIn
-                  </a>
-                  <a
-                    href="https://www.github.com/NotShrirang"
-                    className={styles.markdownHyperlink}
-                  >
-                    GitHub
-                  </a>
-                  <a
-                    href="mailto:shrirangmahajan123@gmail.com"
-                    className={styles.markdownHyperlink}
-                  >
-                    Email
-                  </a>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "space-between",
+                    justifyContent: "space-between",
+                    width: "100%",
+                  }}
+                >
+                  <div className={styles.markdownTitle}>Shrirang Mahajan</div>
+                  <div className={styles.markdownHyperlinkRow}>
+                    <a
+                      href="https://huggingface.co/NotShrirang"
+                      className={styles.markdownHyperlink}
+                    >
+                      <img
+                        src="https://img.icons8.com/?size=30&id=sop9ROXku5bb&format=png&color=000000"
+                        alt="Hugging Face"
+                      />
+                    </a>
+                    <a
+                      href="https://www.kaggle.com/notshrirang"
+                      className={styles.markdownHyperlink}
+                    >
+                      <img
+                        src="https://img.icons8.com/?size=20&id=QrYhwpUzAcoy&format=png&color=000000"
+                        alt="Kaggle"
+                      />
+                    </a>
+                    <a
+                      href="https://www.linkedin.com/in/shrirang-mahajan"
+                      className={styles.markdownHyperlink}
+                    >
+                      <img
+                        src="https://img.icons8.com/?size=30&id=13930&format=png&color=000000"
+                        alt="LinkedIn"
+                      />
+                    </a>
+                    <a
+                      href="https://www.github.com/NotShrirang"
+                      className={styles.markdownHyperlink}
+                    >
+                      <img
+                        src="https://img.icons8.com/?size=30&id=106564&format=png&color=ffffff"
+                        alt="GitHub"
+                      />
+                    </a>
+                    <a
+                      href="mailto:shrirangmahajan123@gmail.com"
+                      className={styles.markdownHyperlink}
+                    >
+                      <img
+                        src="https://img.icons8.com/?size=30&id=12580&format=png&color=ffffff"
+                        alt="Email"
+                      />
+                    </a>
+                  </div>
                 </div>
                 <div className={styles.markdownQuote}>
-                  "In search of Global Maximum"
+                  "In search of Global Maximum..."
+                </div>
+                <div className={styles.markdownDescription}>
+                  I am a Computer Engineer from Pune, India. I am passionate
+                  about building AI products and solving real-world problems. I
+                  have experience in building scalable and robust software
+                  systems. I am always eager to learn new technologies and work
+                  on challenging projects.
                 </div>
               </div>
             ),
