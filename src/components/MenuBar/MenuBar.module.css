@@ -36,13 +36,7 @@
   padding: 0px 8px;
   border-left: 1px solid transparent;
   border-right: 1px solid transparent;
-  color: #ffffff;
   text-decoration: none;
-}
-
-.menuItem:hover {
-  background-color: #323232;
-  color: #ffffff;
 }
 
 .lastCheckpoint {
@@ -94,12 +88,44 @@
     background-color: #ffffff;
     border-bottom: 1px solid #bdbdbd;
   }
+
+  .menuItem {
+    color: #212121;
+  }
+
+  .menuItem:hover {
+    background-color: #f5f5f5;
+  }
+
+  .trusted {
+    color: #212121;
+  }
+
+  .trusted:hover {
+    color: #212121;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
   .menuBarContainer {
     background-color: #212121;
     border-bottom: 1px solid #606060;
+    color: #ffffff;
+  }
+
+  .menuItem {
+    color: #ffffff;
+  }
+
+  .menuItem:hover {
+    background-color: #424242;
+  }
+
+  .trusted {
+    color: #ffffff;
+  }
+
+  .trusted:hover {
     color: #ffffff;
   }
 }

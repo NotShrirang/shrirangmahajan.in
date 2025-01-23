@@ -3,6 +3,15 @@ import styles from "./TitleBar.module.css";
 import profilePic from "../../assets/shrirang.png";
 
 const TitleBar = () => {
+  const [theme, setTheme] = useState("light");
+
+  useEffect(() => {
+    const theme = window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+    setTheme(theme);
+  }, []);
+
   return (
     <div className={styles.titleBarContainer}>
       <div className={styles.titleBarContent}>
@@ -28,7 +37,9 @@ const TitleBar = () => {
             className={styles.githubIconLink}
           >
             <img
-              src="https://img.icons8.com/?size=100&id=106564&format=png&color=ffffff"
+              src={`https://img.icons8.com/?size=100&id=106564&format=png&color=${
+                theme == "dark" ? "ffffff" : "000000"
+              }`}
               alt="Shrirang's GitHub"
               className={styles.githubIcon}
             />

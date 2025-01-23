@@ -47,10 +47,6 @@
   border-radius: 2px;
 }
 
-.controlIcon:hover {
-  background-color: #4e4e4e;
-}
-
 .controlSelect {
   border: none;
   outline: none;
@@ -128,6 +124,27 @@
   .controlBarContainer {
     background-color: #ffffff;
   }
+
+  .controlIcon {
+    color: #000000;
+  }
+
+  .controlIcon:hover {
+    background-color: #f5f5f5;
+  }
+
+  .controlSelect {
+    background-color: #ffffff;
+    color: #000000;
+  }
+
+  .pythonItem:hover {
+    background-color: #f5f5f5;
+  }
+
+  .sourceCodeRedirectContainer:hover {
+    background-color: #f5f5f5;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -139,5 +156,9 @@
   .controlSelect {
     background-color: #212121;
     color: #ffffff;
+  }
+
+  .controlIcon:hover {
+    background-color: #4e4e4e;
   }
 }
