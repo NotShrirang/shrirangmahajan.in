@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Plot from "react-plotly.js";
 
 import styles from "./CellsPage.module.css";
 import Cell from "../../components/Cell/Cell";
@@ -12,54 +11,16 @@ const CellsPage = () => {
   const [activeCell, setActiveCell] = useState(1);
   const [projects, setProjects] = useState([]);
   const [experiences, setExperiences] = useState([]);
-  const [languageData, setLanguageData] = useState([]);
+  const [languageData, setLanguageData] = useState(null);
 
   useEffect(() => {
-    fetchPinnedRepos("NotShrirang").then((data) => {
-      // console.log(data);
+    const username = "NotShrirang";
+    fetchPinnedRepos(username).then((data) => {
       setProjects(data);
     });
 
-    fetchLanguageAnalysis("NotShrirang").then((data) => {
-      // console.log(data);
-      const labels = data.map((lang) => lang[0]);
-      const percentages = data.map((lang) => parseFloat(lang[1]));
-      const displayData = [
-        {
-          values: percentages,
-          labels: labels,
-          type: "pie",
-          textinfo: "percent",
-          hoverinfo: "label+percent",
-          textposition: "inside",
-          marker: {
-            colors: [
-              "#1f77b4", // Customize colors
-              "#ff7f0e",
-              "#2ca02c",
-              "#d62728",
-              "#9467bd",
-              "#8c564b",
-              "#e377c2",
-              "#7f7f7f",
-              "#bcbd22",
-              "#17becf",
-            ],
-          },
-        },
-      ];
-
-      const layout = {
-        title: `Most Used Languages by Shrirang Mahajan`,
-        xaxis: {
-          title: "Languages",
-        },
-        yaxis: {
-          title: "Percentage (%)",
-        },
-      };
-
-      setLanguageData({ displayData, layout });
+    fetchLanguageAnalysis(username).then((data) => {
+      setLanguageData(data);
     });
 
     const experience = fetchExperience();
@@ -181,7 +142,7 @@ const CellsPage = () => {
               </span>
             ),
             output: (
-              <div className={styles.projectContainerTitle}>
+              <div className={styles.experienceContainerTitle}>
                 My Experience:
                 <div className={styles.experienceContainer}>
                   {experiences.map((experience) => {
@@ -234,12 +195,27 @@ const CellsPage = () => {
             output: (
               <div className={styles.languageContainerTitle}>
                 My language analysis:
-                {languageData && (
-                  <Plot
-                    data={languageData.displayData}
-                    layout={languageData.layout}
-                  />
-                )}
+                <div className={styles.languageTable}>
+                  {languageData &&
+                    Object.keys(languageData).map((language) => (
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                          gap: "1rem",
+                        }}
+                      >
+                        <div className={styles.languageName}>
+                          {languageData[language][0]}
+                        </div>
+                        <div className={styles.languagePercentage}>
+                          {languageData[language][1]}%
+                        </div>
+                      </div>
+                    ))}
+                </div>
               </div>
             ),
           }}
@@ -258,7 +234,7 @@ const CellsPage = () => {
               </span>
             ),
             output: (
-              <div className={styles.educationContainerTitle}>
+              <div style={{ paddingLeft: "0.5rem", paddingTop: "0.5rem" }}>
                 I am a Computer Engineer from Pune, India. ❤️
               </div>
             ),

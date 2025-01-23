@@ -142,3 +142,13 @@
   background-color: #000;
   border: 1px solid #4e4e4e;
 }
+
+@media (max-width: 600px) {
+  .outputContent {
+    padding-left: 0rem;
+  }
+
+  .outputContainer {
+    padding-left: 0rem;
+  }
+}
