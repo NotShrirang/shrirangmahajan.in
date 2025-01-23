@@ -92,6 +92,14 @@
   .titleBarContent {
     width: 100%;
   }
+
+  .profileImageContainer {
+    margin-left: 1rem;
+  }
+
+  .githubIconContainer {
+    margin-right: 1rem;
+  }
 }
 
 @media (max-width: 600px) {
