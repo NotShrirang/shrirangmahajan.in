@@ -104,7 +104,13 @@ const ControlBar = () => {
               <option value="app">App</option>
             </select>
           </div>
-          <div className={styles.controlItem}>
+          <div
+            className={styles.controlItem}
+            onClick={(e) => {
+              e.preventDefault();
+              // Set prefer-color-scheme to dark
+            }}
+          >
             <img
               src={`https://img.icons8.com/?size=100&id=67207&format=png&color=${
                 theme == "dark" ? "BDBDBD" : "616161"

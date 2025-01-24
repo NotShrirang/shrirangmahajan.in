@@ -45,7 +45,6 @@ const CellsPage = () => {
                   style={{
                     display: "flex",
                     flexDirection: window.innerWidth > 600 ? "row" : "column",
-                    // alignItems: "space-between",
                     alignItems:
                       window.innerWidth > 600 ? "space-between" : "center",
                     justifyContent:
@@ -121,6 +120,25 @@ const CellsPage = () => {
                   have experience in building scalable and robust software
                   systems. I am always eager to learn new technologies and work
                   on challenging projects.
+                </div>
+                <div className={styles.markdownSkills}>
+                  <div className={styles.markdownSkillsTitle}>Skills:</div>
+                  <div className={styles.markdownSkillsList}>
+                    <div className={styles.markdownSkill}>PyTorch</div>
+                    <div className={styles.markdownSkill}>Tensorflow</div>
+                    <div className={styles.markdownSkill}>Python</div>
+                    <div className={styles.markdownSkill}>ScikitLearn</div>
+                    <div className={styles.markdownSkill}>LangChain</div>
+                    <div className={styles.markdownSkill}>Pandas</div>
+                    <div className={styles.markdownSkill}>Django</div>
+                    <div className={styles.markdownSkill}>FastAPI</div>
+                    <div className={styles.markdownSkill}>Streamlit</div>
+                    <div className={styles.markdownSkill}>React</div>
+                    <div className={styles.markdownSkill}>TailwindCSS</div>
+                    <div className={styles.markdownSkill}>Postman</div>
+                    <div className={styles.markdownSkill}>Flutter</div>
+                    <div className={styles.markdownSkill}>PostgreSQL</div>
+                  </div>
                 </div>
               </div>
             ),
@@ -302,7 +320,8 @@ const CellsPage = () => {
             ),
             output: (
               <div style={{ paddingLeft: "0.5rem", paddingTop: "0.5rem" }}>
-                I am a Computer Engineer from Pune, India. ❤️
+                I have Bachlor's Degree in Computer Engineering (Minor: Data
+                Science) from Pune University. ❤️
               </div>
             ),
           }}

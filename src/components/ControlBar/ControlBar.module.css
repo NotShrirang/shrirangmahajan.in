@@ -116,6 +116,10 @@
 
 @media (max-width: 650px) {
   .controlBarContainer {
+    padding-left: 1rem;
+  }
+
+  .kernelSettingsContainer {
     display: none;
   }
 }
