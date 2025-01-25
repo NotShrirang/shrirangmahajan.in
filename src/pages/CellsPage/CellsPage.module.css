@@ -76,7 +76,7 @@
 .markdownSkills {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: start;
   justify-content: start;
   gap: 0.5rem;
   width: 100%;
@@ -105,20 +105,15 @@
   cursor: pointer;
   height: 100%;
   padding: 0.2rem;
-  background-color: #4e4e4e;
   border-radius: 4px;
   transition: 0.3s ease-in-out all;
-}
-
-.markdownSkill:hover {
-  background-color: #323232;
 }
 
 .projectContainerTitle {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-size: 24px;
   font-weight: normal;
-  padding: 1rem;
+  padding: 0.5rem;
 }
 
 .projectsContainer {
@@ -140,15 +135,8 @@
   width: 100%;
   height: 100%;
   cursor: pointer;
-  background-color: #000000;
-  border: 1px solid #4e4e4e;
   border-radius: 4px;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s ease-in-out all;
-}
-
-.projectCard:hover {
-  background-color: #323232;
 }
 
 .projectName {
@@ -186,7 +174,7 @@
   grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
   gap: 0.5rem;
   width: 100%;
-  height: 2rem;
+  min-height: 2rem;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -196,7 +184,6 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  /* background-color: #4e4e4e; */
   font-size: 10px;
   height: 100%;
 }
@@ -205,7 +192,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: end;
+  justify-content: start;
   gap: 1rem;
   width: 100%;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -216,13 +203,8 @@
   text-decoration: none;
   font-size: 15px;
   padding: 0.5rem;
-  background-color: #4e4e4e;
   border-radius: 4px;
   transition: 0.3s ease-in-out all;
-}
-
-.projectFooterLink:hover {
-  background-color: #323232;
 }
 
 .experienceContainerTitle {
@@ -234,7 +216,7 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-size: 24px;
   font-weight: normal;
-  padding: 1rem;
+  padding: 0.5rem;
 }
 
 .experienceContainer {
@@ -296,6 +278,13 @@
   font-weight: normal;
 }
 
+.simpleTextOutput {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 15px;
+  font-weight: normal;
+  padding: 0.5rem;
+}
+
 @media (max-width: 880px) {
   .markdownHyperlinkRow {
     justify-content: start;
@@ -347,6 +336,16 @@
 
   .markdownDescription {
     color: #212121;
+  }
+
+  .markdownSkill {
+    color: #212121;
+    border: 1px solid #bdbdbd;
+    background-color: #ffffff;
+  }
+
+  .markdownSkill:hover {
+    background-color: #f5f5f5;
   }
 
   .projectCard {
@@ -424,7 +423,7 @@
 
 @media (prefers-color-scheme: dark) {
   .cellsContainer {
-    background-color: #212121;
+    background-color: #000000;
   }
 
   .markdownContainer {
@@ -447,9 +446,22 @@
     color: #ffffff;
   }
 
+  .markdownSkill {
+    background-color: #212121;
+    border: 1px solid #606060;
+  }
+
+  .markdownSkill:hover {
+    background-color: #323232;
+  }
+
   .projectCard {
     background-color: #212121;
     border: 1px solid #606060;
+  }
+
+  .projectCard:hover {
+    background-color: #323232;
   }
 
   .projectName {
@@ -476,6 +488,7 @@
   .projectFooterLink {
     color: #ffffff;
     background-color: #212121;
+    border: 1px solid #4e4e4e;
   }
 
   .projectFooterLink:hover {

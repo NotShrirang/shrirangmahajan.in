@@ -6,6 +6,7 @@ import { fetchPinnedRepos } from "../../data/projects.js";
 import { fetchExperience } from "../../data/experiences.js";
 import { fetchLanguageAnalysis } from "../../data/analysis.js";
 import MarkdownCell from "../../components/MarkdownCell/MarkdownCell.jsx";
+import skills from "../../data/skills.js";
 
 const CellsPage = () => {
   const [activeCell, setActiveCell] = useState(1);
@@ -54,6 +55,17 @@ const CellsPage = () => {
                 >
                   <div className={styles.markdownTitle}>Shrirang Mahajan</div>
                   <div className={styles.markdownHyperlinkRow}>
+                    <a
+                      href="https://x.com/notshrirang"
+                      className={styles.markdownHyperlink}
+                    >
+                      <img
+                        src={`https://img.icons8.com/?size=30&id=fJp7hepMryiw&format=png&color=${
+                          theme == "dark" ? "ffffff" : "000000"
+                        }`}
+                        alt="X"
+                      />
+                    </a>
                     <a
                       href="https://huggingface.co/NotShrirang"
                       className={styles.markdownHyperlink}
@@ -124,20 +136,21 @@ const CellsPage = () => {
                 <div className={styles.markdownSkills}>
                   <div className={styles.markdownSkillsTitle}>Skills:</div>
                   <div className={styles.markdownSkillsList}>
-                    <div className={styles.markdownSkill}>PyTorch</div>
-                    <div className={styles.markdownSkill}>Tensorflow</div>
-                    <div className={styles.markdownSkill}>Python</div>
-                    <div className={styles.markdownSkill}>ScikitLearn</div>
-                    <div className={styles.markdownSkill}>LangChain</div>
-                    <div className={styles.markdownSkill}>Pandas</div>
-                    <div className={styles.markdownSkill}>Django</div>
-                    <div className={styles.markdownSkill}>FastAPI</div>
-                    <div className={styles.markdownSkill}>Streamlit</div>
-                    <div className={styles.markdownSkill}>React</div>
-                    <div className={styles.markdownSkill}>TailwindCSS</div>
-                    <div className={styles.markdownSkill}>Postman</div>
-                    <div className={styles.markdownSkill}>Flutter</div>
-                    <div className={styles.markdownSkill}>PostgreSQL</div>
+                    {skills.map((skill) => (
+                      <div
+                        key={skill.name}
+                        className={styles.markdownSkill}
+                        onClick={() => {
+                          window.open(
+                            `https://github.com/NotShrirang?tab=repositories&q=&type=&language=` +
+                              skill.language,
+                            "_blank"
+                          );
+                        }}
+                      >
+                        {skill.name}
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -319,7 +332,7 @@ const CellsPage = () => {
               </span>
             ),
             output: (
-              <div style={{ paddingLeft: "0.5rem", paddingTop: "0.5rem" }}>
+              <div className={styles.simpleTextOutput}>
                 I have Bachlor's Degree in Computer Engineering (Minor: Data
                 Science) from Pune University. ❤️
               </div>

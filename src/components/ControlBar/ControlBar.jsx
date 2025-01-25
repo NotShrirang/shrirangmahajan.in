@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styles from "./ControlBar.module.css";
+import MyContext from "../../MyContext";
 
 const ControlBar = () => {
   const [theme, setTheme] = useState("light");
+  const { cellExecuted, setCellExecuted, executing } = useContext(MyContext);
 
   useEffect(() => {
     const theme = window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -104,13 +106,7 @@ const ControlBar = () => {
               <option value="app">App</option>
             </select>
           </div>
-          <div
-            className={styles.controlItem}
-            onClick={(e) => {
-              e.preventDefault();
-              // Set prefer-color-scheme to dark
-            }}
-          >
+          <div className={styles.controlItem}>
             <img
               src={`https://img.icons8.com/?size=100&id=67207&format=png&color=${
                 theme == "dark" ? "BDBDBD" : "616161"
@@ -137,15 +133,25 @@ const ControlBar = () => {
               className={styles.sourceCodeRedirectIcon}
             />
           </div>
-          <div className={styles.pythonItem}>Python</div>
+          <div className={styles.pythonItem}>Python3 (ipykernel)</div>
           <div className={styles.controlItem}>
-            <img
-              src={`https://img.icons8.com/?size=100&id=37601&format=png&color=${
-                theme == "dark" ? "BDBDBD" : "616161"
-              }`}
-              alt="Kernel Status"
-              className={styles.controlIcon}
-            />
+            {!executing ? (
+              <img
+                src={`https://img.icons8.com/?size=100&id=37601&format=png&color=${
+                  theme == "dark" ? "BDBDBD" : "616161"
+                }`}
+                alt="Kernel Status"
+                className={styles.controlIcon}
+              />
+            ) : (
+              <img
+                src={`https://img.icons8.com/?size=100&id=gouCEG68mCdY&format=png&color=${
+                  theme == "dark" ? "BDBDBD" : "616161"
+                }`}
+                alt="Kernel Status"
+                className={styles.controlIcon}
+              />
+            )}
           </div>
           <div className={styles.controlItem}>
             <img

@@ -56,28 +56,6 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.githubIconContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.githubIconLink {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.githubIcon {
-  width: 2rem;
-  height: 2rem;
-  cursor: pointer;
-}
-
 @media (max-width: 1200px) {
   .titleBarContent {
     width: 90%;
@@ -92,10 +70,6 @@
   .profileImageContainer {
     margin-left: 1rem;
   }
-
-  .githubIconContainer {
-    margin-right: 1rem;
-  }
 }
 
 @media (max-width: 600px) {
@@ -104,10 +78,6 @@
   }
 
   .lastCheckpoint {
-    display: none;
-  }
-
-  .githubIconContainer {
     display: none;
   }
 }
