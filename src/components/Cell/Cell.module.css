@@ -8,6 +8,7 @@
   border-radius: 4px;
   gap: 0.5rem;
   padding: 0.5rem;
+  outline: none;
 }
 
 .cellInput {
@@ -56,15 +57,33 @@
   margin-bottom: 1rem;
 }
 
+.cellControl {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  height: 100%;
+}
+
 .controlItem {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: start;
-  height: 100%;
   cursor: pointer;
-  padding: 0px 2px;
   border: 1px solid transparent;
+}
+
+.cellCount {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  cursor: pointer;
+  border: 1px solid transparent;
+  font-size: 13px;
+  font-family: monospace;
+  font-weight: 400;
 }
 
 .controlIcon {
@@ -88,6 +107,7 @@
   width: 100%;
   height: 100%;
   border: 1px solid #4e4e4e;
+  cursor: text;
 }
 
 .textarea {
@@ -134,7 +154,6 @@
   width: 100%;
   height: 100%;
   padding-bottom: 1rem;
-  border: 1px solid #4e4e4e;
 }
 
 @media (max-width: 600px) {
@@ -150,10 +169,15 @@
 @media (prefers-color-scheme: light) {
   .cell {
     background-color: #fff;
+    border: 1px solid transparent;
   }
 
   .cellActive {
     background-color: #ec7424;
+  }
+
+  .cellActive:hover {
+    background-color: #d0661f;
   }
 
   .cellInactive {
@@ -171,12 +195,16 @@
 
 @media (prefers-color-scheme: dark) {
   .cell {
-    background-color: #000;
-    border: 1px solid #4e4e4e;
+    background-color: #000000;
+    border: 1px solid transparent;
   }
 
   .cellActive {
     background-color: #2196f3;
+  }
+
+  .cellActive:hover {
+    background-color: #1e83d6;
   }
 
   .cellInactive {
@@ -184,12 +212,11 @@
   }
 
   .codeContainer {
-    background-color: #000000;
+    background-color: #212121;
     border: 1px solid #4e4e4e;
   }
 
   .outputContent {
     background-color: #000000;
-    border: 1px solid #4e4e4e;
   }
 }

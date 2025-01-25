@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./TitleBar.module.css";
 import profilePic from "../../assets/shrirang.png";
+import formatDate from "../../utils/DateUtil";
 
 const TitleBar = () => {
   const [theme, setTheme] = useState("light");
@@ -10,16 +11,15 @@ const TitleBar = () => {
       ? "dark"
       : "light";
     setTheme(theme);
+    const loadedTime = new Date();
+    localStorage.setItem("loadedTime", loadedTime);
   }, []);
 
   return (
     <div className={styles.titleBarContainer}>
       <div className={styles.titleBarContent}>
         <div className={styles.nameComponent}>
-          <a
-            href="https://www.linkedin.com/in/shrirang-mahajan"
-            className={styles.profileImageContainer}
-          >
+          <a href="/" className={styles.profileImageContainer}>
             <img
               src={profilePic}
               alt="Shrirang Mahajan"
@@ -28,22 +28,8 @@ const TitleBar = () => {
           </a>
           <div className={styles.name}>Shrirang Mahajan - Portfolio.ipynb</div>
           <div className={styles.lastCheckpoint}>
-            Last Checkpoint: 7 days ago
+            Last Checkpoint: {formatDate(localStorage.getItem("loadedTime"))}
           </div>
-        </div>
-        <div className={styles.githubIconContainer}>
-          <a
-            href="https://github.com/NotShrirang"
-            className={styles.githubIconLink}
-          >
-            <img
-              src={`https://img.icons8.com/?size=100&id=106564&format=png&color=${
-                theme == "dark" ? "ffffff" : "000000"
-              }`}
-              alt="Shrirang's GitHub"
-              className={styles.githubIcon}
-            />
-          </a>
         </div>
       </div>
     </div>

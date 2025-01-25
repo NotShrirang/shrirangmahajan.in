@@ -56,7 +56,9 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: end;
+  width: 30%;
+  height: 100%;
 }
 
 .sourceCodeRedirectContainer {
@@ -65,13 +67,9 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  padding: 0 8px;
   gap: 0.5rem;
-  width: 100%;
-}
-
-.sourceCodeRedirectContainer:hover {
-  background-color: #4e4e4e;
+  width: 20%;
+  height: 100%;
 }
 
 .sourceCodeRedirectText {
@@ -91,26 +89,44 @@
   justify-content: center;
   font-size: 13px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
   height: 100%;
   cursor: pointer;
-  padding: 0px 8px;
   border-left: 1px solid transparent;
   border-right: 1px solid transparent;
-}
-
-.pythonItem:hover {
-  background-color: #4e4e4e;
+  width: 40%;
+  height: 100%;
 }
 
 @media (max-width: 1200px) {
   .controlBarContent {
     width: 90%;
   }
+
+  .kernelSettingsContainer {
+    width: 40%;
+  }
 }
 
 @media (max-width: 1000px) {
   .controlBarContent {
     width: 100%;
+  }
+
+  .kernelSettingsContainer {
+    width: 40%;
+  }
+}
+
+@media (max-width: 800px) {
+  .kernelSettingsContainer {
+    width: 50%;
+  }
+}
+
+@media (max-width: 750px) {
+  .sourceCodeRedirectContainer {
+    width: 30%;
   }
 }
 
@@ -121,6 +137,10 @@
 
   .kernelSettingsContainer {
     display: none;
+  }
+
+  .sourceCodeRedirectContainer {
+    width: 30%;
   }
 }
 
@@ -155,6 +175,7 @@
   .controlBarContainer {
     background-color: #212121;
     color: #ffffff;
+    border-bottom: 1px solid #323232;
   }
 
   .controlSelect {
@@ -163,6 +184,14 @@
   }
 
   .controlIcon:hover {
+    background-color: #4e4e4e;
+  }
+
+  .pythonItem:hover {
+    background-color: #4e4e4e;
+  }
+
+  .sourceCodeRedirectContainer:hover {
     background-color: #4e4e4e;
   }
 }

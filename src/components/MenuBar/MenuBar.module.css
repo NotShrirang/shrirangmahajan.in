@@ -50,19 +50,21 @@
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  border: 1px solid #606060;
+  border: 1px solid #323232;
   padding: 1px 6px;
+  margin-top: 2px;
+  margin-bottom: 2px;
 }
 
 .trusted {
   font-size: 15px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   cursor: help;
-  color: #ffffff;
+  color: #e2e2e2;
 }
 
 .trusted:hover {
-  color: #ffffff;
+  color: #e2e2e2;
 }
 
 @media (max-width: 1200px) {
@@ -122,10 +124,10 @@
   }
 
   .trusted {
-    color: #ffffff;
+    color: #e2e2e2;
   }
 
   .trusted:hover {
-    color: #ffffff;
+    color: #e2e2e2;
   }
 }
