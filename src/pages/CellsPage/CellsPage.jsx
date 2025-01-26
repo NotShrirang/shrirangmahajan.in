@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import styles from "./CellsPage.module.css";
 import Cell from "../../components/Cell/Cell";
-import { fetchPinnedRepos } from "../../data/projects.js";
+import { fetchPinnedRepos } from "../../data/projects";
 import { fetchExperience } from "../../data/experiences.js";
 import { fetchLanguageAnalysis } from "../../data/analysis.js";
 import MarkdownCell from "../../components/MarkdownCell/MarkdownCell.jsx";
@@ -14,6 +15,7 @@ const CellsPage = () => {
   const [experiences, setExperiences] = useState([]);
   const [languageData, setLanguageData] = useState(null);
   const [theme, setTheme] = useState("light");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const theme = window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -167,10 +169,12 @@ const CellsPage = () => {
                 <span style={{ color: "#29B6E0" }}>import</span> portfolio
                 <br />
                 <br />
-                projects = portfolio.
-                <span style={{ color: "#29B6E0" }}>get_projects()</span>
+                <span style={{ color: "#479AFF" }}>projects</span> = portfolio.
+                <span style={{ color: "#29B6E0" }}>get_projects</span>().
+                <span style={{ color: "#29B6E0" }}>sample</span>(
+                <span style={{ color: "#29B6E0" }}>6</span>)
                 <br />
-                print(projects)
+                print(<span style={{ color: "#479AFF" }}>projects</span>)
               </span>
             ),
             output: (
@@ -205,18 +209,12 @@ const CellsPage = () => {
                 <div
                   className={styles.projectFooter}
                   onClick={() => {
-                    window.open(
-                      "https://github.com/NotShrirang?tab=repositories",
-                      "_blank"
-                    );
+                    navigate("/projects");
                   }}
                 >
-                  <a
-                    href="https://github.com/NotShrirang?tab=repositories"
-                    className={styles.projectFooterLink}
-                  >
+                  <div className={styles.projectFooterLink}>
                     View More Projects
-                  </a>
+                  </div>
                 </div>
               </div>
             ),
@@ -229,10 +227,11 @@ const CellsPage = () => {
             id: 3,
             content: (
               <span>
-                experiences = portfolio.
-                <span style={{ color: "#29B6E0" }}>get_experience()</span>
+                <span style={{ color: "#479AFF" }}>experience</span> =
+                portfolio.
+                <span style={{ color: "#29B6E0" }}>get_experience</span>()
                 <br />
-                print(experiences)
+                print(<span style={{ color: "#479AFF" }}>experience</span>)
               </span>
             ),
             output: (
@@ -283,15 +282,16 @@ const CellsPage = () => {
             id: 4,
             content: (
               <span>
-                langauages = portfolio.
-                <span style={{ color: "#29B6E0" }}>get_langauages()</span>
+                <span style={{ color: "#479AFF" }}>languages</span> = portfolio.
+                <span style={{ color: "#29B6E0" }}>get_languages</span>()
                 <br />
-                plot(langauages)
+                <span style={{ color: "#29B6E0" }}>plot</span>(
+                <span style={{ color: "#479AFF" }}>languages</span>)
               </span>
             ),
             output: (
               <div className={styles.languageContainerTitle}>
-                My language analysis:
+                Languages I use:
                 <div className={styles.languageTable}>
                   {languageData &&
                     Object.keys(languageData).map((language) => (
@@ -325,10 +325,10 @@ const CellsPage = () => {
             id: 5,
             content: (
               <span>
-                education = portfolio.
-                <span style={{ color: "#29B6E0" }}>get_education()</span>
+                <span style={{ color: "#479AFF" }}>education</span> = portfolio.
+                <span style={{ color: "#29B6E0" }}>get_education</span>()
                 <br />
-                print(education)
+                print(<span style={{ color: "#479AFF" }}>education</span>)
               </span>
             ),
             output: (
