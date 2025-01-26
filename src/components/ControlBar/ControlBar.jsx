@@ -100,10 +100,10 @@ const ControlBar = () => {
           </div>
           <div className={styles.controlItem}>
             <select className={styles.controlSelect}>
-              <option value="code">Code</option>
-              <option value="ml">Machine Learning</option>
-              <option value="web">Web</option>
-              <option value="app">App</option>
+              <option value="code" label="Code" />
+              <option value="ml" label="Machine Learning" />
+              <option value="web" label="Web" />
+              <option value="app" label="App" />
             </select>
           </div>
           <div className={styles.controlItem}>
