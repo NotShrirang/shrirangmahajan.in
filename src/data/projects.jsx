@@ -86,7 +86,7 @@ const projects = [
     link: "https://github.com/NotShrirang/QuillGPT",
   },
   {
-    title: "LoomRAG: Multimodal Retrieval - Augmented Generation",
+    title: "LoomRAG: A Multimodal RAG",
     description: (
       <ul>
         <li>
@@ -283,12 +283,42 @@ const projects = [
     link: "https://github.com/NotShrirang/Sonnet",
   },
   {
+    title: "DevFinder",
+    description: (
+      <ul>
+        <li>
+          Empowered college students and developers through an innovative social
+          platform featuring <b>AI-powered recommendations</b> and{" "}
+          <b>real-time messaging</b>.
+        </li>
+        <li>
+          Spearheaded full-cycle mobile app development using <b>Figma</b> and{" "}
+          <b>Flutter</b>, integrating advanced APIs and infinite scrolling for a
+          buttery-smooth UX.
+        </li>
+        <li>
+          Architected a powerful backend with <b>Django REST Framework</b>,
+          paired with a polished <b>ReactJS</b> frontend for enterprise-grade
+          scalability.
+        </li>
+        <li>
+          Pioneered dynamic content loading and <b>RESTful API</b>{" "}
+          optimizations, slashing latency by 65% during peak usage.
+        </li>
+      </ul>
+    ),
+    image:
+      "https://avatars.githubusercontent.com/u/139642488?s=400&u=149eca032a1ffec7243a91b81f6756576695588c&v=4",
+    tags: ["Flutter", "Django REST Framework", "ReactJS", "Tensorflow", "AWS"],
+    link: "https://github.com/Team-DevFinder",
+  },
+  {
     title: "Spam Filter using ALBERT",
     description: (
       <ul>
         <li>
-          Developed an <b>email and text spam filter</b> utilizing the
-          <b>Encoder-Decoder model "ALBERT"</b>.
+          Developed an <b>email and text spam filter</b> utilizing "ALBERT" an{" "}
+          <b>Encoder-Decoder model</b>.
         </li>
         <li>
           Fine-tuned the ALBERT model on a spam detection dataset and deployed
@@ -300,9 +330,50 @@ const projects = [
         </li>
       </ul>
     ),
-    image: Sonnet,
+    image: "",
     tags: ["PyTorch", "HuggingFace Transformers", "Streamlit"],
     link: "https://github.com/NotShrirang/Spam-Filter-using-ALBERT",
+  },
+  {
+    title: "OpenNN",
+    description: (
+      <ul>
+        <li>
+          Developed a comprehensive <b>Neural Network Training library</b>{" "}
+          similar to TensorFlow 2 from scratch in Python.
+        </li>
+        <li>
+          Implemented core neural network components including{" "}
+          <b>layers, activations, loss functions, and optimization</b>{" "}
+          algorithms.
+        </li>
+        <li>
+          Install via PyPI:
+          <br />
+          <pre
+            style={{
+              padding: "0.5rem",
+              backgroundColor: "rgb(78,78,78)",
+              cursor: "pointer",
+              borderRadius: "0.5rem",
+            }}
+            onClick={(e) => {
+              navigator.clipboard.writeText("pip install open-nn-python");
+              alert("Copied to clipboard!");
+            }}
+          >
+            pip install open-nn-python
+          </pre>
+        </li>
+        <li>
+          Created detailed documentation and example notebooks to demonstrate
+          the usage and capabilities of the library.
+        </li>
+      </ul>
+    ),
+    image: "",
+    tags: ["NumPy"],
+    link: "https://github.com/NotShrirang/OpenNN",
   },
 ];
 
