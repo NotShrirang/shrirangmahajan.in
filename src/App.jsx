@@ -7,6 +7,7 @@ function App() {
   const [cellExecutionCount, setCellExecutionCount] = useState(0);
   const [cellExecuted, setCellExecuted] = useState(false);
   const [executing, setExecuting] = useState(false);
+  const [page, setPage] = useState("home");
 
   return (
     <MyContext.Provider
@@ -17,6 +18,8 @@ function App() {
         setCellExecuted,
         executing,
         setExecuting,
+        page,
+        setPage,
       }}
     >
       <div className="appContainer">

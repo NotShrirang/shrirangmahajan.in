@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styles from "./MenuBar.module.css";
 
 const MenuBar = () => {
@@ -6,8 +6,22 @@ const MenuBar = () => {
     <div className={styles.menuBarContainer}>
       <div className={styles.menuBarContent}>
         <div className={styles.menuComponent}>
-          <div className={styles.menuItem}>Projects</div>
-          <div className={styles.menuItem}>Experience</div>
+          <div
+            className={styles.menuItem}
+            onClick={() => {
+              window.location.href = "/projects/";
+            }}
+          >
+            Projects
+          </div>
+          <div
+            className={styles.menuItem}
+            onClick={() => {
+              window.location.href = "/experience/";
+            }}
+          >
+            Experience
+          </div>
           <div className={styles.menuItem}>Education</div>
           <div className={styles.menuItem}>Contact</div>
         </div>
