@@ -164,11 +164,11 @@ const CellsPage = () => {
             id: 2,
             content: (
               <span>
-                <span style={{ color: "#AA22FF" }}>import</span> portfolio
+                <span style={{ color: "#29B6E0" }}>import</span> portfolio
                 <br />
                 <br />
                 projects = portfolio.
-                <span style={{ color: "#2196F3" }}>get_projects()</span>
+                <span style={{ color: "#29B6E0" }}>get_projects()</span>
                 <br />
                 print(projects)
               </span>
@@ -230,7 +230,7 @@ const CellsPage = () => {
             content: (
               <span>
                 experiences = portfolio.
-                <span style={{ color: "#2196F3" }}>get_experience()</span>
+                <span style={{ color: "#29B6E0" }}>get_experience()</span>
                 <br />
                 print(experiences)
               </span>
@@ -284,7 +284,7 @@ const CellsPage = () => {
             content: (
               <span>
                 langauages = portfolio.
-                <span style={{ color: "#2196F3" }}>get_langauages()</span>
+                <span style={{ color: "#29B6E0" }}>get_langauages()</span>
                 <br />
                 plot(langauages)
               </span>
@@ -326,7 +326,7 @@ const CellsPage = () => {
             content: (
               <span>
                 education = portfolio.
-                <span style={{ color: "#2196F3" }}>get_education()</span>
+                <span style={{ color: "#29B6E0" }}>get_education()</span>
                 <br />
                 print(education)
               </span>
