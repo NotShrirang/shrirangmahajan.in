@@ -18,13 +18,15 @@ const ProjectCard = ({ project }) => {
         <div className={styles.description}>
           <div>{project.description}</div>
         </div>
-        <div className={styles.imageContainer}>
-          <img
-            src={project.image}
-            alt={project.title}
-            className={styles.projectCardImage}
-          />
-        </div>
+        {project.image && (
+          <div className={styles.imageContainer}>
+            <img
+              src={project.image}
+              alt={project.title}
+              className={styles.projectCardImage}
+            />
+          </div>
+        )}
       </div>
       {project.link && (
         <a
