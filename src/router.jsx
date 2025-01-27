@@ -17,10 +17,10 @@ const router = createBrowserRouter([
     path: "/projects/",
     element: <ProjectPage />,
   },
-  {
-    path: "*",
-    element: <Navigate to="/" />,
-  },
+  // {
+  //   path: "",
+  //   element: <Navigate to="/" />,
+  // },
 ]);
 
 export default router;

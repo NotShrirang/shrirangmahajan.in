@@ -8,6 +8,7 @@ import { fetchExperience } from "../../data/experiences";
 import { fetchLanguageAnalysis } from "../../data/analysis";
 import MarkdownCell from "../../components/MarkdownCell/MarkdownCell.jsx";
 import skills from "../../data/skills";
+import getTheme from "../../utils/theme.js";
 
 const CellsPage = () => {
   const [activeCell, setActiveCell] = useState(1);
@@ -144,8 +145,7 @@ const CellsPage = () => {
                         className={styles.markdownSkill}
                         onClick={() => {
                           window.open(
-                            `https://github.com/NotShrirang?tab=repositories&q=&type=&language=` +
-                              skill.language,
+                            `https://github.com/NotShrirang?tab=repositories&q=${skill.name}&type=&language=&sort=`,
                             "_blank"
                           );
                         }}
@@ -166,13 +166,41 @@ const CellsPage = () => {
             id: 2,
             content: (
               <span>
-                <span style={{ color: "#29B6E0" }}>import</span> portfolio
+                <span
+                  style={{
+                    color: getTheme() === "light" ? "#0f37bc" : "#64b5f6",
+                  }}
+                >
+                  import
+                </span>{" "}
+                portfolio
                 <br />
                 <br />
                 <span style={{ color: "#479AFF" }}>projects</span> = portfolio.
-                <span style={{ color: "#29B6E0" }}>get_projects</span>().
-                <span style={{ color: "#29B6E0" }}>sample</span>(
-                <span style={{ color: "#29B6E0" }}>6</span>)
+                <span
+                  style={{
+                    color: getTheme() === "light" ? "#0f37bc" : "#64b5f6",
+                  }}
+                >
+                  get_projects
+                </span>
+                ().
+                <span
+                  style={{
+                    color: getTheme() === "light" ? "#0f37bc" : "#64b5f6",
+                  }}
+                >
+                  sample
+                </span>
+                (
+                <span
+                  style={{
+                    color: getTheme() === "light" ? "#0f37bc" : "#64b5f6",
+                  }}
+                >
+                  6
+                </span>
+                )
                 <br />
                 print(<span style={{ color: "#479AFF" }}>projects</span>)
               </span>
@@ -229,7 +257,14 @@ const CellsPage = () => {
               <span>
                 <span style={{ color: "#479AFF" }}>experience</span> =
                 portfolio.
-                <span style={{ color: "#29B6E0" }}>get_experience</span>()
+                <span
+                  style={{
+                    color: getTheme() === "light" ? "#0f37bc" : "#64b5f6",
+                  }}
+                >
+                  get_experience
+                </span>
+                ()
                 <br />
                 print(<span style={{ color: "#479AFF" }}>experience</span>)
               </span>
@@ -263,11 +298,6 @@ const CellsPage = () => {
                         <div className={styles.experienceCompany}>
                           {experience.company}
                         </div>
-                        {/* <div className={styles.experienceDescription}>
-                          {experience.description.map((point) => (
-                            <div key={point}>• {point}</div>
-                          ))}
-                        </div> */}
                       </div>
                     );
                   })}
@@ -292,10 +322,23 @@ const CellsPage = () => {
             content: (
               <span>
                 <span style={{ color: "#479AFF" }}>languages</span> = portfolio.
-                <span style={{ color: "#29B6E0" }}>get_languages</span>()
+                <span
+                  style={{
+                    color: getTheme() === "light" ? "#0f37bc" : "#64b5f6",
+                  }}
+                >
+                  get_languages
+                </span>
+                ()
                 <br />
-                <span style={{ color: "#29B6E0" }}>plot</span>(
-                <span style={{ color: "#479AFF" }}>languages</span>)
+                <span
+                  style={{
+                    color: getTheme() === "light" ? "#0f37bc" : "#64b5f6",
+                  }}
+                >
+                  plot
+                </span>
+                (<span style={{ color: "#479AFF" }}>languages</span>)
               </span>
             ),
             output: (
@@ -303,7 +346,7 @@ const CellsPage = () => {
                 Languages I use:
                 <div className={styles.languageTable}>
                   {languageData &&
-                    Object.keys(languageData).map((language) => (
+                    Object.keys(languageData.slice(0, 9)).map((language) => (
                       <div
                         style={{
                           display: "flex",
@@ -335,7 +378,14 @@ const CellsPage = () => {
             content: (
               <span>
                 <span style={{ color: "#479AFF" }}>education</span> = portfolio.
-                <span style={{ color: "#29B6E0" }}>get_education</span>()
+                <span
+                  style={{
+                    color: getTheme() === "light" ? "#0f37bc" : "#64b5f6",
+                  }}
+                >
+                  get_education
+                </span>
+                ()
                 <br />
                 print(<span style={{ color: "#479AFF" }}>education</span>)
               </span>
