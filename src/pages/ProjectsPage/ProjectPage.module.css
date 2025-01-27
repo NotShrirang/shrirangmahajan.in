@@ -37,12 +37,37 @@
   height: 100%;
 }
 
+.projectSearchBar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+  height: 100%;
+  margin: 0.5rem;
+}
+
+.projectSearchBarInput {
+  width: 100%;
+  height: 100%;
+  padding: 0.225rem 0.5rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 14px;
+  border-radius: 0.5rem;
+  border: 1px solid #323232;
+  outline: none;
+}
+
+.projectSearchBarInput:focus {
+  border: 1px solid #464646;
+}
+
 .projectPageItemList {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: start;
-  gap: 1rem;
   width: 100%;
   height: 100%;
 }
@@ -56,6 +81,16 @@
   width: 100%;
   height: 100%;
   padding: 0.5rem;
+}
+
+.noProjectsFound {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  margin: 1rem;
 }
 
 @media (max-width: 768px) {

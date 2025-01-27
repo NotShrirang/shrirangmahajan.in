@@ -1,6 +1,7 @@
 import DermaCare from "../assets/images/dermcare.png";
 import Sonnet from "../assets/images/Sonnet Logo.jpg";
 import LoomRag from "../assets/images/loomrag.jpeg";
+import getTheme from "../utils/theme";
 
 const fetchPinnedRepos = async (username) => {
   const token = import.meta.env.VITE_SOME_KEY;
@@ -55,7 +56,7 @@ const projects = [
     description: (
       <ul>
         <li>
-          Implemented a <b>GPT decoder block</b> with <b>Self-Attention</b> and
+          Implemented a <b>GPT decoder block</b> with <b>Self-Attention</b> and{" "}
           <b>Multi-Headed Attention</b> using <b>PyTorch</b>.{" "}
         </li>
         <li>
@@ -64,7 +65,7 @@ const projects = [
           model exploration.
         </li>
         <li>
-          Leveraged <b>FastAPI microservice</b> for rapid development with
+          Leveraged <b>FastAPI microservice</b> for rapid development with{" "}
           <b>Docker containerization</b> for portability.
         </li>
         <li>
@@ -353,7 +354,8 @@ const projects = [
           <pre
             style={{
               padding: "0.5rem",
-              backgroundColor: "rgb(78,78,78)",
+              backgroundColor:
+                getTheme() === "light" ? "#E2E2E2" : "rgb(50, 50, 50)",
               cursor: "pointer",
               borderRadius: "0.5rem",
             }}

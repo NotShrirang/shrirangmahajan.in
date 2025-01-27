@@ -85,6 +85,12 @@
   }
 }
 
+@media (max-width: 340px) {
+  .trustedContainer {
+    display: none;
+  }
+}
+
 @media (prefers-color-scheme: light) {
   .menuBarContainer {
     background-color: #ffffff;

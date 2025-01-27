@@ -9,6 +9,14 @@ const MenuBar = () => {
           <div
             className={styles.menuItem}
             onClick={() => {
+              window.location.href = "/experience/";
+            }}
+          >
+            Experience
+          </div>
+          <div
+            className={styles.menuItem}
+            onClick={() => {
               window.location.href = "/projects/";
             }}
           >
@@ -17,12 +25,14 @@ const MenuBar = () => {
           <div
             className={styles.menuItem}
             onClick={() => {
-              window.location.href = "/experience/";
+              window.open(
+                "https://drive.google.com/file/d/1Y7EUEjyumHEovWwSYLUJxiuIzGHj7TuQ/view",
+                "_blank"
+              );
             }}
           >
-            Experience
+            Resume
           </div>
-          <div className={styles.menuItem}>Education</div>
           <div className={styles.menuItem}>Contact</div>
         </div>
         <div className={styles.trustedContainer}>

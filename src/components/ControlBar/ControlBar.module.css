@@ -140,6 +140,32 @@
   }
 }
 
+@media (max-width: 440px) {
+  .controlItem {
+    padding: 0px 2px;
+  }
+  .controlIcon {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+  .controlSelect {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 375px) {
+  .controlItem {
+    padding: 0px 0px;
+  }
+  .controlIcon {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+  .controlSelect {
+    font-size: 10px;
+  }
+}
+
 @media (prefers-color-scheme: light) {
   .controlBarContainer {
     background-color: #ffffff;

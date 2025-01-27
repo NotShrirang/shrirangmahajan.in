@@ -8,13 +8,13 @@ const fetchExperience = () => [
         Engineered <b>ML-powered promo-sales simulation system</b> enabling data
         uploads, scenario visualization, and <b>custom model training</b> for
         sales prediction, enhanced by <b>global optimizer</b> for data-driven
-        promotional strategies
+        promotional strategies.
       </>,
       <>
         Architected <b>AI-driven data assistant</b> with interactive dashboard,
         transforming <b>CSV datasets</b> into <b>on-demand analysis</b> via
         natural language queries and <b>LLM-powered automation</b> (responses in{" "}
-        <b>5-7 seconds</b>)
+        <b>5-7 seconds</b>.)
       </>,
     ],
     duration: "June 2024 - Present",
@@ -25,10 +25,17 @@ const fetchExperience = () => [
     title: "Data Science Intern",
     company: "Emergys Solutions Inc. (Formerly Ellicium Solutions Inc.)",
     description: [
-      `Researched and implemented optimized data retrieval techniques in FAISS Vectorstore, improving retrieval speed
-by 25-30%, contributing to faster data access and enhanced model performance.`,
-      `Developed a legal document explainer tool combining Retrieval-Augmented Generation (RAG) with LLMs,
-simplifying complex legal language for diverse users, and providing concise summaries within 5-7 seconds.`,
+      <>
+        <b>Researched and implemented</b> optimized data retrieval techniques in{" "}
+        <b>FAISS Vectorstore</b>, improving retrieval speed by <b>25-30%</b>,
+        contributing to faster data access and enhanced model performance.
+      </>,
+      <>
+        <b>Developed a legal document explainer tool</b> combining{" "}
+        <b>Retrieval-Augmented Generation (RAG)</b> with <b>LLMs</b>,
+        simplifying complex legal language for diverse users, and providing
+        concise summaries within <b>5-7 seconds</b>.
+      </>,
     ],
     duration: "January 2024 - June 2024",
     link: "https://www.ellicium.com/",
@@ -38,9 +45,20 @@ simplifying complex legal language for diverse users, and providing concise summ
     title: "SDE Intern",
     company: "Atomic Loops",
     description: [
-      `Engineered backend REST APIs using Django REST Framework for diverse products, facilitating data generation
-and collection for training ML models. Designed and implemented app for Yoga pose detection using Flutter.`,
-      `Designed and implemented app for Yoga pose detection using Flutter.`,
+      <>
+        Engineered backend REST APIs using <b>Django REST Framework</b> for
+        diverse products, facilitating data generation and collection for
+        training ML models. Designed and implemented app for Yoga pose detection
+        using Flutter.
+      </>,
+      <>
+        Implemented a <b>Real-time Chat API</b> using <b>WebRTC</b> for a
+        client's website.
+      </>,
+      <>
+        Designed and implemented app for Yoga pose detection using{" "}
+        <b>Flutter</b>.
+      </>,
     ],
     duration: "April 2023 - December 2024",
     link: "https://atomicloops.com/",
@@ -50,10 +68,23 @@ and collection for training ML models. Designed and implemented app for Yoga pos
     title: "ML Intern",
     company: "Nishikawa Communications Pvt. Ltd.",
     description: [
-      `Developed an image straightener tool using OpenCV and TesseractOCR. This system automatically corrects titled
-or flipped images, delivering results in a rapid response time of 1-2 seconds.`,
-      `Designed and implemented a Japanese character classifier for a company, utilizing transfer learning to recognize
-Hiragana and Katakana characters. The model was containerized using Docker for easy deployment.`,
+      <>
+        Developed an <b>image straightener tool</b> using <b>OpenCV</b> and{" "}
+        <b>TesseractOCR</b>. This system automatically corrects titled or
+        flipped images, delivering results in a rapid response time of{" "}
+        <b>1-2 seconds</b>.
+      </>,
+      <>
+        Built <b>Japanese character classifier</b>, utilizing{" "}
+        <b>transfer learning</b> to recognize Hiragana and Katakana characters.
+        The model was <b>containerized using Docker</b> for easy deployment.
+      </>,
+      <>
+        <b>Increased efficiency</b> by writing <b>custom Python scripts</b> for
+        data analysis after getting data from <b>Google My Business API</b> by
+        using <b>pandas</b>. Updated the older script to match newer version of
+        the API.
+      </>,
     ],
     duration: "August 2022 - April 2023",
     link: "https://www.nishikawa.jp/",

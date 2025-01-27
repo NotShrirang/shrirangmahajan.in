@@ -121,7 +121,10 @@ const ControlBar = () => {
             className={styles.sourceCodeRedirectContainer}
             onClick={(e) => {
               e.preventDefault();
-              window.open("https://github.com/NotShrirang/portfolio", "_blank");
+              window.open(
+                "https://github.com/NotShrirang/shrirangmahajan.in",
+                "_blank"
+              );
             }}
           >
             <div className={styles.sourceCodeRedirectText}>Source</div>
