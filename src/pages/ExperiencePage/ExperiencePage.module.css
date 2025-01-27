@@ -35,6 +35,85 @@
   width: 100%;
 }
 
+.ExperiencePageItemList {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  width: 100%;
+}
+
+.experienceContainerTitle {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  gap: 0.5rem;
+  width: 100%;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 24px;
+  font-weight: normal;
+  padding: 0.5rem;
+}
+
+.experienceContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  margin-top: 1rem;
+  gap: 1rem;
+  width: 100%;
+}
+
+.experienceCard {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  width: 100%;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: 0.3s ease-in-out all;
+}
+
+.experienceName {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 20px;
+  font-weight: normal;
+  text-decoration: none;
+}
+
+.experienceName:hover {
+  text-decoration: underline;
+}
+
+.experienceDuration {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 15px;
+  font-weight: normal;
+}
+
+.experienceCompany {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 15px;
+  font-weight: normal;
+  font-style: italic;
+  text-decoration: none;
+}
+
+.experienceCompany:hover {
+  text-decoration: underline;
+}
+
+.experienceDescription {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 15px;
+  font-weight: lighter;
+  margin-block-start: 0.5rem;
+  margin-block-end: 0rem;
+}
+
 @media (prefers-color-scheme: light) {
   .ExperiencePageContainer {
     background-color: #ffffff;

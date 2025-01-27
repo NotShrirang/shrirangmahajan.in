@@ -9,10 +9,10 @@ const router = createBrowserRouter([
     index: true,
     element: <CellsPage />,
   },
-  //   {
-  //     path: "/experience/",
-  //     element: <ExperiencePage />,
-  //   },
+  {
+    path: "/experience/",
+    element: <ExperiencePage />,
+  },
   {
     path: "/projects/",
     element: <ProjectPage />,
