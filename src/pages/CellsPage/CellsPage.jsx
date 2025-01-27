@@ -4,10 +4,10 @@ import { useNavigate } from "react-router-dom";
 import styles from "./CellsPage.module.css";
 import Cell from "../../components/Cell/Cell";
 import { fetchPinnedRepos } from "../../data/projects";
-import { fetchExperience } from "../../data/experiences.js";
-import { fetchLanguageAnalysis } from "../../data/analysis.js";
+import { fetchExperience } from "../../data/experiences";
+import { fetchLanguageAnalysis } from "../../data/analysis";
 import MarkdownCell from "../../components/MarkdownCell/MarkdownCell.jsx";
-import skills from "../../data/skills.js";
+import skills from "../../data/skills";
 
 const CellsPage = () => {
   const [activeCell, setActiveCell] = useState(1);
@@ -250,6 +250,7 @@ const CellsPage = () => {
                             flexDirection: "row",
                             justifyContent: "space-between",
                             alignItems: "center",
+                            width: "100%",
                           }}
                         >
                           <div className={styles.experienceName}>
@@ -262,14 +263,22 @@ const CellsPage = () => {
                         <div className={styles.experienceCompany}>
                           {experience.company}
                         </div>
-                        <div className={styles.experienceDescription}>
+                        {/* <div className={styles.experienceDescription}>
                           {experience.description.map((point) => (
                             <div key={point}>• {point}</div>
                           ))}
-                        </div>
+                        </div> */}
                       </div>
                     );
                   })}
+                  <div
+                    className={styles.projectFooter}
+                    onClick={() => {
+                      navigate("/experience");
+                    }}
+                  >
+                    <div className={styles.projectFooterLink}>View Details</div>
+                  </div>
                 </div>
               </div>
             ),
