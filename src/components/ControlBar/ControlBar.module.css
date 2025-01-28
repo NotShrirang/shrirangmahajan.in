@@ -141,6 +141,9 @@
 }
 
 @media (max-width: 440px) {
+  .controlBarContent {
+    margin-left: 1rem;
+  }
   .controlItem {
     padding: 0px 2px;
   }
@@ -153,7 +156,7 @@
   }
 }
 
-@media (max-width: 375px) {
+@media (max-width: 385px) {
   .controlItem {
     padding: 0px 0px;
   }
@@ -163,6 +166,19 @@
   }
   .controlSelect {
     font-size: 10px;
+  }
+}
+
+@media (max-width: 330px) {
+  .controlItem {
+    padding: 0px 0px;
+  }
+  .controlIcon {
+    width: 0.7rem;
+    height: 0.7rem;
+  }
+  .controlSelect {
+    font-size: 9px;
   }
 }
 

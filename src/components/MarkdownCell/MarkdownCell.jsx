@@ -12,15 +12,6 @@ const MarkdownCell = ({ cell, activeCell, setActiveCell }) => {
     setTheme(theme);
   }, []);
 
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter" && e.shiftKey) {
-      console.log(cell.id + 1);
-      setActiveCell(cell.id + 1);
-      divRef.current.blur();
-    }
-    e.preventDefault();
-  };
-
   return (
     <div
       className={styles.cell}
@@ -38,24 +29,8 @@ const MarkdownCell = ({ cell, activeCell, setActiveCell }) => {
       key={cell.id}
       onClick={(e) => {
         setActiveCell(cell.id);
-        if (divRef.current) {
-          divRef.current.focus();
-        }
       }}
-      onBlur={(e) => {
-        setActiveCell(null);
-        if (divRef.current) {
-          divRef.current.blur();
-        }
-      }}
-      onKeyDownCapture={handleKeyDown}
-      onKeyDown={handleKeyDown}
     >
-      {cell.id === activeCell
-        ? divRef.current
-          ? divRef.current.focus()
-          : null
-        : null}
       <div className={styles.cellOutput}>
         <div
           className={

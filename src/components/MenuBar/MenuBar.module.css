@@ -85,9 +85,21 @@
   }
 }
 
+@media (max-width: 440px) {
+  .trustedContainer {
+    display: none;
+  }
+}
+
 @media (max-width: 340px) {
   .trustedContainer {
     display: none;
+  }
+}
+
+@media (max-width: 330px) {
+  .menuItem {
+    padding: 0px 4px;
   }
 }
 
