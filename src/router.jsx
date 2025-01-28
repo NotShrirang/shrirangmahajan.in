@@ -3,6 +3,7 @@ import React from "react";
 import CellsPage from "./pages/CellsPage/CellsPage";
 import ExperiencePage from "./pages/ExperiencePage/ExperiencePage";
 import ProjectPage from "./pages/ProjectsPage/ProjectPage";
+import ContactPage from "./pages/ContactPage/ContactPage";
 
 const router = createBrowserRouter([
   {
@@ -17,10 +18,14 @@ const router = createBrowserRouter([
     path: "/projects/",
     element: <ProjectPage />,
   },
-  // {
-  //   path: "",
-  //   element: <Navigate to="/" />,
-  // },
+  {
+    path: "/contact/",
+    element: <ContactPage />,
+  },
+  {
+    path: "",
+    element: <Navigate to="/" />,
+  },
 ]);
 
 export default router;
