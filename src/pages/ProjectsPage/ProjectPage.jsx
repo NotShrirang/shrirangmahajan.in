@@ -45,31 +45,54 @@ const ProjectPage = () => {
         <div className={styles.projectPageContent}>
           <div className={styles.projectPageTitle}>Projects</div>
           <div className={styles.projectSearchBar}>
-            <input
-              type="text"
-              className={styles.projectSearchBarInput}
-              placeholder="Search Projects (Keyword based)"
-              value={searchText}
-              onChange={(e) => {
-                setSearchText(e.target.value);
-                const newQuery = e.target.value;
-                const newParams = new URLSearchParams(searchParams);
+            <div className={styles.projectSearchBarInputContainer}>
+              <input
+                type="text"
+                className={styles.projectSearchBarInput}
+                placeholder="Search Projects (Keyword based)"
+                value={searchText}
+                onChange={(e) => {
+                  setSearchText(e.target.value);
+                  const newQuery = e.target.value;
+                  const newParams = new URLSearchParams(searchParams);
 
-                if (newQuery) {
-                  newParams.set("q", newQuery);
-                } else {
-                  newParams.delete("q");
-                }
+                  if (newQuery) {
+                    newParams.set("q", newQuery);
+                  } else {
+                    newParams.delete("q");
+                  }
 
-                setSearchParams(newParams);
-                const tempProjects = projects.filter((project) =>
-                  project.tags.some((tag) => {
-                    return tag.toLowerCase().includes(newQuery.toLowerCase());
-                  })
-                );
-                setProjectsList(tempProjects);
-              }}
-            />
+                  setSearchParams(newParams);
+                  const tempProjects = projects.filter((project) =>
+                    project.tags.some((tag) => {
+                      return tag.toLowerCase().includes(newQuery.toLowerCase());
+                    })
+                  );
+                  setProjectsList(tempProjects);
+                }}
+              />
+            </div>
+            <div className={styles.projectSearchBarFilter}>
+              <select
+                className={styles.projectSearchBarFilterSelect}
+                onChange={(e) => {
+                  const filter = e.target.value;
+                  if (filter === "All") {
+                    setProjectsList(projects);
+                  } else {
+                    const tempProjects = projects.filter(
+                      (project) => project.domain === filter
+                    );
+                    setProjectsList(tempProjects);
+                  }
+                }}
+              >
+                <option value="All">All</option>
+                <option value="ML">ML</option>
+                <option value="Web">Web</option>
+                <option value="Mobile">Mobile</option>
+              </select>
+            </div>
           </div>
           <div className={styles.projectPageItemList}>
             {projectsList.length != 0 ? (
