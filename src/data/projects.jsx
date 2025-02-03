@@ -84,6 +84,7 @@ const projects = [
     image:
       "https://github.com/NotShrirang/QuillGPT/assets/85283622/2e63d8ce-24f8-4bf0-835a-0c621f1d7400",
     tags: ["PyTorch", "FastAPI", "Streamlit", "Docker"],
+    domain: "ML",
     link: "https://github.com/NotShrirang/QuillGPT",
   },
   {
@@ -122,6 +123,7 @@ const projects = [
     ),
     image: LoomRag,
     tags: ["PyTorch", "OpenAI CLIP", "OpenAI Whisper", "Streamlit", "FAISS"],
+    domain: "ML",
     link: "https://github.com/NotShrirang/LoomRAG",
   },
   {
@@ -164,6 +166,7 @@ const projects = [
       "Docker",
       "PostgreSQL",
     ],
+    domain: "Web",
     link: "https://github.com/orgs/Parkomate-ParkVision/repositories",
   },
   {
@@ -209,6 +212,7 @@ const projects = [
       "Docker",
       "PostgreSQL",
     ],
+    domain: "Web",
     link: "",
   },
   {
@@ -254,6 +258,7 @@ const projects = [
       "Docker",
       "PostgreSQL",
     ],
+    domain: "Web",
     link: "https://github.com/NotShrirang/M2ConneX",
   },
   {
@@ -281,6 +286,7 @@ const projects = [
     ),
     image: Sonnet,
     tags: ["LangChain", "FAISS Vectorstore", "Python"],
+    domain: "ML",
     link: "https://github.com/NotShrirang/Sonnet",
   },
   {
@@ -311,6 +317,7 @@ const projects = [
     image:
       "https://avatars.githubusercontent.com/u/139642488?s=400&u=149eca032a1ffec7243a91b81f6756576695588c&v=4",
     tags: ["Flutter", "Django REST Framework", "ReactJS", "Tensorflow", "AWS"],
+    domain: "Mobile",
     link: "https://github.com/Team-DevFinder",
   },
   {
@@ -333,6 +340,7 @@ const projects = [
     ),
     image: "",
     tags: ["PyTorch", "HuggingFace Transformers", "Streamlit"],
+    domain: "ML",
     link: "https://github.com/NotShrirang/Spam-Filter-using-ALBERT",
   },
   {
@@ -375,6 +383,7 @@ const projects = [
     ),
     image: "",
     tags: ["NumPy"],
+    domain: "ML",
     link: "https://github.com/NotShrirang/OpenNN",
   },
 ];
