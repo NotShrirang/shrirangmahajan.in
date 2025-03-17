@@ -56,7 +56,7 @@ const CellsPage = () => {
                     width: "100%",
                   }}
                 >
-                  <div className={styles.markdownTitle}>Shrirang Mahajan</div>
+                  <h1 className={styles.markdownTitle}>Shrirang Mahajan</h1>
                   <div className={styles.markdownHyperlinkRow}>
                     <a
                       href="https://x.com/notshrirang"
@@ -145,7 +145,7 @@ const CellsPage = () => {
                         className={styles.markdownSkill}
                         onClick={() => {
                           window.open(
-                            `https://github.com/NotShrirang?tab=repositories&q=${skill.name}&type=&language=&sort=`,
+                            `https://github.com/NotShrirang?tab=repositories&q=${skill.name}&type=&language=${skill.name}&sort=`,
                             "_blank"
                           );
                         }}

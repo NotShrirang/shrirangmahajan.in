@@ -19,7 +19,7 @@ const ExperiencePage = () => {
     <div className={styles.ExperiencePage}>
       <div className={styles.ExperiencePageContainer}>
         <div className={styles.ExperiencePageContent}>
-          <div className={styles.ExperiencePageTitle}>Experience</div>
+          <h1 className={styles.ExperiencePageTitle}>Experience</h1>
           <div className={styles.ExperiencePageItemList}>
             {experiences &&
               experiences.map((experience) => {
