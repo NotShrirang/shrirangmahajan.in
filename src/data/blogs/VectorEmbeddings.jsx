@@ -1,6 +1,7 @@
 import Code from "../../utils/codeUtils";
 import TenorEmbed from "../../utils/TenorEmbed.jsx";
 import BaseBlog from "./BaseBlog";
+import cover from "../../assets/images/blogs/VectorEmbeddings/cover.png";
 
 const title =
   "From Words to Meaning: The Journey from Word Vectors to Learnable Embeddings";
@@ -193,7 +194,7 @@ const content = (
 );
 
 const slug = title.replace(/\s+/g, "-").toLowerCase();
-const image = "/src/assets/images/blogs/VectorEmbeddings/cover.png";
+const image = cover;
 const tags = [
   "Machine Learning",
   "Deep Learning",
