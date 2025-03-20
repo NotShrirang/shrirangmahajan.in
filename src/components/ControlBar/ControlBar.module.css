@@ -31,7 +31,7 @@
   align-items: center;
   justify-content: center;
   font-size: 13px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
   height: 100%;
   cursor: pointer;
   padding: 0px 2px;
@@ -74,7 +74,6 @@
 
 .sourceCodeRedirectText {
   font-size: 13px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .sourceCodeRedirectIcon {
@@ -88,7 +87,7 @@
   align-items: center;
   justify-content: center;
   font-size: 13px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
   text-align: center;
   height: 100%;
   cursor: pointer;
@@ -110,7 +109,7 @@
 
 @media (max-width: 1000px) {
   .controlBarContent {
-    width: 100%;
+    width: 90%;
   }
 
   .kernelSettingsContainer {
@@ -140,9 +139,12 @@
   }
 }
 
-@media (max-width: 440px) {
+@media (max-width: 470px) {
   .controlBarContent {
-    margin-left: 1rem;
+    width: 100%;
+  }
+  .controlSelect {
+    display: none;
   }
   .controlItem {
     padding: 0px 2px;

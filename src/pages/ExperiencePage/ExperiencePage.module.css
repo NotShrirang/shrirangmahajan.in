@@ -5,7 +5,6 @@
   justify-content: start;
   width: 100%;
   overflow-y: auto;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .ExperiencePageContainer {
@@ -29,7 +28,6 @@
 }
 
 .ExperiencePageTitle {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-size: 40px;
   font-weight: lighter;
   width: 100%;
@@ -59,7 +57,6 @@
 }
 
 .experienceName {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-size: 20px;
   font-weight: normal;
   text-decoration: none;
@@ -71,13 +68,11 @@
 }
 
 .experienceDuration {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-size: 15px;
   font-weight: normal;
 }
 
 .experienceCompany {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-size: 15px;
   font-weight: normal;
   font-style: italic;
@@ -90,7 +85,6 @@
 }
 
 .experienceDescription {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-size: 15px;
   font-weight: lighter;
   margin-block-start: 0.5rem;

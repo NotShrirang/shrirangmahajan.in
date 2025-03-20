@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import styles from "./ProjectPage.module.css";
 import ProjectCard from "../../components/ProjectCard/ProjectCard";
 import { projects } from "../../data/projects";
+import Footer from "../../components/Footer/Footer";
 
 const ProjectPage = () => {
   const [projectsList, setProjectsList] = useState([]);
@@ -112,6 +113,7 @@ const ProjectPage = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

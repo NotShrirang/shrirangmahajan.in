@@ -8,6 +8,7 @@ import styles from "./HomePage.module.css";
 import ControlBar from "../../components/ControlBar/ControlBar";
 import CellsPage from "../CellsPage/CellsPage";
 import ProjectsPage from "../ProjectsPage/ProjectPage";
+import Footer from "../../components/Footer/Footer";
 
 const HomePage = () => {
   return (

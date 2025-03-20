@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./MenuBar.module.css";
+import router from "../../router";
 
 const MenuBar = () => {
   return (
@@ -7,9 +8,17 @@ const MenuBar = () => {
       <div className={styles.menuBarContent}>
         <div className={styles.menuComponent}>
           <div
+            className={styles.menuItemFirst}
+            onClick={() => {
+              router.navigate("/");
+            }}
+          >
+            Home
+          </div>
+          <div
             className={styles.menuItem}
             onClick={() => {
-              window.location.href = "/experience/";
+              router.navigate("/experience/");
             }}
           >
             Experience
@@ -17,7 +26,7 @@ const MenuBar = () => {
           <div
             className={styles.menuItem}
             onClick={() => {
-              window.location.href = "/projects/";
+              router.navigate("/projects/");
             }}
           >
             Projects
@@ -36,7 +45,15 @@ const MenuBar = () => {
           <div
             className={styles.menuItem}
             onClick={() => {
-              window.location.href = "/contact/";
+              router.navigate("/blogs/");
+            }}
+          >
+            Blogs
+          </div>
+          <div
+            className={styles.menuItem}
+            onClick={() => {
+              router.navigate("/contact/");
             }}
           >
             Contact

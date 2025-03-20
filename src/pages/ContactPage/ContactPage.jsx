@@ -3,6 +3,7 @@ import styles from "./ContactPage.module.css";
 import MarkdownCell from "../../components/MarkdownCell/MarkdownCell";
 import Cell from "../../components/Cell/Cell";
 import getTheme from "../../utils/theme";
+import Footer from "../../components/Footer/Footer";
 
 const ContactPage = () => {
   const [activeCell, setActiveCell] = useState(1);
@@ -182,6 +183,7 @@ const ContactPage = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

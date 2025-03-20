@@ -92,7 +92,7 @@
 .textarea {
   width: 100%;
   font-size: 13px;
-  font-family: monospace;
+  font-family: "Courier New", Courier, monospace;
   font-weight: 400;
   padding: 0px;
   margin: 0px;

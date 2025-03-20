@@ -46,14 +46,13 @@
   align-items: center;
   justify-content: center;
   font-size: 18px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
   cursor: text;
   height: 100%;
 }
 
 .lastCheckpoint {
   font-size: 15px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 @media (max-width: 1200px) {
