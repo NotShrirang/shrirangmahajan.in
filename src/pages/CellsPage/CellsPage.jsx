@@ -9,6 +9,7 @@ import { fetchLanguageAnalysis } from "../../data/analysis";
 import MarkdownCell from "../../components/MarkdownCell/MarkdownCell.jsx";
 import skills from "../../data/skills";
 import getTheme from "../../utils/theme.js";
+import Footer from "../../components/Footer/Footer.jsx";
 
 const CellsPage = () => {
   const [activeCell, setActiveCell] = useState(1);
@@ -401,6 +402,7 @@ const CellsPage = () => {
           setActiveCell={setActiveCell}
         />
       </div>
+      <Footer />
     </div>
   );
 };

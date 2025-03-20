@@ -3,15 +3,14 @@ import styles from "./ExperiencePage.module.css";
 import MarkdownCell from "../../components/MarkdownCell/MarkdownCell";
 import { fetchExperience } from "../../data/experiences";
 import getTheme from "../../utils/theme";
+import Footer from "../../components/Footer/Footer";
 
 const ExperiencePage = () => {
-  const [activeCell, setActiveCell] = useState(1);
   const [experiences, setExperiences] = useState([]);
 
   useEffect(() => {
     document.title = "Experience | Shrirang Mahajan";
     const experience = fetchExperience();
-    console.log(experience);
     setExperiences(experience);
   }, []);
 
@@ -59,8 +58,8 @@ const ExperiencePage = () => {
                       {experience.company}
                     </a>
                     <ul className={styles.experienceDescription}>
-                      {experience.description.map((point) => (
-                        <li key={point}>{point}</li>
+                      {experience.description.map((point, index) => (
+                        <li key={index}>{point}</li>
                       ))}
                     </ul>
                   </div>
@@ -69,6 +68,7 @@ const ExperiencePage = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
