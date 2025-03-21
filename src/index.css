@@ -112,6 +112,14 @@ body {
     format("truetype");
 }
 
+@font-face {
+  font-family: "Montserrat";
+  font-style: italic;
+  font-weight: 400;
+  src: url("../src/assets/fonts/montserrat/Montserrat-Italic.ttf")
+    format("truetype");
+}
+
 * {
   font-family: "Montserrat", sans-serif;
 }

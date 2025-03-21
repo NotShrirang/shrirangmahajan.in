@@ -5,9 +5,10 @@ import {
   oneLight,
 } from "react-syntax-highlighter/dist/esm/styles/prism";
 
-const Code = ({ content, language, copy }) => {
+const Code = ({ content, language, copy, expander }) => {
   const [theme, setTheme] = React.useState("light");
   const [copied, setCopied] = React.useState(false);
+  const [expanded, setExpanded] = React.useState(false);
 
   React.useEffect(() => {
     const theme = window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -18,13 +19,32 @@ const Code = ({ content, language, copy }) => {
 
   return (
     <div style={{ position: "relative", textWrap: "wrap" }}>
-      <SyntaxHighlighter
-        language={language}
-        style={theme === "light" ? oneLight : vscDarkPlus}
-        showLineNumbers
-      >
-        {content}
-      </SyntaxHighlighter>
+      {expander && (
+        <div
+          style={{
+            position: "relative",
+            top: "0",
+            cursor: "pointer",
+            fontSize: "0.8rem",
+            backgroundColor: theme === "light" ? "#f0f0f0" : "#333",
+            padding: "0.5rem",
+            borderRadius: "0.5rem",
+            textAlign: "center",
+          }}
+          onClick={() => setExpanded(!expanded)}
+        >
+          {expanded ? "<> Collapse" : "<> Expand"}
+        </div>
+      )}
+      {expanded && expander && (
+        <SyntaxHighlighter
+          language={language}
+          style={theme === "light" ? oneLight : vscDarkPlus}
+          showLineNumbers
+        >
+          {content}
+        </SyntaxHighlighter>
+      )}
       {copy && (
         <button
           style={{ position: "absolute", right: "0", top: "0" }}
@@ -34,6 +54,15 @@ const Code = ({ content, language, copy }) => {
         >
           Copy
         </button>
+      )}
+      {!expander && (
+        <SyntaxHighlighter
+          language={language}
+          style={theme === "light" ? oneLight : vscDarkPlus}
+          showLineNumbers
+        >
+          {content}
+        </SyntaxHighlighter>
       )}
     </div>
   );
