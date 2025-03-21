@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: start;
-  justify-content: space-between;
+  justify-content: start;
   width: 100%;
   height: 100%;
   border-radius: 0.75rem;
@@ -26,9 +26,9 @@
   display: flex;
   flex-direction: column;
   align-items: start;
-  justify-content: start;
-  gap: 0.5rem;
+  justify-content: space-between;
   width: 100%;
+  height: 100%;
 }
 
 .BlogCardInfoTitle {
@@ -42,14 +42,21 @@
   padding: 1rem;
 }
 
+.BlogCardInfoDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 1rem 1rem;
+}
+
 .BlogCardDate {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: start;
   font-weight: 400;
-  padding-left: 1rem;
-  padding-right: 1rem;
 }
 
 .BlogCardInfoReadMoreAnchor {

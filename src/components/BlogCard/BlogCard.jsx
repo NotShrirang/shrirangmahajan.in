@@ -15,14 +15,15 @@ const BlogCard = ({ blog }) => {
       <img src={blog.image} alt={blog.title} className={styles.BlogCardImage} />
       <div className={styles.BlogCardInfo}>
         <div className={styles.BlogCardInfoTitle}>{blog.title}</div>
-        <div className={styles.BlogCardInfoDescription}>{blog.description}</div>
-        <div className={styles.BlogCardDate}>{blog.date}</div>
-        <a
-          href={`/blogs/${blog.slug}`}
-          className={styles.BlogCardInfoReadMoreAnchor}
-        >
-          <div className={styles.BlogCardInfoReadMoreText}>Read More</div>
-        </a>
+        <div className={styles.BlogCardInfoDetails}>
+          <div className={styles.BlogCardDate}>{blog.date}</div>
+          <a
+            href={`/blogs/${blog.slug}`}
+            className={styles.BlogCardInfoReadMoreAnchor}
+          >
+            <div className={styles.BlogCardInfoReadMoreText}>Read More</div>
+          </a>
+        </div>
       </div>
     </div>
   );
