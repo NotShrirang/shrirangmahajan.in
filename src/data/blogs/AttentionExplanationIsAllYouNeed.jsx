@@ -16,13 +16,13 @@ const content = (
     <TenorEmbed postId={"658479170644142115"} />
     <p>Haha! Classic Schomsby humor. But let’s get serious now.</p>
     <p>
-      We all have used ChatGPT, let's be real, even I am using it to write this
-      blog. Let’s rewind to a time before ChatGPT, when the world was a
-      different place. A time when the world was ruled by <b>RNNs</b> and{" "}
-      <b>CNNs</b>.
+      We all have used ChatGPT, let's be real. So ChatGPT uses this "Attention".
+      But to understand what attention really means, we have to rewind to a time
+      before ChatGPT, when the world was a different place. A time when the
+      world was ruled by <b>RNNs</b> and <b>CNNs</b>.
     </p>
     <p>
-      Back then, Recurrent Neural Networks (RNNs) wasm the go-to model for many
+      Back then, Recurrent Neural Networks (RNNs) was the go-to model for many
       natural language processing tasks. We had vanilla RNNs, LSTMs, and GRUs,
       all of which were pretty good at processing sequential data like
       sentences. But they weren’t perfect. They struggled with long-range
