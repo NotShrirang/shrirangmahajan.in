@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styles from "./Blog.module.css";
 import blogs from "../../data/blogs";
 import Footer from "../../components/Footer/Footer";
+import BlogCard from "../../components/BlogCard/BlogCard";
 
 const Blog = () => {
   const { slug } = useParams();
   const [blog, setBlog] = useState({});
   const [theme, setTheme] = useState("light");
+  const [similarBlogs, setSimilarBlogs] = useState([]);
 
   useEffect(() => {
     blogs.forEach((blog) => {
@@ -19,6 +21,19 @@ const Blog = () => {
       ? "dark"
       : "light";
     setTheme(theme);
+
+    const thisBlog = blogs.filter((blog) => blog.slug === slug)[0];
+
+    const tempBlogs = blogs.filter((blog) => {
+      var found = blog.tags.some((tag) => {
+        return thisBlog.tags.includes(tag) && thisBlog.slug !== blog.slug;
+      });
+      if (found) {
+        return true;
+      }
+      return false;
+    });
+    setSimilarBlogs(tempBlogs);
   }, [slug]);
 
   if (Object.keys(blog).length === 0) {
@@ -144,6 +159,16 @@ const Blog = () => {
               </a>
             </div>
           </div>
+          {similarBlogs.length > 0 && (
+            <div className={styles.BlogSimilarBlogs}>
+              <h2>Similar Blogs</h2>
+              <div className={styles.BlogSimilarBlogsContainer}>
+                {similarBlogs.map((blog) => (
+                  <BlogCard blog={blog} key={blog.title} />
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
       <Footer />

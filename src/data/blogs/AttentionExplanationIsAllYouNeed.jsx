@@ -4,6 +4,9 @@ import BaseBlog from "./BaseBlog";
 import cover from "../../assets/images/blogs/Attention/cover.png";
 import attentionHeatmap from "../../assets/images/blogs/Attention/attention-heatmap.jpg";
 
+import VectorEmbeddingsBlog from "./VectorEmbeddings.jsx";
+import BlogCard from "../../components/BlogCard/BlogCard.jsx";
+
 const title = "Attention: Explanation is All You Need";
 
 const content = (
@@ -14,7 +17,7 @@ const content = (
     </p>
     <h3>Okay, bye! Blog is over!</h3>
     <TenorEmbed postId={"658479170644142115"} />
-    <p>Haha! Classic Schomsby humor. But let’s get serious now.</p>
+    <p>Haha! Classic Schmosby humor. But let’s get serious now.</p>
     <p>
       We all have used ChatGPT, let's be real. So ChatGPT uses this "Attention".
       But to understand what attention really means, we have to rewind to a time
@@ -379,18 +382,6 @@ class MultiHeadAttention(nn.Module):
         https://github.com/NotShrirang/QuillGPT/
       </a>
     </p>
-    <h3>My other blogs:</h3>
-    <ul>
-      <li>
-        <a
-          href="https://www.shrirangmahajan.in/blogs/from-words-to-meaning:-the-journey-from-word-vectors-to-learnable-embeddings"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Vector Embeddings: From Words to Meanings
-        </a>
-      </li>
-    </ul>
   </div>
 );
 
