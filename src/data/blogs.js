@@ -1,6 +1,6 @@
 import VectorEmbeddingsBlog from "./blogs/VectorEmbeddings";
 import AttentionBlog from "./blogs/AttentionExplanationIsAllYouNeed";
-import AttentionLayerbyLayerBlog from "./blogs/AttentionLayerbyLayer";
+import AttentionLayerbyLayerBlog from "./blogs/AttentionLayerByLayer";
 
 const blogs = [
     {
