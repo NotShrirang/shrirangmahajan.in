@@ -6,6 +6,7 @@ import BaseBlog from "./BaseBlog";
 import cover from "../../assets/images/blogs/AttentionLayerByLayer/cover.png";
 import attentions from "../../assets/images/blogs/AttentionLayerByLayer/attentions.png";
 import SelfAttention from "../../assets/images/blogs/AttentionLayerByLayer/self_attention.png";
+import MultiHeadAttention from "../../assets/images/blogs/AttentionLayerByLayer/multi_head_attention.png";
 import BidirectionalAttention from "../../assets/images/blogs/AttentionLayerByLayer/bidirectional_attention.jpg";
 import MultiQueryAttention from "../../assets/images/blogs/AttentionLayerByLayer/multi_query_attention.png";
 import GroupedQueryAttention from "../../assets/images/blogs/AttentionLayerByLayer/grouped_query_attention.png";
@@ -385,6 +386,28 @@ class SelfAttention(nn.Module):
         GPT-3
       </a>
       .
+    </p>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <img width={"30%"} src={MultiHeadAttention} alt="Multi Head Attention" />
+      <p style={{ fontSize: "0.8rem" }}>
+        <i>Multi Head Attention</i>
+      </p>
+    </div>
+    <p>
+      This is the implementation of the single head of the self-attention
+      mechanism that was given in the "Attention is All You Need" paper. The
+      same paper also mentions that when multiple heads are used, we get
+      performance improvements. This is because each head can learn different
+      aspects of the data. This is where the Multi-Head Attention comes into
+      play. Multi head attention is the same as self attention but with multiple
+      parallel heads.
     </p>
     <h2 id="bidirectionalAttention">2. Bidirectional Attention</h2>
     <div
@@ -1865,7 +1888,7 @@ const tags = [
   "Grouped Query Attention",
 ];
 
-const date = "March 24nd, 2025";
+const date = "March 24th, 2025";
 const readTime = 20;
 
 const AttentionLayerbyLayerBlog = new BaseBlog(
