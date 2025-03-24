@@ -1,5 +1,6 @@
 import VectorEmbeddingsBlog from "./blogs/VectorEmbeddings";
 import AttentionBlog from "./blogs/AttentionExplanationIsAllYouNeed";
+import AttentionLayerbyLayerBlog from "./blogs/AttentionLayerbyLayer";
 
 const blogs = [
     {
@@ -20,5 +21,14 @@ const blogs = [
         date: AttentionBlog.date,
         readTime: AttentionBlog.readTime,
     },
+    {
+        title: AttentionLayerbyLayerBlog.title,
+        content: AttentionLayerbyLayerBlog.content,
+        slug: AttentionLayerbyLayerBlog.slug,
+        image: AttentionLayerbyLayerBlog.image,
+        tags: AttentionLayerbyLayerBlog.tags,
+        date: AttentionLayerbyLayerBlog.date,
+        readTime: AttentionLayerbyLayerBlog.readTime,
+    }
 ];
 export default blogs;
