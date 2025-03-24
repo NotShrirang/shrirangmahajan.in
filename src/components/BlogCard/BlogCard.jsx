@@ -10,9 +10,16 @@ const BlogCard = ({ blog }) => {
       className={styles.BlogCard}
       onClick={() => {
         navigate(`/blogs/${blog.slug}`);
+        window.location.reload();
       }}
     >
-      <img src={blog.image} alt={blog.title} className={styles.BlogCardImage} />
+      <div className={styles.BlogCardImageContainer}>
+        <img
+          src={blog.image}
+          alt={blog.title}
+          className={styles.BlogCardImage}
+        />
+      </div>
       <div className={styles.BlogCardInfo}>
         <div className={styles.BlogCardInfoTitle}>{blog.title}</div>
         <div className={styles.BlogCardInfoDetails}>

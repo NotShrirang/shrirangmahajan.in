@@ -4,13 +4,10 @@ import BaseBlog from "./BaseBlog";
 import cover from "../../assets/images/blogs/Attention/cover.png";
 import attentionHeatmap from "../../assets/images/blogs/Attention/attention-heatmap.jpg";
 
-import VectorEmbeddingsBlog from "./VectorEmbeddings.jsx";
-import BlogCard from "../../components/BlogCard/BlogCard.jsx";
-
 const title = "Attention: Explanation is All You Need";
 
 const content = (
-  <div style={{ textAlign: "justify", width: "100%" }}>
+  <div style={{ width: "100%" }}>
     <p>
       We all know the story of the Transformers. They’re the robots in disguise.
       And what is <b>Attention</b>? It's something Optimus Prime never lacked!
@@ -207,7 +204,8 @@ class Head(nn.Module):
         v = self.value(x)
         out = wei @ v
         return out`}
-      expander
+      expander={false}
+      copy
     />
     <h3>Multi-Head Attention: Doing More</h3>
     <p>
@@ -254,7 +252,8 @@ class MultiHeadAttention(nn.Module):
         out = torch.cat([h(x) for h in self.heads], dim=-1)
         out = self.dropout(self.proj(out))
         return out`}
-      expander
+      expander={false}
+      copy
     />
     <p>
       Now this is the original version of the Attention provided in the paper

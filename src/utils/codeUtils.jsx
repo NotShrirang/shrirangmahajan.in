@@ -5,7 +5,7 @@ import {
   oneLight,
 } from "react-syntax-highlighter/dist/esm/styles/prism";
 
-const Code = ({ content, language, copy, expander }) => {
+const Code = ({ content, language, copy, expander, lineNumber }) => {
   const [theme, setTheme] = React.useState("light");
   const [copied, setCopied] = React.useState(false);
   const [expanded, setExpanded] = React.useState(false);
@@ -18,7 +18,12 @@ const Code = ({ content, language, copy, expander }) => {
   }, []);
 
   return (
-    <div style={{ position: "relative", textWrap: "wrap" }}>
+    <div
+      style={{
+        position: "relative",
+        textWrap: "wrap",
+      }}
+    >
       {expander && (
         <div
           style={{
@@ -41,18 +46,26 @@ const Code = ({ content, language, copy, expander }) => {
           language={language}
           style={theme === "light" ? oneLight : vscDarkPlus}
           showLineNumbers
+          startingLineNumber={lineNumber ? lineNumber : 1}
         >
           {content}
         </SyntaxHighlighter>
       )}
       {copy && (
         <button
-          style={{ position: "absolute", right: "0", top: "0" }}
+          style={{
+            position: "absolute",
+            right: "0",
+            top: "0",
+            cursor: "pointer",
+          }}
           onClick={() => {
             navigator.clipboard.writeText(content);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 10000);
           }}
         >
-          Copy
+          {copied ? "Copied!" : "Copy"}
         </button>
       )}
       {!expander && (
@@ -60,6 +73,7 @@ const Code = ({ content, language, copy, expander }) => {
           language={language}
           style={theme === "light" ? oneLight : vscDarkPlus}
           showLineNumbers
+          startingLineNumber={lineNumber ? lineNumber : 1}
         >
           {content}
         </SyntaxHighlighter>

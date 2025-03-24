@@ -3,13 +3,15 @@ import { useNavigate } from "react-router-dom";
 
 import styles from "./CellsPage.module.css";
 import Cell from "../../components/Cell/Cell";
-import { fetchPinnedRepos } from "../../data/projects";
 import { fetchExperience } from "../../data/experiences";
-import { fetchLanguageAnalysis } from "../../data/analysis";
 import MarkdownCell from "../../components/MarkdownCell/MarkdownCell.jsx";
 import skills from "../../data/skills";
 import getTheme from "../../utils/theme.js";
 import Footer from "../../components/Footer/Footer.jsx";
+import {
+  fetchLanguageAnalysis,
+  fetchPinnedRepos,
+} from "../../api/fetchData.js";
 
 const CellsPage = () => {
   const [activeCell, setActiveCell] = useState(1);

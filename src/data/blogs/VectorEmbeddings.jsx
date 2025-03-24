@@ -7,7 +7,7 @@ const title =
   "From Words to Meaning: The Journey from Word Vectors to Learnable Embeddings";
 
 const content = (
-  <div style={{ textAlign: "justify", width: "100%" }}>
+  <div style={{ width: "100%" }}>
     <p>
       Imagine you’re talking to <b>Jarvis from Iron Man</b> or{" "}
       <b>C-3PO from Star Wars</b>, these AI systems understand language almost
