@@ -1,6 +1,7 @@
 import VectorEmbeddingsBlog from "./blogs/VectorEmbeddings";
 import AttentionBlog from "./blogs/AttentionExplanationIsAllYouNeed";
 import AttentionLayerbyLayerBlog from "./blogs/AttentionLayerByLayer";
+import Llama4NativelyMultimodalAI from "./blogs/Llama4NativelyMultimodalAI";
 
 const blogs = [
     {
@@ -29,6 +30,15 @@ const blogs = [
         tags: AttentionLayerbyLayerBlog.tags,
         date: AttentionLayerbyLayerBlog.date,
         readTime: AttentionLayerbyLayerBlog.readTime,
+    },
+    {
+        title: Llama4NativelyMultimodalAI.title,
+        content: Llama4NativelyMultimodalAI.content,
+        slug: Llama4NativelyMultimodalAI.slug,
+        image: Llama4NativelyMultimodalAI.image,
+        tags: Llama4NativelyMultimodalAI.tags,
+        date: Llama4NativelyMultimodalAI.date,
+        readTime: Llama4NativelyMultimodalAI.readTime,
     }
 ];
 export default blogs;
