@@ -24,15 +24,16 @@ const Blog = () => {
 
     const thisBlog = blogs.filter((blog) => blog.slug === slug)[0];
 
-    const tempBlogs = blogs.filter((blog) => {
-      var found = blog.tags.some((tag) => {
-        return thisBlog.tags.includes(tag) && thisBlog.slug !== blog.slug;
-      });
-      if (found) {
-        return true;
-      }
-      return false;
-    });
+    const tempBlogs = blogs
+      .map((blog) => {
+        if (thisBlog.slug === blog.slug) return null;
+        const commonTags = blog.tags.filter((tag) =>
+          thisBlog.tags.includes(tag)
+        );
+        return { ...blog, similarity: commonTags.length };
+      })
+      .filter((blog) => blog && blog.similarity > 0)
+      .sort((a, b) => b.similarity - a.similarity);
     setSimilarBlogs(tempBlogs);
   }, [slug]);
 
@@ -56,7 +57,7 @@ const Blog = () => {
               <div className={styles.BlogDate}>{blog.date}</div>
               <div className={styles.BlogReadTime}>
                 <img
-                  src={`https://img.icons8.com/?size=25&id=85028&format=png&color=${
+                  src={`https://img.icons8.com/?size=20&id=85028&format=png&color=${
                     theme == "dark" ? "ffffff" : "000000"
                   }`}
                   alt={`${blog.readTime} min read`}
@@ -163,7 +164,7 @@ const Blog = () => {
             <div className={styles.BlogSimilarBlogs}>
               <h2>Similar Blogs</h2>
               <div className={styles.BlogSimilarBlogsContainer}>
-                {similarBlogs.map((blog) => (
+                {similarBlogs.slice(0, 2).map((blog) => (
                   <BlogCard blog={blog} key={blog.title} />
                 ))}
               </div>
