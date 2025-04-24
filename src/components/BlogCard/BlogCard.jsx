@@ -23,7 +23,13 @@ const BlogCard = ({ blog }) => {
       <div className={styles.BlogCardInfo}>
         <div className={styles.BlogCardInfoTitle}>{blog.title}</div>
         <div className={styles.BlogCardInfoDetails}>
-          <div className={styles.BlogCardDate}>{blog.date}</div>
+          <div className={styles.BlogCardDate}>
+            {new Date(blog.date).toLocaleDateString("en-IN", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+          </div>
           <a
             href={`/blogs/${blog.slug}`}
             className={styles.BlogCardInfoReadMoreAnchor}

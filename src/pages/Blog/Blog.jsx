@@ -54,7 +54,13 @@ const Blog = () => {
           <h1 className={styles.BlogTitle}>{blog.title}</h1>
           <div className={styles.BlogMetaContainer}>
             <div className={styles.BlogMeta}>
-              <div className={styles.BlogDate}>{blog.date}</div>
+              <div className={styles.BlogDate}>
+                {new Date(blog.date).toLocaleDateString("en-IN", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </div>
               <div className={styles.BlogReadTime}>
                 <img
                   src={`https://img.icons8.com/?size=20&id=85028&format=png&color=${

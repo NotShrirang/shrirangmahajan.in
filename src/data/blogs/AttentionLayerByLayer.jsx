@@ -1888,7 +1888,7 @@ const tags = [
   "Grouped Query Attention",
 ];
 
-const date = "March 24th, 2025";
+const date = "2025-03-24";
 const readTime = 20;
 
 const AttentionLayerbyLayerBlog = new BaseBlog(

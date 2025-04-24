@@ -1,10 +1,64 @@
 import DermaCare from "../assets/images/dermcare.png";
 import Sonnet from "../assets/images/Sonnet Logo.jpg";
 import LoomRag from "../assets/images/loomrag.jpeg";
+import TinyGPT from "../assets/images/TinyGPT.png";
 import getTheme from "../utils/theme";
 import { fetchPinnedRepos } from "../api/fetchData";
 
 const projects = [
+  {
+    title: "TinyGPT",
+    description: (
+      <ul>
+        <li>
+          Built <strong>TinyGPT</strong>, a 50M-parameter decoder-only
+          transformer in PyTorch with{" "}
+          <strong>8 blocks, 8 attention heads, 512-dim embeddings</strong>, and
+          a 512-token context window. Trained it on ~300M TinyStories tokens for
+          generating coherent short-form narratives.
+        </li>
+        <li>
+          Fixed and streamlined the data preprocessing pipeline—ensuring
+          consistent tokenization and sliding-window batching to improve
+          training quality and model outputs.
+        </li>
+        <li>
+          Integrated advanced training techniques like{" "}
+          <strong>kernel fusion</strong>,{" "}
+          <strong>mixed-precision training</strong>,{" "}
+          <strong>gradient accumulation</strong>, and{" "}
+          <strong>cosine decay scheduling</strong> for faster, more stable
+          training.
+        </li>
+        <li>
+          Used PyTorch’s native <strong>multi-head attention</strong> to keep
+          self-attention computations efficient without compromising on
+          iteration speed or resource use.
+        </li>
+        <li>
+          Deployed an interactive <strong>Streamlit</strong> app for live story
+          generation with customizable temperature, top-k, and top-p sampling.
+          Also published the model on{" "}
+          <a href="https://huggingface.co/NotShrirang" target="_blank">
+            HuggingFace
+          </a>{" "}
+          and shared on{" "}
+          <a href="https://github.com/NotShrirang/tinygpt" target="_blank">
+            GitHub
+          </a>{" "}
+          and{" "}
+          <a href="https://tinygpt.streamlit.app/" target="_blank">
+            Streamlit Cloud
+          </a>
+          .
+        </li>
+      </ul>
+    ),
+    image: TinyGPT,
+    tags: ["PyTorch", "Streamlit", "Transformers", "Multi-Head Attention"],
+    domain: "ML",
+    link: "https://github.com/NotShrirang/tinygpt",
+  },
   {
     title: "QuillGPT",
     description: (

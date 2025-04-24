@@ -395,7 +395,7 @@ const tags = [
   "LLMs",
 ];
 
-const date = "March 20th, 2025";
+const date = "2025-03-20";
 const readTime = 6;
 
 const AttentionBlog = new BaseBlog(
