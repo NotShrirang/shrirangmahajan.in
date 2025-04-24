@@ -3,6 +3,7 @@ import AttentionBlog from "./blogs/AttentionExplanationIsAllYouNeed";
 import AttentionLayerbyLayerBlog from "./blogs/AttentionLayerByLayer";
 import Llama4NativelyMultimodalAI from "./blogs/Llama4NativelyMultimodalAI";
 import Llama2Blog from "./blogs/Llama2Explained/Llama2Explained";
+import HowITrainedTinyGPT from "./blogs/HowITrainedTinyGPT/HowITrainedTinyGPT";
 
 const blogs = [
     {
@@ -50,5 +51,21 @@ const blogs = [
         date: Llama2Blog.date,
         readTime: Llama2Blog.readTime,
     },
+    {
+        title: HowITrainedTinyGPT.title,
+        content: HowITrainedTinyGPT.content,
+        slug: HowITrainedTinyGPT.slug,
+        image: HowITrainedTinyGPT.image,
+        tags: HowITrainedTinyGPT.tags,
+        date: HowITrainedTinyGPT.date,
+        readTime: HowITrainedTinyGPT.readTime,
+    }
 ];
+
+blogs.sort((a, b) => {
+    const dateA = new Date(a.date);
+    const dateB = new Date(b.date);
+    return dateB - dateA;
+});
+
 export default blogs;

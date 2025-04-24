@@ -660,7 +660,7 @@ const tags = [
   "Deep Learning",
 ];
 
-const date = "April 12th, 2025";
+const date = "2025-04-12";
 const readTime = 8;
 
 const Llama2Blog = new BaseBlog(

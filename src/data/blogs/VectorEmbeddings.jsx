@@ -204,7 +204,7 @@ const tags = [
   "Vector Embeddings",
 ];
 
-const date = "March 13th, 2025";
+const date = "2025-03-13";
 const readTime = 4;
 
 const VectorEmbeddingsBlog = new BaseBlog(
