@@ -17,6 +17,13 @@ const Footer = () => {
           Made with ❤️ by{" "}
           <a href="https://shrirangmahajan.in"> Shrirang Mahajan</a>
         </span>
+        <iframe
+          src="https://github.com/sponsors/NotShrirang/button"
+          title="Sponsor NotShrirang"
+          height="32"
+          width="114"
+          style={{ border: 0, borderRadius: 6 }}
+        ></iframe>
         <span>©2025 Shrirang Mahajan. All rights reserved.</span>
       </div>
       <div className={styles.footerSocials}>
