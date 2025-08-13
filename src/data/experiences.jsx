@@ -2,19 +2,26 @@ const fetchExperience = () => [
   {
     id: 1,
     title: "Data Scientist",
-    company: "Emergys Solutions Inc. (Formerly Ellicium Solutions Inc.)",
+    company: "Emergys",
     description: [
       <>
-        Engineered <b>ML-powered promo-sales simulation system</b> enabling data
-        uploads, scenario visualization, and <b>custom model training</b> for
-        sales prediction, enhanced by <b>global optimizer</b> for data-driven
-        promotional strategies.
+        Designed and implemented, as an <b>individual contributor</b>, a
+        comprehensive dashboard for detecting <b>price outliers</b> in product
+        flavor data, incorporating <b>clustering analysis</b>,{" "}
+        <b>supplier concentration metrics</b>, and{" "}
+        <b>portfolio optimization techniques</b>.
       </>,
       <>
-        Architected <b>AI-driven data assistant</b> with interactive dashboard,
-        transforming <b>CSV datasets</b> into <b>on-demand analysis</b> via
-        natural language queries and <b>LLM-powered automation</b> (responses in{" "}
-        <b>5-7 seconds</b>.)
+        Built a <b>promo-sales forecasting engine</b> using{" "}
+        <b>Gradient Boosting</b> (R2: 0.93) on <b>Azure Databricks</b>;
+        automated optimization using <b>TPE-based recommender</b> to suggest an
+        optimal promotional strategy.
+      </>,
+      <>
+        Engineered an <b>SQL AI Agent</b> for BI Dashboarding using{" "}
+        <b>fine-tuned LLMs</b> for data retrieval through natural language;
+        built a <b>ReactJS/Tailwind frontend</b>, <b>Django/Docker backend</b>,
+        and interactive <b>Plotly dashboards</b> with <b>4s response time</b>.
       </>,
     ],
     duration: "June 2024 - Present",
@@ -23,7 +30,7 @@ const fetchExperience = () => [
   {
     id: 2,
     title: "Data Science Intern",
-    company: "Emergys Solutions Inc. (Formerly Ellicium Solutions Inc.)",
+    company: "Emergys",
     description: [
       <>
         <b>Researched and implemented</b> optimized data retrieval techniques in{" "}
