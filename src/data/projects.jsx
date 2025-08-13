@@ -11,15 +11,21 @@ const projects = [
     description: (
       <ul>
         <li>
-          Built <strong>TinyGPT</strong>, a 50M-parameter decoder-only
-          transformer in PyTorch with{" "}
+          Pre-trained <strong>TinyGPT</strong>, a 50M-parameter decoder-only
+          transformer model in PyTorch with{" "}
           <strong>8 blocks, 8 attention heads, 512-dim embeddings</strong>, and
-          a 512-token context window. Trained it on ~300M TinyStories tokens for
-          generating coherent short-form narratives.
+          a 512-token context window. Trained it on{" "}
+          <b>~300M TinyStories tokens</b> for generating coherent short-form
+          narratives.
         </li>
         <li>
-          Fixed and streamlined the data preprocessing pipeline—ensuring
-          consistent tokenization and sliding-window batching to improve
+          <b>Runs efficiently on a single CPU</b> with a generation speed of{" "}
+          <b>11 tokens/second</b>, making it highly accessible for deployment on
+          edge devices.
+        </li>
+        <li>
+          Fixed and streamlined the data preprocessing pipeline, ensuring
+          consistent tokenization and <b>sliding-window batching</b> to improve
           training quality and model outputs.
         </li>
         <li>
