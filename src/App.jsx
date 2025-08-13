@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import MyContext from "./MyContext";
 import HomePage from "./pages/HomePage/HomePage";
+import Chatbot from "./components/Chatbot/Chatbot";
 
 function App() {
   const [cellExecutionCount, setCellExecutionCount] = useState(0);
@@ -24,6 +25,7 @@ function App() {
     >
       <div className="appContainer">
         <HomePage />
+        <Chatbot />
       </div>
     </MyContext.Provider>
   );
