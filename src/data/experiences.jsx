@@ -1,6 +1,31 @@
 const fetchExperience = () => [
   {
     id: 1,
+    title: "Machine Learning Engineer - II",
+    company: "Skylark Labs",
+    description: [
+      <>
+        Deployed a <b>TensorRT-optimized model</b> on{" "}
+        <b>NVIDIA Triton Server</b> using <b>gRPC</b> and the{" "}
+        <b>Python backend</b>, enabling high-performance inference for
+        production workloads.
+      </>,
+      <>
+        Explored different <b>YOLO models</b> and <b>NVIDIA DeepStream</b> for{" "}
+        object detection use cases, optimizing model performance and accuracy
+        for real-time applications.
+      </>,
+      <>
+        Currently learning <b>Rust</b> for microservice backend development and{" "}
+        implementing <b>gRPC APIs</b>, while training custom <b>YOLO models</b>{" "}
+        on domain-specific datasets.
+      </>,
+    ],
+    duration: "November 2025 - Present",
+    link: "https://skylarklabs.ai/",
+  },
+  {
+    id: 2,
     title: "Data Scientist",
     company: "Emergys",
     description: [
@@ -24,11 +49,11 @@ const fetchExperience = () => [
         and interactive <b>Plotly dashboards</b> with <b>4s response time</b>.
       </>,
     ],
-    duration: "June 2024 - Present",
+    duration: "June 2024 - November 2025",
     link: "https://www.ellicium.com/",
   },
   {
-    id: 2,
+    id: 3,
     title: "Data Science Intern",
     company: "Emergys",
     description: [
@@ -48,7 +73,7 @@ const fetchExperience = () => [
     link: "https://www.ellicium.com/",
   },
   {
-    id: 3,
+    id: 4,
     title: "SDE Intern",
     company: "Atomic Loops",
     description: [
@@ -71,7 +96,7 @@ const fetchExperience = () => [
     link: "https://atomicloops.com/",
   },
   {
-    id: 4,
+    id: 5,
     title: "ML Intern",
     company: "Nishikawa Communications Pvt. Ltd.",
     description: [
