@@ -5,20 +5,21 @@ const fetchExperience = () => [
     company: "Skylark Labs",
     description: [
       <>
-        Deployed a <b>TensorRT-optimized model</b> on{" "}
-        <b>NVIDIA Triton Server</b> using <b>gRPC</b> and the{" "}
-        <b>Python backend</b>, enabling high-performance inference for
-        production workloads.
+        Optimized inference by deploying a <b>TensorRT-optimized model</b> on
+        <b> NVIDIA Triton Inference Server</b>, doubling throughput from{" "}
+        <b>3 FPS to 6.5 FPS</b> via profiling and optimized post-processing
+        logic over <b>gRPC</b>.
       </>,
       <>
-        Explored different <b>YOLO models</b> and <b>NVIDIA DeepStream</b> for{" "}
-        object detection use cases, optimizing model performance and accuracy
-        for real-time applications.
+        Fine-tuned a <b>VideoMAE-based video classification model</b> for
+        <b> violence detection</b>, implementing multi-GPU training, mixed
+        precision.
       </>,
       <>
-        Currently learning <b>Rust</b> for microservice backend development and{" "}
-        implementing <b>gRPC APIs</b>, while training custom <b>YOLO models</b>{" "}
-        on domain-specific datasets.
+        Worked on continuous training and validation of a{" "}
+        <b>YOLO-based object detection model</b>, including hyperparameter
+        tuning and false-positive detection model, including hyperparameter
+        tuning and false-positive analysis.
       </>,
     ],
     duration: "November 2025 - Present",
