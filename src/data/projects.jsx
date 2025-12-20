@@ -7,6 +7,57 @@ import { fetchPinnedRepos } from "../api/fetchData";
 
 const projects = [
   {
+    title: "Tensorax",
+    description: (
+      <ul>
+        <li>
+          Built a <strong>standalone tensor computation library</strong> from
+          scratch with custom <strong>C++/CUDA kernels</strong> and Python
+          bindings, without relying on NumPy, PyTorch, or cuBLAS.
+        </li>
+        <li>
+          Implemented complete{" "}
+          <strong>automatic differentiation (autograd)</strong> with
+          computational graph and <strong>PyTorch-like API</strong> including
+          neural network layers, optimizers, and loss functions.
+        </li>
+        <li>
+          Developed and benchmarked optimized{" "}
+          <strong>CUDA matrix multiplication kernels</strong> using tiling,
+          shared memory, and memory coalescing techniques, achieving up to{" "}
+          <strong>2.3× speedup over NumPy</strong>.
+        </li>
+        <li>
+          Published on{" "}
+          <a href="https://pypi.org/project/tensorax/" target="_blank">
+            PyPI
+          </a>{" "}
+          as production-ready package with complete neural network training
+          pipeline including SGD, Adam optimizers, and multiple activation
+          functions.
+        </li>
+        <li>
+          Available on{" "}
+          <a href="https://github.com/NotShrirang/tensorax" target="_blank">
+            GitHub
+          </a>{" "}
+          with comprehensive documentation and examples.
+        </li>
+      </ul>
+    ),
+    image: "",
+    tags: [
+      "C++",
+      "CUDA",
+      "Python",
+      "PyBind11",
+      "GPU Computing",
+      "Deep Learning",
+    ],
+    domain: "ML",
+    link: "https://github.com/NotShrirang/tensorax",
+  },
+  {
     title: "TinyGPT",
     description: (
       <ul>
