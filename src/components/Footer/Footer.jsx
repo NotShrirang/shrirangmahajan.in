@@ -24,7 +24,7 @@ const Footer = () => {
           width="114"
           style={{ border: 0, borderRadius: 6 }}
         ></iframe>
-        <span>©2025 Shrirang Mahajan. All rights reserved.</span>
+        <span>©2026 Shrirang Mahajan. All rights reserved.</span>
       </div>
       <div className={styles.footerSocials}>
         <span>Follow me on:</span>
