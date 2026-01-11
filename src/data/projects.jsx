@@ -2,6 +2,8 @@ import DermaCare from "../assets/images/dermcare.png";
 import Sonnet from "../assets/images/Sonnet Logo.jpg";
 import LoomRag from "../assets/images/loomrag.jpeg";
 import TinyGPT from "../assets/images/TinyGPT.png";
+import Tensorax from "../assets/images/blogs/TensoraxExplained/cover.png";
+
 import getTheme from "../utils/theme";
 import { fetchPinnedRepos } from "../api/fetchData";
 
@@ -45,7 +47,7 @@ const projects = [
         </li>
       </ul>
     ),
-    image: "",
+    image: Tensorax,
     tags: [
       "C++",
       "CUDA",
