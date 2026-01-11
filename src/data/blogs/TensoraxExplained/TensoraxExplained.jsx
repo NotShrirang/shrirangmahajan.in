@@ -532,10 +532,11 @@ const tags = [
   "Matrix Multiplication",
   "Deep Learning",
   "Performance Optimization",
-  "Tutorial",
+  "C++",
+  "High Performance Computing",
 ];
 
-const date = "2025-01-11";
+const date = "2026-01-11";
 const readTime = 10;
 
 const TensoraxBlog = new BaseBlog(
