@@ -3,6 +3,7 @@ import AttentionBlog from "./blogs/AttentionExplanationIsAllYouNeed";
 import AttentionLayerbyLayerBlog from "./blogs/AttentionLayerByLayer";
 import Llama4NativelyMultimodalAI from "./blogs/Llama4NativelyMultimodalAI";
 import Llama2Blog from "./blogs/Llama2Explained/Llama2Explained";
+import TensoraxBlog from "./blogs/TensoraxExplained/TensoraxExplained";
 
 const blogs = [
     {
@@ -49,6 +50,15 @@ const blogs = [
         tags: Llama2Blog.tags,
         date: Llama2Blog.date,
         readTime: Llama2Blog.readTime,
+    },
+    {
+        title: TensoraxBlog.title,
+        content: TensoraxBlog.content,
+        slug: TensoraxBlog.slug,
+        image: TensoraxBlog.image,
+        tags: TensoraxBlog.tags,
+        date: TensoraxBlog.date,
+        readTime: TensoraxBlog.readTime,
     },
 ];
 
