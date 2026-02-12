@@ -35,7 +35,7 @@ const MenuBar = () => {
             className={styles.menuItem}
             onClick={() => {
               window.open(
-                "https://drive.google.com/file/d/1Y7EUEjyumHEovWwSYLUJxiuIzGHj7TuQ/view",
+                "https://drive.google.com/file/d/1gex06Ruc1n8Pwlihg14v8NdQj26uaSck/view",
                 "_blank"
               );
             }}
