@@ -4,6 +4,7 @@ import AttentionLayerbyLayerBlog from "./blogs/AttentionLayerByLayer";
 import Llama4NativelyMultimodalAI from "./blogs/Llama4NativelyMultimodalAI";
 import Llama2Blog from "./blogs/Llama2Explained/Llama2Explained";
 import TensoraxBlog from "./blogs/TensoraxExplained/TensoraxExplained";
+import TinyGPTBlog from "./blogs/TinyGPTPretraining/TinyGPTPretraining";
 
 const blogs = [
     {
@@ -59,6 +60,15 @@ const blogs = [
         tags: TensoraxBlog.tags,
         date: TensoraxBlog.date,
         readTime: TensoraxBlog.readTime,
+    },
+    {
+        title: TinyGPTBlog.title,
+        content: TinyGPTBlog.content,
+        slug: TinyGPTBlog.slug,
+        image: TinyGPTBlog.image,
+        tags: TinyGPTBlog.tags,
+        date: TinyGPTBlog.date,
+        readTime: TinyGPTBlog.readTime,
     },
 ];
 

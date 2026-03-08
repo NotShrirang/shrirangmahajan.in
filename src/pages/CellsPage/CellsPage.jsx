@@ -149,7 +149,7 @@ const CellsPage = () => {
                         onClick={() => {
                           window.open(
                             `https://github.com/NotShrirang?tab=repositories&q=${skill.name}&type=&language=${skill.name}&sort=`,
-                            "_blank"
+                            "_blank",
                           );
                         }}
                       >
@@ -395,8 +395,9 @@ const CellsPage = () => {
             ),
             output: (
               <div className={styles.simpleTextOutput}>
-                I have Bachlor's Degree in Computer Engineering (Minor: Data
-                Science) from Pune University. ❤️
+                I have a Bachelor's Degree in Computer Engineering (Minor: Data
+                Science) from Savitribai Phule Pune University with a CGPA of
+                9.14/10. ❤️
               </div>
             ),
           }}

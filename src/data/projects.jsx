@@ -64,40 +64,19 @@ const projects = [
     description: (
       <ul>
         <li>
-          Pre-trained <strong>TinyGPT</strong>, a 50M-parameter decoder-only
-          transformer model in PyTorch with{" "}
-          <strong>8 blocks, 8 attention heads, 512-dim embeddings</strong>, and
-          a 512-token context window. Trained it on{" "}
-          <b>~300M TinyStories tokens</b> for generating coherent short-form
-          narratives.
+          Pretrained <strong>TinyGPT</strong>, a <strong>95M-parameter</strong>{" "}
+          LLM from scratch in PyTorch on a constrained{" "}
+          <strong>RTX 3070 Ti (8GB VRAM)</strong>, utilizing{" "}
+          <strong>mixed-precision (AMP)</strong> and{" "}
+          <strong>gradient accumulation</strong> to prevent OOM errors.
         </li>
         <li>
-          <b>Runs efficiently on a single CPU</b> with a generation speed of{" "}
-          <b>11 tokens/second</b>, making it highly accessible for deployment on
-          edge devices.
+          Executed <b>Supervised Fine-Tuning (SFT)</b> on the{" "}
+          <b>Alpaca dataset</b> to improve instruction-following capabilities.
         </li>
         <li>
-          Fixed and streamlined the data preprocessing pipeline, ensuring
-          consistent tokenization and <b>sliding-window batching</b> to improve
-          training quality and model outputs.
-        </li>
-        <li>
-          Integrated advanced training techniques like{" "}
-          <strong>kernel fusion</strong>,{" "}
-          <strong>mixed-precision training</strong>,{" "}
-          <strong>gradient accumulation</strong>, and{" "}
-          <strong>cosine decay scheduling</strong> for faster, more stable
-          training.
-        </li>
-        <li>
-          Used PyTorch’s native <strong>multi-head attention</strong> to keep
-          self-attention computations efficient without compromising on
-          iteration speed or resource use.
-        </li>
-        <li>
-          Deployed an interactive <strong>Streamlit</strong> app for live story
-          generation with customizable temperature, top-k, and top-p sampling.
-          Also published the model on{" "}
+          Deployed an interactive <strong>Streamlit</strong> UI on a free-tier
+          CPU with <b>dynamic model switching</b>. Published the model on{" "}
           <a href="https://huggingface.co/NotShrirang" target="_blank">
             HuggingFace
           </a>{" "}
@@ -114,9 +93,53 @@ const projects = [
       </ul>
     ),
     image: TinyGPT,
-    tags: ["PyTorch", "Streamlit", "Transformers", "Multi-Head Attention"],
+    tags: ["PyTorch", "Streamlit", "HuggingFace", "Mixed-Precision Training"],
     domain: "ML",
     link: "https://github.com/NotShrirang/tinygpt",
+  },
+  {
+    title: "AgentFlow",
+    description: (
+      <ul>
+        <li>
+          Engineered a <b>multi-agent orchestration platform</b> using{" "}
+          <b>LangGraph</b> to handle intent classification, planning, and{" "}
+          automated tool execution.
+        </li>
+        <li>
+          Built a <b>scalable workflow engine</b> with custom scheduling{" "}
+          (cron/interval) and <b>JWT authentication</b>, deployed via{" "}
+          <b>Docker</b> for enterprise-grade reliability.
+        </li>
+      </ul>
+    ),
+    image:
+      "https://raw.githubusercontent.com/NotShrirang/NotShrirang/main/agentflow.png",
+    tags: ["LangGraph", "FastAPI", "React", "Docker", "Multi-Agent Systems"],
+    domain: "ML",
+    link: "https://github.com/NotShrirang/AgentFlow",
+  },
+  {
+    title: "Split.ai",
+    description: (
+      <ul>
+        <li>
+          Architected a <b>fault-tolerant receipt parsing engine</b> with a{" "}
+          <b>multi-LLM fallback strategy</b> (Gemini → Llama 3), ensuring{" "}
+          <b>99% extraction reliability</b>.
+        </li>
+        <li>
+          Implemented a <b>graph-based debt simplification algorithm</b> to{" "}
+          minimize transaction volume and utilized <b>Celery/RabbitMQ</b> for
+          asynchronous OCR processing.
+        </li>
+      </ul>
+    ),
+    image:
+      "https://raw.githubusercontent.com/NotShrirang/NotShrirang/main/splitai.png",
+    tags: ["Django", "Celery", "RabbitMQ", "Gemini", "Llama", "LLM"],
+    domain: "ML",
+    link: "https://github.com/NotShrirang/Split.ai",
   },
   {
     title: "QuillGPT",

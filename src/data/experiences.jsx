@@ -5,20 +5,31 @@ const fetchExperience = () => [
     company: "Skylark Labs",
     description: [
       <>
-        Optimized inference by deploying a <b>TensorRT-optimized model</b> on
-        <b> NVIDIA Triton Inference Server</b>, doubling throughput from{" "}
-        <b>3 FPS to 6.5 FPS</b> via profiling and optimized post-processing
+        Developed a production-grade <b>visual tracking system</b> featuring a{" "}
+        <b>7D Kalman filter</b> for multi-object tracking and predictive PiP
+        stabilization. Built an offline standalone tracker with{" "}
+        <b>Camera Motion Compensation</b> using sparse optical flow and affine
+        estimation, handling complex re-identification and dynamic state
+        switches.
+      </>,
+      <>
+        Optimized inference by deploying a <b>TensorRT-optimized model</b> on{" "}
+        <b>NVIDIA Triton Inference Server</b>, doubling throughput from{" "}
+        <b>3 FPS to 6–7 FPS</b> via profiling and optimized post-processing
         logic over <b>gRPC</b>.
       </>,
       <>
-        Fine-tuned a <b>VideoMAE-based video classification model</b> for
-        <b> violence detection</b>, implementing multi-GPU training, mixed
-        precision.
+        Architected and developed <b>Drishti</b>, a{" "}
+        <b>distributed annotation system</b> processing video datasets with{" "}
+        <b>GPU-accelerated</b> YOLO inference on Celery workers, automated
+        quality control, smart work distribution, and real-time batch
+        processing, deployed as a full-stack solution (
+        <b>Django + React + PostgreSQL + Docker</b>) with <b>Cloudflare R2</b>{" "}
+        integration, improving annotation throughput by <b>3x</b>.
       </>,
       <>
         Worked on continuous training and validation of a{" "}
         <b>YOLO-based object detection model</b>, including hyperparameter
-        tuning and false-positive detection model, including hyperparameter
         tuning and false-positive analysis.
       </>,
     ],
@@ -44,33 +55,15 @@ const fetchExperience = () => [
         optimal promotional strategy.
       </>,
       <>
-        Engineered an <b>SQL AI Agent</b> for BI Dashboarding using{" "}
-        <b>fine-tuned LLMs</b> for data retrieval through natural language;
-        built a <b>ReactJS/Tailwind frontend</b>, <b>Django/Docker backend</b>,
-        and interactive <b>Plotly dashboards</b> with <b>4s response time</b>.
+        Led the development of <b>SQL AI Agent</b> for BI dashboards using{" "}
+        <b>fine-tuned LLMs</b>, <b>React/Tailwind frontend</b>, and{" "}
+        <b>Django/Docker backend</b>, delivering <b>sub-5s queries</b> and
+        deployed across multiple enterprise clients, evolving into a{" "}
+        <b>core revenue-generating product</b> and reducing query turnaround
+        time by <b>90%</b>.
       </>,
     ],
-    duration: "June 2024 - November 2025",
-    link: "https://www.ellicium.com/",
-  },
-  {
-    id: 3,
-    title: "Data Science Intern",
-    company: "Emergys",
-    description: [
-      <>
-        <b>Researched and implemented</b> optimized data retrieval techniques in{" "}
-        <b>FAISS Vectorstore</b>, improving retrieval speed by <b>25-30%</b>,
-        contributing to faster data access and enhanced model performance.
-      </>,
-      <>
-        <b>Developed a legal document explainer tool</b> combining{" "}
-        <b>Retrieval-Augmented Generation (RAG)</b> with <b>LLMs</b>,
-        simplifying complex legal language for diverse users, and providing
-        concise summaries within <b>5-7 seconds</b>.
-      </>,
-    ],
-    duration: "January 2024 - June 2024",
+    duration: "July 2024 - October 2025",
     link: "https://www.ellicium.com/",
   },
   {
