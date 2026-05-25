@@ -27,6 +27,12 @@
   <meta name="author" content="Shrirang Mahajan" />
   <link rel="canonical" href="https://www.shrirangmahajan.in/" />
 
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+
   <!-- Open Graph -->
   <meta property="og:type" content="profile" />
   <meta property="og:site_name" content="Shrirang Mahajan" />
@@ -120,7 +126,11 @@
   </script>
 </head>
 
-<body>
+<body data-mode="modern">
+  <script>
+    // Set initial body mode before React mounts to avoid FOUC.
+    if (location.pathname.startsWith('/jupyter')) document.body.dataset.mode = 'jupyter';
+  </script>
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
 

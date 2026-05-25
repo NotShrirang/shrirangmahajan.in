@@ -12,18 +12,32 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
       workbox: {
-        runtimeCaching: [{
-          urlPattern: ({ url }) => {
-            return url.pathname.search('api.github.com') !== -1;
+        // Don't precache onnxruntime-web's WASM artifacts (~20MB each); they're
+        // pulled from a CDN at runtime via ort.env.wasm.wasmPaths.
+        globPatterns: ['**/*.{js,css,html,svg,png,ico,woff,woff2,ttf}'],
+        maximumFileSizeToCacheInBytes: 10 * 1024 * 1024,
+        runtimeCaching: [
+          {
+            urlPattern: ({ url }) =>
+              url.pathname.search('api.github.com') !== -1,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'api-cache',
+              cacheableResponse: { statuses: [0, 200] },
+            },
           },
-          handler: 'CacheFirst',
-          options: {
-            cacheName: 'api-cache',
-            cacheableResponse: {
-              statuses: [0, 200]
-            }
-          }
-        }]
+          {
+            // Cache the TinyGPT ONNX so subsequent visits are instant.
+            urlPattern: ({ url }) =>
+              url.hostname === 'huggingface.co' && url.pathname.endsWith('.onnx'),
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'tinygpt-onnx',
+              cacheableResponse: { statuses: [0, 200] },
+              expiration: { maxEntries: 4, maxAgeSeconds: 60 * 60 * 24 * 30 },
+            },
+          },
+        ],
       },
       manifest: {
         name: 'Shrirang Mahajan Portfolio',

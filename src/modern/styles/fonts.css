@@ -1,0 +1,18 @@
+/* Self-hosted Instrument Serif — guarantees the display font is available
+   even if Google Fonts is blocked, slow, or cached out. */
+
+@font-face {
+  font-family: "Instrument Serif";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/InstrumentSerif-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Instrument Serif";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/InstrumentSerif-Italic.ttf") format("truetype");
+}

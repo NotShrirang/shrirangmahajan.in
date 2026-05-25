@@ -10,7 +10,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-  width: 100vw;
+  /* No width: 100vw — 100vw includes the vertical scrollbar's width on
+     most browsers, which makes the root wider than the visible viewport
+     and produces a horizontal scrollbar. Default (100%) is correct. */
 }
 
 ::-webkit-scrollbar {
@@ -120,6 +122,8 @@ body {
     format("truetype");
 }
 
-* {
+/* Default Montserrat for the legacy Jupyter chrome only. The modern site
+   declares its own font stack via body[data-mode="modern"] in modern/styles/base.css. */
+body:not([data-mode="modern"]) * {
   font-family: "Montserrat", sans-serif;
 }

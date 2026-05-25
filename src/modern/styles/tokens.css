@@ -1,0 +1,40 @@
+:root {
+  /* Paper palette — warm cream + ink */
+  --paper: #f1ebde;
+  --paper-deep: #e8dfca;
+  --paper-rich: #ddd1b6;
+  --ink: #1a1714;
+  --ink-soft: #3a342c;
+  --ink-mute: #7b7264;
+  --rule: #cdc2a8;
+  --rule-soft: #ddd2b8;
+
+  /* Signature accent — burnt sienna */
+  --accent: #b8501b;
+  --accent-deep: #893710;
+  --accent-bright: #d96026;
+  --accent-soft: #efd2b3;
+  --accent-glow: rgba(184, 80, 27, 0.12);
+
+  /* Typography — Instrument Serif is self-hosted (see fonts.css), with
+     widely-available serif fallbacks so even if the font fails to load
+     the display type is unmistakably serif. */
+  --font-display: "Instrument Serif", "Iowan Old Style", "Hoefler Text",
+    Georgia, "Times New Roman", serif;
+  --font-body: "Manrope", -apple-system, "Segoe UI", Helvetica, Arial,
+    sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Consolas,
+    monospace;
+
+  /* Layout */
+  --max: 76rem;
+  --readable: 38rem;
+  --gutter: clamp(1.25rem, 5vw, 4.5rem);
+  --section-y: clamp(4rem, 10vw, 8rem);
+
+  /* Motion */
+  --ease: cubic-bezier(0.2, 0.6, 0.2, 1);
+  --slow: 700ms;
+  --med: 320ms;
+  --fast: 160ms;
+}

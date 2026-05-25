@@ -1,15 +1,19 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import styles from "./BlogCard.module.css";
 
 const BlogCard = ({ blog }) => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const basePath = location.pathname.startsWith("/jupyter") ? "/jupyter" : "";
+  const target = `${basePath}/blogs/${blog.slug}`;
+
   return (
     <div
       className={styles.BlogCard}
       onClick={() => {
-        navigate(`/blogs/${blog.slug}`);
+        navigate(target);
         window.location.reload();
       }}
     >
@@ -31,7 +35,7 @@ const BlogCard = ({ blog }) => {
             })}
           </div>
           <a
-            href={`/blogs/${blog.slug}`}
+            href={target}
             className={styles.BlogCardInfoReadMoreAnchor}
           >
             <div className={styles.BlogCardInfoReadMoreText}>Read More</div>

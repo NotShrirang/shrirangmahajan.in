@@ -240,7 +240,7 @@ const CellsPage = () => {
                 <div
                   className={styles.projectFooter}
                   onClick={() => {
-                    navigate("/projects");
+                    navigate("/jupyter/projects");
                   }}
                 >
                   <div className={styles.projectFooterLink}>
@@ -307,7 +307,7 @@ const CellsPage = () => {
                   <div
                     className={styles.projectFooter}
                     onClick={() => {
-                      navigate("/experience");
+                      navigate("/jupyter/experience");
                     }}
                   >
                     <div className={styles.projectFooterLink}>View Details</div>

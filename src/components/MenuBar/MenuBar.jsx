@@ -1,33 +1,29 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./MenuBar.module.css";
-import router from "../../router";
 
 const MenuBar = () => {
+  const navigate = useNavigate();
+
   return (
     <div className={styles.menuBarContainer}>
       <div className={styles.menuBarContent}>
         <div className={styles.menuComponent}>
           <div
             className={styles.menuItemFirst}
-            onClick={() => {
-              router.navigate("/");
-            }}
+            onClick={() => navigate("/jupyter")}
           >
             Home
           </div>
           <div
             className={styles.menuItem}
-            onClick={() => {
-              router.navigate("/experience/");
-            }}
+            onClick={() => navigate("/jupyter/experience")}
           >
             Experience
           </div>
           <div
             className={styles.menuItem}
-            onClick={() => {
-              router.navigate("/projects/");
-            }}
+            onClick={() => navigate("/jupyter/projects")}
           >
             Projects
           </div>
@@ -44,23 +40,26 @@ const MenuBar = () => {
           </div>
           <div
             className={styles.menuItem}
-            onClick={() => {
-              router.navigate("/blogs/");
-            }}
+            onClick={() => navigate("/jupyter/blogs")}
           >
             Blogs
           </div>
           <div
             className={styles.menuItem}
-            onClick={() => {
-              router.navigate("/contact/");
-            }}
+            onClick={() => navigate("/jupyter/contact")}
           >
             Contact
           </div>
         </div>
         <div className={styles.trustedContainer}>
-          <div className={styles.trusted}>Trusted</div>
+          <div
+            className={styles.trusted}
+            onClick={() => navigate("/")}
+            title="Exit Jupyter mode"
+            style={{ cursor: "pointer" }}
+          >
+            ← Modern site
+          </div>
         </div>
       </div>
     </div>
