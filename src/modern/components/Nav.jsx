@@ -61,6 +61,19 @@ export default function Nav() {
               {l.label}
             </NavLink>
           ))}
+          <NavLink
+            to="/tinygpt"
+            className={({ isActive }) =>
+              `${styles.promoLink} ${isActive ? styles.promoLinkActive : ""}`
+            }
+            title="An LLM I trained, running in your browser"
+          >
+            <span className={styles.promoDot} aria-hidden="true" />
+            <span className={styles.promoLabel}>TinyGPT</span>
+            <span className={styles.promoArrow} aria-hidden="true">
+              ↗
+            </span>
+          </NavLink>
           <span className={styles.divider} aria-hidden="true" />
           <Link
             to="/jupyter"

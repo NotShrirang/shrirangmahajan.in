@@ -10,10 +10,10 @@ import skills from "../../data/skills";
 import reactElementToString from "../../utils/reactElementToString";
 
 const SUGGESTIONS = [
-  "What did you do at Skylark Labs?",
+  "What did Shrirang do at Skylark Labs?",
   "Tell me about Tensorax.",
-  "How did you pretrain TinyGPT on a single GPU?",
-  "What's your favorite CUDA optimization?",
+  "How was TinyGPT pretrained on a single GPU?",
+  "What's Shrirang's strongest skill area?",
 ];
 
 export default function ChatPanel() {
@@ -97,28 +97,14 @@ Description: ${reactElementToString(e.description)}`
   };
 
   return (
-    <section className={styles.panel} aria-label="Ask me anything">
-      <div className={styles.head}>
-        <div className={styles.kicker}>
-          <span className={styles.dot} aria-hidden="true" />
-          Ask me anything
-        </div>
-        <h2 className={styles.heading}>
-          A small <em>AI</em> trained on everything I've done.
-        </h2>
-        <p className={styles.sub}>
-          Powered by a Groq-hosted model with my projects, skills, and
-          experience as context. Ask about my work, my code, or anything else
-          on this site.
-        </p>
-      </div>
-
+    <div className={styles.shell} aria-label="Ask me anything">
       <div className={styles.frame}>
         <div className={styles.transcript} ref={scrollerRef}>
           {messages.length === 0 && (
             <div className={styles.empty}>
               <p className={styles.emptyLine}>
-                <em>Hi there.</em> Try one of these — or ask your own.
+                <em>I know this entire site.</em> Ask me about Shrirang's
+                work, or pick a prompt below.
               </p>
               <div className={styles.suggestions}>
                 {SUGGESTIONS.map((q) => (
@@ -143,7 +129,7 @@ Description: ${reactElementToString(e.description)}`
               }`}
             >
               <div className={styles.msgLabel}>
-                {m.sender === "user" ? "You" : "Reply"}
+                {m.sender === "user" ? "You" : "Assistant"}
               </div>
               <div className={styles.msgBody}>
                 {m.sender === "user" ? (
@@ -192,6 +178,6 @@ Description: ${reactElementToString(e.description)}`
           </button>
         </form>
       </div>
-    </section>
+    </div>
   );
 }

@@ -18,6 +18,51 @@ function durationToYears(d) {
   return { start: startYear, end: endYear };
 }
 
+/* Causal attention — 16×16 minimalist animation. No labels, no chrome.
+   Cells light up row by row (decoding order), with a tiny left-to-right
+   stagger within each row so the wave reads as a real query-by-query
+   scan rather than a diagonal sweep. */
+function CausalAttentionViz({ size = 16 }) {
+  const cycle = 4800;
+  const rowSlot = cycle / size; // 300ms per row at 4.8s / 16
+  const cells = [];
+  for (let r = 0; r < size; r++) {
+    for (let c = 0; c < size; c++) {
+      if (c > r) {
+        cells.push(<div key={`${r}-${c}`} className={styles.causalCell} />);
+        continue;
+      }
+      const intensity = Math.max(0.45, 1 - (r - c) / (size - 1));
+      // Row-major: each row fires together, cells inside it ripple left→right.
+      const delay = r * rowSlot + c * 10;
+      cells.push(
+        <div
+          key={`${r}-${c}`}
+          className={`${styles.causalCell} ${styles.causalCellActive}`}
+          style={{
+            "--cellIntensity": intensity,
+            animationDelay: `${delay}ms`,
+            animationDuration: `${cycle}ms`,
+          }}
+        />
+      );
+    }
+  }
+  return (
+    <div
+      className={styles.causalGrid}
+      style={{
+        gridTemplateColumns: `repeat(${size}, 1fr)`,
+        gridTemplateRows: `repeat(${size}, 1fr)`,
+      }}
+    >
+      {cells}
+    </div>
+  );
+}
+
+const HERO_CAPTION = "Causal attention";
+
 export default function Home() {
   useEffect(() => {
     document.title = "Shrirang Mahajan — Full-Stack AI Developer & ML Engineer";
@@ -34,49 +79,61 @@ export default function Home() {
     <article className={styles.article}>
       {/* ─────────────────────────  HERO  ───────────────────────── */}
       <header className={styles.hero}>
-        <p className={styles.kicker}>
-          Machine Learning Engineer
-          <span className={styles.kickerDot}>·</span>
-          Pune, India
-        </p>
+        <div className={styles.heroText}>
+          <p className={styles.kicker}>
+            Machine Learning Engineer
+            <span className={styles.kickerDot}>·</span>
+            Pune, India
+          </p>
 
-        <h1 className={styles.title}>
-          Shrirang <em>Mahajan</em>
-          <sup className={styles.star} title="in search of global maximum">
-            *
-          </sup>
-        </h1>
+          <h1 className={styles.title}>
+            Shrirang <em>Mahajan</em>
+            <sup className={styles.star} title="in search of global maximum">
+              *
+            </sup>
+          </h1>
 
-        <p className={styles.lede}>
-          I build the systems that build the systems — LLMs trained from
-          scratch, CUDA kernels written by hand, and production ML that triples
-          throughput.
-        </p>
+          <p className={styles.lede}>
+            I build the systems that build the systems — LLMs trained from
+            scratch, CUDA kernels written by hand, and production ML that
+            triples throughput.
+          </p>
 
-        <p className={styles.currently}>
-          Currently Machine Learning Engineer II at{" "}
-          <a
-            href="https://skylarklabs.ai/"
-            target="_blank"
-            rel="noreferrer noopener"
-            className={styles.currentlyLink}
-          >
-            Skylark Labs
-          </a>
-          .
-        </p>
+          <p className={styles.currently}>
+            Currently Machine Learning Engineer II at{" "}
+            <a
+              href="https://skylarklabs.ai/"
+              target="_blank"
+              rel="noreferrer noopener"
+              className={styles.currentlyLink}
+            >
+              Skylark Labs
+            </a>
+            .
+          </p>
 
-        <div className={styles.cta}>
-          <Link to="/projects" className={styles.ctaPrimary}>
-            <span className={styles.ctaLabel}>See selected work</span>
-            <span className={styles.ctaArr} aria-hidden="true">
-              →
-            </span>
-          </Link>
-          <Link to="/contact" className={styles.ctaSecondary}>
-            Get in touch
-          </Link>
+          <div className={styles.cta}>
+            <Link to="/projects" className={styles.ctaPrimary}>
+              <span className={styles.ctaLabel}>See selected work</span>
+              <span className={styles.ctaArr} aria-hidden="true">
+                →
+              </span>
+            </Link>
+            <Link to="/contact" className={styles.ctaSecondary}>
+              Get in touch
+            </Link>
+          </div>
         </div>
+
+        <aside className={styles.heroVisual} aria-hidden="true">
+          <div className={styles.heroVisualFrame}>
+            <CausalAttentionViz size={20} />
+          </div>
+          <div className={styles.attnCaption}>
+            <span className={styles.attnCaptionDot} />
+            <span>{HERO_CAPTION}</span>
+          </div>
+        </aside>
       </header>
 
       {/* ─────────────────────────  APPROACH  ───────────────────────── */}
@@ -175,7 +232,26 @@ export default function Home() {
       </section>
 
       {/* ─────────────────────────  LIVE DEMO  ───────────────────────── */}
-      <LiveDemo />
+      <section id="demo" className={styles.section}>
+        <div className={styles.sectionHead}>
+          <div className={styles.sectionLabel}>
+            <span className={styles.sectionNum}>02</span>
+            <span className={styles.sectionLabelText}>
+              TinyGPT <span className={styles.sectionLabelTag}>· my model · local</span>
+            </span>
+          </div>
+          <h2 className={styles.sectionTitle}>
+            My 95M-parameter LLM, <em>running on your device.</em>
+          </h2>
+          <p className={styles.sectionLede}>
+            The model I trained from scratch on a single RTX 3070 Ti, then
+            instruction-tuned on Stanford Alpaca. Click to download the ONNX
+            weights (~95 MB) — inference then runs locally via WebGPU (or
+            WASM fallback). Fluent English, often wrong facts — it's small.
+          </p>
+        </div>
+        <LiveDemo />
+      </section>
 
       {/* ─────────────────────  SELECTED WORK  ───────────────────── */}
       <section id="work" className={styles.section}>
@@ -278,50 +354,11 @@ export default function Home() {
         </Link>
       </section>
 
-      {/* ─────────────────────────  NOW  ─────────────────────────── */}
-      <section id="now" className={styles.section}>
-        <div className={styles.sectionHead}>
-          <div className={styles.sectionLabel}>
-            <span className={styles.sectionNum}>05</span>
-            <span className={styles.sectionLabelText}>Now</span>
-          </div>
-          <h2 className={styles.sectionTitle}>
-            What I'm <em>working on</em> this season.
-          </h2>
-        </div>
-
-        <div className={styles.now}>
-          <p>
-            At Skylark Labs, I'm shipping a production visual tracking system
-            with a 7D Kalman filter and predictive PiP stabilization, plus an
-            offline tracker that handles camera-motion compensation through
-            sparse optical flow.
-          </p>
-          <p>
-            On the inference side: a TensorRT-optimized model behind NVIDIA
-            Triton, profiling away post-processing overhead to{" "}
-            <strong>double throughput from 3 to 7 FPS over gRPC.</strong>
-          </p>
-          <p>
-            And <em>Drishti</em> — a distributed annotation pipeline with
-            GPU-accelerated YOLO inference on Celery workers, deployed as a
-            full-stack Django + React + Postgres + R2 system. Annotation
-            throughput is up <strong>3×</strong>.
-          </p>
-          <p className={styles.nowStamp}>
-            <span className={styles.nowStampDot} /> Updated November 2025
-          </p>
-        </div>
-      </section>
-
-      {/* ───────────────────────  CHAT PANEL  ─────────────────────── */}
-      <ChatPanel />
-
       {/* ───────────────────────  EXPERIENCE  ─────────────────────── */}
       <section id="experience" className={styles.section}>
         <div className={styles.sectionHead}>
           <div className={styles.sectionLabel}>
-            <span className={styles.sectionNum}>06</span>
+            <span className={styles.sectionNum}>05</span>
             <span className={styles.sectionLabelText}>Experience</span>
           </div>
           <h2 className={styles.sectionTitle}>
@@ -360,6 +397,29 @@ export default function Home() {
         <Link to="/experience" className={styles.sectionMore}>
           Full work history <span aria-hidden="true">→</span>
         </Link>
+      </section>
+
+      {/* ─────────────────────  SITE ASSISTANT (CHAT)  ────────────────── */}
+      <section id="chat" className={styles.section}>
+        <div className={styles.sectionHead}>
+          <div className={styles.sectionLabel}>
+            <span className={styles.sectionNum}>06</span>
+            <span className={styles.sectionLabelText}>
+              Site Assistant{" "}
+              <span className={styles.sectionLabelTag}>· Groq · grounded</span>
+            </span>
+          </div>
+          <h2 className={styles.sectionTitle}>
+            Ask <em>about</em> this site.
+          </h2>
+          <p className={styles.sectionLede}>
+            A production-grade LLM hosted on Groq, grounded in this site's
+            content — every project, role, blog post, and skill on this page
+            is in its context. Different from TinyGPT above: this one is
+            factually reliable about <em>me.</em>
+          </p>
+        </div>
+        <ChatPanel />
       </section>
 
       {/* ─────────────────────  CLOSING NOTE  ─────────────────────── */}

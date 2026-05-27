@@ -3,19 +3,35 @@ import { Link } from "react-router-dom";
 import styles from "./Writing.module.css";
 import blogs from "../../data/blogs";
 
+const TOP_TAG_LIMIT = 6;
+
 export default function Writing() {
   const [query, setQuery] = useState("");
   const [activeTag, setActiveTag] = useState("All");
+  const [showAllTags, setShowAllTags] = useState(false);
 
   useEffect(() => {
     document.title = "Writing — Shrirang Mahajan";
   }, []);
 
-  const allTags = useMemo(() => {
-    const s = new Set();
-    blogs.forEach((b) => b.tags.forEach((t) => s.add(t)));
-    return ["All", ...Array.from(s)];
+  // Build tag → count, then sort by frequency. We show only the top N tags
+  // by default and hide the rest behind a "+N more" toggle; the search
+  // input handles the long-tail.
+  const { topTags, restTags } = useMemo(() => {
+    const counts = new Map();
+    blogs.forEach((b) =>
+      b.tags.forEach((t) => counts.set(t, (counts.get(t) || 0) + 1))
+    );
+    const sorted = Array.from(counts.entries())
+      .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+      .map(([t]) => t);
+    return {
+      topTags: sorted.slice(0, TOP_TAG_LIMIT),
+      restTags: sorted.slice(TOP_TAG_LIMIT),
+    };
   }, []);
+
+  const visibleTags = ["All", ...topTags, ...(showAllTags ? restTags : [])];
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -48,7 +64,7 @@ export default function Writing() {
 
       <div className={styles.controls}>
         <div className={styles.tags}>
-          {allTags.map((t) => (
+          {visibleTags.map((t) => (
             <button
               key={t}
               type="button"
@@ -60,6 +76,16 @@ export default function Writing() {
               {t}
             </button>
           ))}
+          {restTags.length > 0 && (
+            <button
+              type="button"
+              className={styles.chipMore}
+              onClick={() => setShowAllTags((v) => !v)}
+              aria-expanded={showAllTags}
+            >
+              {showAllTags ? "Less" : `+${restTags.length} more`}
+            </button>
+          )}
         </div>
         <div className={styles.search}>
           <span className={styles.searchIcon} aria-hidden="true">

@@ -1,9 +1,25 @@
+@keyframes mFadeUp {
+  0% { opacity: 0; transform: translateY(0.6rem); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
 .article {
   max-width: var(--max);
   margin: 0 auto;
   padding: clamp(3rem, 7vw, 5rem) var(--gutter) 4rem;
   position: relative;
   z-index: 2;
+  animation: mFadeUp 600ms var(--ease) both;
+}
+
+.head {
+  animation: mFadeUp 700ms var(--ease) both;
+  animation-delay: 80ms;
+}
+
+.grid {
+  animation: mFadeUp 700ms var(--ease) both;
+  animation-delay: 200ms;
 }
 
 .head {

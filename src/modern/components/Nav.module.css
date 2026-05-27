@@ -90,6 +90,68 @@
   background: var(--rule);
 }
 
+/* Promoted nav link — calls attention to the TinyGPT demo without yelling. */
+.promoLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55ch;
+  padding: 0.4rem 0.9rem;
+  background: color-mix(in srgb, var(--accent-soft) 60%, var(--paper));
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  border-radius: 999px;
+  color: var(--accent-deep);
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  transition: all var(--fast) var(--ease);
+}
+.promoLink:hover,
+.promoLinkActive {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--paper);
+}
+.promoDot {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 0 0 0.2rem var(--accent-glow);
+  animation: promoPulse 2s ease-in-out infinite;
+}
+.promoLinkActive .promoDot,
+.promoLink:hover .promoDot {
+  background: var(--paper);
+  box-shadow: 0 0 0 0.18rem color-mix(in srgb, var(--paper) 30%, transparent);
+}
+@keyframes promoPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+.promoLabel {
+  font-family: "Instrument Serif", Georgia, serif;
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1;
+}
+.promoArrow {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  line-height: 1;
+  margin-left: 0.15rem;
+  transition: transform var(--med) var(--ease);
+}
+.promoLink:hover .promoArrow,
+.promoLinkActive .promoArrow {
+  transform: translate(0.15em, -0.15em);
+}
+
 .jupyterLink {
   display: inline-flex;
   align-items: center;

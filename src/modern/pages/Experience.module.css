@@ -1,10 +1,30 @@
+@keyframes mFadeUp {
+  0% { opacity: 0; transform: translateY(0.6rem); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
 .article {
   max-width: var(--max);
   margin: 0 auto;
   padding: clamp(3rem, 7vw, 5rem) var(--gutter) 4rem;
   position: relative;
   z-index: 2;
+  animation: mFadeUp 600ms var(--ease) both;
 }
+
+.head {
+  animation: mFadeUp 700ms var(--ease) both;
+  animation-delay: 80ms;
+}
+
+.row {
+  animation: mFadeUp 550ms var(--ease) both;
+}
+.row:nth-of-type(1) { animation-delay: 200ms; }
+.row:nth-of-type(2) { animation-delay: 290ms; }
+.row:nth-of-type(3) { animation-delay: 380ms; }
+.row:nth-of-type(4) { animation-delay: 470ms; }
+.row:nth-of-type(n + 5) { animation-delay: 560ms; }
 
 .head {
   max-width: 48rem;

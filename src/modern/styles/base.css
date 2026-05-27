@@ -135,6 +135,15 @@ body:not([data-mode="modern"])::before {
   }
 }
 
+@keyframes mFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 @keyframes mDrawLine {
   0% {
     transform: scaleX(0);
@@ -142,6 +151,27 @@ body:not([data-mode="modern"])::before {
   100% {
     transform: scaleX(1);
   }
+}
+
+/* Text-reveal: text uncovers from left to right with a clip-path wipe.
+   Works on any heading without needing JS or known character counts. */
+@keyframes mTextReveal {
+  0% {
+    clip-path: inset(0 100% 0 0);
+  }
+  100% {
+    clip-path: inset(0 0% 0 0);
+  }
+}
+
+/* Utility — reveal a heading word-by-word style with the wipe. */
+.m-reveal {
+  animation: mTextReveal 900ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+/* Utility — page-enter animation. Apply to each route's outermost article. */
+.m-page-enter {
+  animation: mFadeUp 600ms var(--ease) both;
 }
 
 @media (prefers-reduced-motion: reduce) {

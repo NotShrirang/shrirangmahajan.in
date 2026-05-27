@@ -1,10 +1,35 @@
+/* Locally-scoped keyframes (CSS Modules hashes identifiers in module
+   files, so global @keyframes in base.css aren't reachable from here).
+   Duplicating into each module is the simplest reliable approach. */
+@keyframes mFadeUp {
+  0% { opacity: 0; transform: translateY(0.6rem); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
 .article {
   max-width: var(--max);
   margin: 0 auto;
   padding: clamp(3rem, 7vw, 5rem) var(--gutter) 4rem;
   position: relative;
   z-index: 2;
+  animation: mFadeUp 600ms var(--ease) both;
 }
+
+.head {
+  animation: mFadeUp 700ms var(--ease) both;
+  animation-delay: 80ms;
+}
+
+.item {
+  animation: mFadeUp 550ms var(--ease) both;
+}
+.item:nth-child(1) { animation-delay: 180ms; }
+.item:nth-child(2) { animation-delay: 250ms; }
+.item:nth-child(3) { animation-delay: 320ms; }
+.item:nth-child(4) { animation-delay: 390ms; }
+.item:nth-child(5) { animation-delay: 460ms; }
+.item:nth-child(6) { animation-delay: 530ms; }
+.item:nth-child(n + 7) { animation-delay: 600ms; }
 
 .head {
   max-width: 48rem;

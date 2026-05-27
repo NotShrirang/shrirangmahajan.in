@@ -335,31 +335,14 @@ export default function LiveDemo() {
     progress.total > 0 ? (progress.loaded / progress.total) * 100 : 0;
 
   return (
-    <section className={styles.panel} aria-label="Live TinyGPT demo">
-      <div className={styles.head}>
-        <div className={styles.kicker}>
-          <span className={styles.kickerNum}>02</span>
-          <span className={styles.kickerRule} />
-          <span>Live Demo</span>
-        </div>
-        <h2 className={styles.heading}>
-          Run TinyGPT <em>in your browser.</em>
-        </h2>
-        <p className={styles.sub}>
-          95M parameters. 12 layers. GQA + RoPE + RMSNorm. Trained from scratch
-          on a single RTX 3070 Ti, then instruction-tuned on Stanford Alpaca.
-          Click to download the ONNX-converted weights and run them locally —
-          no API, no server, just <code>navigator.gpu</code> (or WASM if your
-          browser doesn't have it).
-        </p>
-        <p className={styles.caveat}>
-          <span className={styles.caveatLabel}>A note —</span> at 95M
-          parameters, TinyGPT speaks English fluently but{" "}
-          <em>isn't reliable on facts.</em> It will write a coherent sentence
-          about anything, and confidently make things up. Treat it as a
-          coherence demo, not a knowledge model.
-        </p>
-      </div>
+    <div className={styles.shell} aria-label="Live TinyGPT demo">
+      <p className={styles.caveat}>
+        <span className={styles.caveatLabel}>A note —</span> at 95M
+        parameters, TinyGPT speaks English fluently but{" "}
+        <em>isn't reliable on facts.</em> It will write a coherent sentence
+        about anything, and confidently make things up. Treat it as a
+        coherence demo, not a knowledge model.
+      </p>
 
       <div className={styles.frame}>
         {/* ── IDLE — pre-load CTA ── */}
@@ -571,6 +554,6 @@ export default function LiveDemo() {
           </div>
         )}
       </div>
-    </section>
+    </div>
   );
 }

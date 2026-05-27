@@ -36,6 +36,7 @@ import Writing from "./modern/pages/Writing";
 import Post from "./modern/pages/Post";
 import Experience from "./modern/pages/Experience";
 import Contact from "./modern/pages/Contact";
+import TinyGPT from "./modern/pages/TinyGPT";
 
 function ModeBodyClass() {
   const location = useLocation();
@@ -93,6 +94,7 @@ function App() {
               <Route path="/blogs/:slug" element={<Post />} />
               <Route path="/experience" element={<Experience />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/tinygpt" element={<TinyGPT />} />
             </Route>
             <Route path="/jupyter" element={<JupyterLayout />}>
               <Route index element={<CellsPage />} />

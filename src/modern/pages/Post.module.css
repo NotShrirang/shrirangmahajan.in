@@ -1,9 +1,34 @@
+@keyframes mFadeUp {
+  0% { opacity: 0; transform: translateY(0.6rem); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes mFadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
 .article {
   max-width: 44rem;
   margin: 0 auto;
   padding: clamp(2.5rem, 6vw, 5rem) var(--gutter) 4rem;
   position: relative;
   z-index: 2;
+  animation: mFadeUp 600ms var(--ease) both;
+}
+
+.head {
+  animation: mFadeUp 700ms var(--ease) both;
+  animation-delay: 80ms;
+}
+
+.cover {
+  animation: mFadeIn 800ms var(--ease) both;
+  animation-delay: 200ms;
+}
+
+.content {
+  animation: mFadeIn 800ms var(--ease) both;
+  animation-delay: 300ms;
 }
 
 .progress {
