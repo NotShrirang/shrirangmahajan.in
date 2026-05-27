@@ -108,7 +108,6 @@
   height: 0.55rem;
   border-radius: 999px;
   background: var(--accent);
-  box-shadow: 0 0 0 0.25rem var(--accent-glow);
   margin-left: 0.2rem;
 }
 

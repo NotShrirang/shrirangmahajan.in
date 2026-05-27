@@ -387,21 +387,23 @@ export default function LiveDemo() {
               </div>
             </div>
 
-            <button
-              type="button"
-              className={styles.loadCta}
-              onClick={handleLoad}
-            >
-              <span className={styles.loadCtaLabel}>Load TinyGPT</span>
-              <span className={styles.loadCtaArr} aria-hidden="true">
-                →
-              </span>
-            </button>
-
-            <p className={styles.fine}>
-              The model runs entirely on your device. Nothing about your
-              prompts leaves your browser.
-            </p>
+            <div className={styles.idleCtaRow}>
+              <button
+                type="button"
+                className={styles.loadCta}
+                onClick={handleLoad}
+              >
+                <span className={styles.loadCtaIcon} aria-hidden="true">
+                  ▶
+                </span>
+                <span className={styles.loadCtaLabel}>Load TinyGPT</span>
+                <span className={styles.loadCtaSize}>536 MB</span>
+              </button>
+              <p className={styles.idleHint}>
+                <span aria-hidden="true">↑</span>{" "}
+                Click to download the model and run it locally.
+              </p>
+            </div>
           </div>
         )}
 

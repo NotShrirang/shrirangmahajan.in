@@ -6,8 +6,8 @@
   100% { opacity: 1; transform: translateY(0); }
 }
 @keyframes mTextReveal {
-  0% { clip-path: inset(0 100% 0 0); }
-  100% { clip-path: inset(0 0% 0 0); }
+  0% { clip-path: inset(-10% 100% -20% 0); }
+  100% { clip-path: inset(-10% 0% -20% 0); }
 }
 
 .article {
@@ -140,11 +140,10 @@
   justify-content: center;
 }
 .attnCaptionDot {
-  width: 0.4rem;
-  height: 0.4rem;
-  border-radius: 999px;
+  display: inline-block;
+  width: 0.8rem;
+  height: 1px;
   background: var(--accent);
-  box-shadow: 0 0 0 0.15rem var(--accent-glow);
 }
 
 @media (max-width: 880px) {
@@ -189,12 +188,16 @@
     "Times New Roman", serif;
   font-weight: 400;
   font-size: clamp(3.4rem, 9vw, 7rem);
-  line-height: 1;
+  /* line-height 1 clips Instrument Serif's descenders ('j' in Mahajan).
+     1.08 gives enough room without breaking the tight aesthetic. */
+  line-height: 1.08;
   letter-spacing: -0.02em;
   margin: 0;
+  padding-bottom: 0.1em;
   color: var(--ink);
   /* Wipe-reveal effect — the title uncovers left-to-right rather than
-     fading. Reads more like a typewriter than a fade. */
+     fading. Reads more like a typewriter than a fade. The negative
+     bottom inset lets descenders escape the clip-path box. */
   animation: mTextReveal 1100ms cubic-bezier(0.4, 0, 0.2, 1) both;
   animation-delay: 100ms;
 }
@@ -286,6 +289,12 @@
 }
 .ctaPrimary:hover {
   background: transparent;
+  /* Override the global `body[data-mode="modern"] a:hover { color: var(--accent) }`
+     rule — without this, the button text turns burnt sienna and disappears
+     against the burnt-sienna hover fill. */
+  color: var(--paper);
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px -10px color-mix(in srgb, var(--accent) 55%, transparent);
 }
 .ctaLabel,
 .ctaArr {

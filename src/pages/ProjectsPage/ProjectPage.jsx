@@ -91,7 +91,7 @@ const ProjectPage = () => {
                 <option value="All">All</option>
                 <option value="ML">ML</option>
                 <option value="Web">Web</option>
-                <option value="Mobile">Mobile</option>
+                <option value="App Dev">App Dev</option>
               </select>
             </div>
           </div>

@@ -6,17 +6,20 @@ import LiveDemo from "../components/LiveDemo";
 const SPECS = [
   ["Parameters", "95M"],
   ["Layers", "12"],
-  ["Hidden dim", "768"],
+  ["Embedding dim", "768"],
   ["FFN dim", "2048"],
   ["Query heads", "12"],
   ["KV heads", "4  (GQA, ratio 3)"],
-  ["Head dim", "64"],
+  ["Hidden dim", "2048"],
   ["Context", "512 tokens"],
   ["Vocab", "50 304  (tiktoken gpt2)"],
   ["Position", "Rotary (RoPE, θ = 10 000)"],
   ["Normalization", "RMSNorm  (ε = 1e-6)"],
   ["Activation", "GELU"],
   ["Weight tying", "lm_head ↔ token_embedding"],
+  ["Pretrain corpus", "OpenWebText  (~6.5B tokens)"],
+  ["Hardware", "1 × RTX 3070 Ti  (8 GB)"],
+  ["Instruction tune", "Stanford Alpaca  (52K)"],
 ];
 
 const LINKS = [
@@ -57,7 +60,8 @@ export default function TinyGPT() {
           </h1>
           <p className={styles.heroLede}>
             A <strong>95M-parameter</strong> language model — pretrained
-            from scratch on a single <strong>RTX 3070 Ti (8 GB VRAM)</strong>,
+            from scratch on <strong>~6.5B tokens of OpenWebText</strong>{" "}
+            with a single <strong>RTX 3070 Ti (8 GB VRAM)</strong>,
             instruction-tuned on Stanford Alpaca, and ONNX-converted so it
             runs <em>locally in your browser</em>.
           </p>
@@ -132,20 +136,53 @@ export default function TinyGPT() {
 
       {/* ─────────────────────────── LIVE DEMO ─────────────────────────── */}
       <section className={styles.section} id="demo">
-        <div className={styles.sectionHead}>
-          <div className={styles.sectionLabel}>
-            <span className={styles.sectionNum}>01</span>
-            <span className={styles.sectionLabelText}>Try it</span>
+        <div className={styles.twoCol}>
+          <div className={styles.sectionHead}>
+            <div className={styles.sectionLabel}>
+              <span className={styles.sectionNum}>01</span>
+              <span className={styles.sectionLabelText}>Try it</span>
+            </div>
+            <h2 className={styles.sectionTitle}>
+              Run it <em>right now</em>, in this tab.
+            </h2>
+            <p className={styles.sectionLede}>
+              Click to download the ONNX weights (~536 MB, cached on first
+              load). Inference runs entirely on your device via WebGPU,
+              with WASM fallback. Nothing about your prompts leaves the
+              page.
+            </p>
           </div>
-          <h2 className={styles.sectionTitle}>
-            Run it <em>right now</em>, in this tab.
-          </h2>
-          <p className={styles.sectionLede}>
-            Click to download the ONNX weights (~95 MB, cached on first
-            load). Inference runs entirely on your device via WebGPU, with
-            WASM fallback if your browser doesn't have one. Nothing about
-            your prompts leaves the page.
-          </p>
+
+          {/* Quick-reference card — fills the right side and tells the
+              visitor what they're about to load, in 5 lines. */}
+          <aside className={styles.refCard} aria-hidden="true">
+            <div className={styles.refHead}>Quick reference</div>
+            <dl className={styles.refList}>
+              <div className={styles.refRow}>
+                <dt>Parameters</dt>
+                <dd>95M</dd>
+              </div>
+              <div className={styles.refRow}>
+                <dt>Download</dt>
+                <dd>~536 MB · once</dd>
+              </div>
+              <div className={styles.refRow}>
+                <dt>Backend</dt>
+                <dd>WebGPU / WASM</dd>
+              </div>
+              <div className={styles.refRow}>
+                <dt>Speed</dt>
+                <dd>~5–15 tok/s</dd>
+              </div>
+              <div className={styles.refRow}>
+                <dt>Privacy</dt>
+                <dd>local-only</dd>
+              </div>
+            </dl>
+            <div className={styles.refFoot}>
+              Fluent English · often wrong facts — it's 95M.
+            </div>
+          </aside>
         </div>
         <LiveDemo />
       </section>
@@ -167,14 +204,78 @@ export default function TinyGPT() {
             count honest.
           </p>
         </div>
-        <dl className={styles.specs}>
-          {SPECS.map(([k, v]) => (
-            <div className={styles.specRow} key={k}>
-              <dt className={styles.specKey}>{k}</dt>
-              <dd className={styles.specVal}>{v}</dd>
+
+        <div className={styles.twoCol}>
+          <dl className={styles.specs}>
+            {SPECS.map(([k, v]) => (
+              <div className={styles.specRow} key={k}>
+                <dt className={styles.specKey}>{k}</dt>
+                <dd className={styles.specVal}>{v}</dd>
+              </div>
+            ))}
+          </dl>
+
+          {/* TinyGPT2 architecture diagram — vertical pipeline showing the
+              real forward pass, with the decoder block's internals exposed
+              and labeled with the actual TinyGPT2 dimensions. */}
+          <aside className={styles.archPipeline} aria-hidden="true">
+            <div className={styles.archStage}>
+              <span className={styles.archStageName}>Tokens</span>
+              <span className={styles.archStageShape}>seq · int64</span>
             </div>
-          ))}
-        </dl>
+            <span className={styles.archConn} />
+
+            <div className={styles.archStage}>
+              <span className={styles.archStageName}>Token Embedding</span>
+              <span className={styles.archStageShape}>50 304 × 768</span>
+            </div>
+            <span className={styles.archConn} />
+
+            <div className={styles.archBlock}>
+              <span className={styles.archBlockBadge}>×&nbsp;12</span>
+              <span className={styles.archBlockName}>TinyGPT2 Block</span>
+              <div className={styles.archBlockSteps}>
+                <div className={styles.archStep}>
+                  <span className={styles.archStepName}>RMSNorm</span>
+                </div>
+                <div className={`${styles.archStep} ${styles.archStepAttn}`}>
+                  <span className={styles.archStepName}>GQA · RoPE</span>
+                  <span className={styles.archStepShape}>12 Q · 4 KV</span>
+                </div>
+                <div className={styles.archStepResidual}>
+                  <span>+ residual</span>
+                </div>
+                <div className={styles.archStep}>
+                  <span className={styles.archStepName}>RMSNorm</span>
+                </div>
+                <div className={`${styles.archStep} ${styles.archStepFfn}`}>
+                  <span className={styles.archStepName}>FFN · GELU</span>
+                  <span className={styles.archStepShape}>768 → 2048 → 768</span>
+                </div>
+                <div className={styles.archStepResidual}>
+                  <span>+ residual</span>
+                </div>
+              </div>
+            </div>
+            <span className={styles.archConn} />
+
+            <div className={styles.archStage}>
+              <span className={styles.archStageName}>RMSNorm</span>
+            </div>
+            <span className={styles.archConn} />
+
+            <div className={styles.archStage}>
+              <span className={styles.archStageName}>LM Head</span>
+              <span className={styles.archStageShape}>tied weight</span>
+            </div>
+            <span className={styles.archConn} />
+
+            <div className={styles.archStage}>
+              <span className={styles.archStageName}>Logits</span>
+              <span className={styles.archStageShape}>seq × 50 304</span>
+            </div>
+          </aside>
+        </div>
       </section>
 
       {/* ─────────────────────────── TRAINING ─────────────────────────── */}
@@ -185,42 +286,90 @@ export default function TinyGPT() {
             <span className={styles.sectionLabelText}>Pretraining</span>
           </div>
           <h2 className={styles.sectionTitle}>
-            Fitting a 95M model into 8 GB of VRAM.
+            Fitting a 95M model into <em>8 GB</em> of VRAM.
           </h2>
-        </div>
-        <div className={styles.prose}>
-          <p>
-            The whole point of TinyGPT was the constraint. 95M parameters
-            in float32 is{" "}
-            <strong>380 MB just for the weights</strong> — before you
-            account for gradients, optimizer state, activations, and the
-            KV cache. On an 8 GB consumer GPU, naive training OOMs in
-            seconds.
+          <p className={styles.sectionLede}>
+            6.7B tokens of <strong>OpenWebText</strong>, on a single RTX
+            3070 Ti — the same GPU you can buy used for the price of one
+            month of ChatGPT Pro.
           </p>
-          <p>The tricks that made it fit:</p>
-          <ul>
-            <li>
-              <strong>Mixed-precision (AMP)</strong> — forward pass in
-              float16, master weights in float32, dynamic loss scaling.
-              Cuts activation memory roughly in half.
-            </li>
-            <li>
-              <strong>Gradient accumulation</strong> — micro-batches that
-              fit, accumulated to a sane effective batch size before the
-              optimizer step.
-            </li>
-            <li>
-              <strong>Fused linear + cross-entropy</strong> via the
-              Liger Triton kernel — skips materializing the
-              (seq × vocab) logits tensor during the loss, which is
-              otherwise the single biggest activation in the graph.
-            </li>
-            <li>
-              <strong>Gradient checkpointing</strong> on the transformer
-              blocks — recompute activations on the backward pass instead
-              of storing them.
-            </li>
-          </ul>
+        </div>
+
+        <div className={styles.twoCol}>
+          <div className={styles.prose}>
+            <p>
+              The whole point of TinyGPT was the constraint. 95M
+              parameters in float32 is{" "}
+              <strong>380 MB just for the weights</strong> — before you
+              account for gradients, Adam's momentum + variance state
+              (which is <em>2×</em> the weights), activations, and the
+              KV cache. Naive training OOMs in seconds.
+            </p>
+            <p>The tricks that made it fit:</p>
+            <ul>
+              <li>
+                <strong>Mixed-precision (AMP)</strong> — forward in
+                float16 / bfloat16, master weights in float32, dynamic
+                loss scaling. Cuts activation memory roughly in half.
+              </li>
+              <li>
+                <strong>Gradient accumulation</strong> — micro-batches
+                that fit, accumulated to a sane effective batch size
+                before each optimizer step.
+              </li>
+              <li>
+                <strong>Fused linear + cross-entropy</strong> via the
+                Liger Triton kernel — skips materializing the
+                (seq × vocab) logits tensor during the loss, which is
+                otherwise the single biggest activation in the graph.
+              </li>
+              <li>
+                <strong>Gradient checkpointing</strong> on the
+                transformer blocks — recompute activations on the
+                backward pass instead of storing them.
+              </li>
+            </ul>
+          </div>
+
+          {/* VRAM budget — row-based labeled bars. Each row: label · bar ·
+              size. Cleaner than cramming labels into a segmented bar. Bars
+              fade-in in sequence to suggest memory accumulating. */}
+          <aside className={styles.memBudget} aria-hidden="true">
+            <div className={styles.memBudgetHead}>
+              <span className={styles.memBudgetTitle}>8 GB</span>
+              <span className={styles.memBudgetSub}>RTX 3070 Ti</span>
+            </div>
+            <div className={styles.memRows}>
+              {[
+                { label: "Weights · FP16", width: 5.3, val: "~190 MB", tone: "weights" },
+                { label: "Optimizer · Adam", width: 11, val: "~380 MB", tone: "optim" },
+                { label: "Activations + KV", width: 56, val: "~2 GB", tone: "acts" },
+                { label: "Buffer / headroom", width: 28, val: "~1 GB", tone: "free" },
+              ].map((r, i) => (
+                <div
+                  key={r.label}
+                  className={styles.memRow}
+                  style={{ animationDelay: `${i * 150}ms` }}
+                >
+                  <span className={styles.memRowLabel}>{r.label}</span>
+                  <span className={styles.memRowTrack}>
+                    <span
+                      className={`${styles.memRowBar} ${styles[`memRow_${r.tone}`]}`}
+                      style={{ width: `${r.width}%` }}
+                    />
+                  </span>
+                  <span className={styles.memRowVal}>{r.val}</span>
+                </div>
+              ))}
+            </div>
+            <div className={styles.memBudgetFooter}>
+              <span className={styles.memBudgetDot} />
+              <span>
+                Without AMP + checkpointing:{" "}
+                <strong>OOM by step 1.</strong>
+              </span>
+            </div>
+          </aside>
         </div>
       </section>
 
@@ -235,34 +384,56 @@ export default function TinyGPT() {
             <em>Stanford Alpaca</em>, response-only loss.
           </h2>
         </div>
-        <div className={styles.prose}>
-          <p>
-            After pretraining, the base model was fine-tuned on the{" "}
-            <strong>52K-instruction Stanford Alpaca dataset</strong> using
-            a standard SFT loop with a critical detail:{" "}
-            <strong>response-only loss masking</strong> — the model is
-            only penalized for its predictions after the{" "}
-            <code>### Response:</code> marker, not for parroting the
-            instruction back.
-          </p>
-          <p className={styles.codeBlock}>
-            <code>
-              ### Instruction:
-              <br />
-              {`{user prompt}`}
-              <br />
-              <br />
-              ### Response:
-              <br />
-              {`{model continues here}`}
-            </code>
-          </p>
-          <p>
-            This same template is used in the browser demo — your input
-            gets wrapped before tokenization, and generation stops when
-            the model emits <code>### Instruction:</code>,{" "}
-            <code>### Response:</code>, or <code>&lt;|endoftext|&gt;</code>.
-          </p>
+
+        <div className={styles.twoCol}>
+          <div className={styles.prose}>
+            <p>
+              After pretraining, the base model was fine-tuned on the{" "}
+              <strong>52K-instruction Stanford Alpaca dataset</strong>{" "}
+              using a standard SFT loop with a critical detail:{" "}
+              <strong>response-only loss masking</strong> — the model is
+              only penalized for its predictions after the{" "}
+              <code>### Response:</code> marker, not for parroting the
+              instruction back.
+            </p>
+            <p>
+              This same template is used in the browser demo — your input
+              gets wrapped before tokenization, and generation stops when
+              the model emits one of the stop tokens listed on the right.
+            </p>
+          </div>
+
+          {/* Template + stop tokens card. Dark code block (like the demo
+              terminal) showing the actual Alpaca format, with the live
+              stop-token list beneath it. */}
+          <aside className={styles.sftCard} aria-hidden="true">
+            <div className={styles.sftCardChrome}>
+              <span>alpaca.txt</span>
+            </div>
+            <pre className={styles.sftCode}>
+              <span className={styles.sftMuted}>### Instruction:</span>
+              {"\n"}
+              <span className={styles.sftSlot}>{"{user prompt}"}</span>
+              {"\n\n"}
+              <span className={styles.sftMuted}>### Response:</span>
+              {"\n"}
+              <span className={styles.sftHighlight}>
+                {"{model continues here}"}
+              </span>
+            </pre>
+            <div className={styles.sftStopHead}>Stop tokens</div>
+            <ul className={styles.sftStopList}>
+              <li>
+                <code>### Instruction:</code>
+              </li>
+              <li>
+                <code>### Response:</code>
+              </li>
+              <li>
+                <code>&lt;|endoftext|&gt;</code>
+              </li>
+            </ul>
+          </aside>
         </div>
       </section>
 
@@ -277,6 +448,8 @@ export default function TinyGPT() {
             PyTorch checkpoint to ONNX to WebGPU.
           </h2>
         </div>
+
+        <div className={styles.twoCol}>
         <div className={styles.prose}>
           <p>
             Browsers can't load <code>.pth</code> directly — pickle is a
@@ -320,6 +493,34 @@ export default function TinyGPT() {
             <code>js-tiktoken</code> with the same <code>gpt2</code>{" "}
             encoding the model was trained on.
           </p>
+        </div>
+
+        {/* Conversion-pipeline visual: .pth → .onnx → WebGPU.
+            Each step is a card with format / size / runtime. */}
+        <aside className={styles.convPipeline} aria-hidden="true">
+          <div className={styles.convStep}>
+            <span className={styles.convStepIdx}>01</span>
+            <span className={styles.convStepFmt}>.pth</span>
+            <span className={styles.convStepName}>PyTorch checkpoint</span>
+            <span className={styles.convStepMeta}>local · 1.2 GB</span>
+          </div>
+          <span className={styles.convArrow}>↓</span>
+          <div className={`${styles.convStep} ${styles.convStepActive}`}>
+            <span className={styles.convStepIdx}>02</span>
+            <span className={styles.convStepFmt}>.onnx</span>
+            <span className={styles.convStepName}>
+              Real RoPE · flat KV · explicit mask
+            </span>
+            <span className={styles.convStepMeta}>HF Hub · ~536 MB</span>
+          </div>
+          <span className={styles.convArrow}>↓</span>
+          <div className={styles.convStep}>
+            <span className={styles.convStepIdx}>03</span>
+            <span className={styles.convStepFmt}>WebGPU</span>
+            <span className={styles.convStepName}>onnxruntime-web</span>
+            <span className={styles.convStepMeta}>your device</span>
+          </div>
+        </aside>
         </div>
       </section>
 

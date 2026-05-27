@@ -131,52 +131,105 @@
   border-bottom-color: var(--accent-bright);
 }
 
+/* Idle CTA row — centered, with the load button as a proper pill, plus
+   a small hint underneath confirming what the click does. */
+.idleCtaRow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.8rem 0 0.4rem;
+}
+
+/* Compact pill button. Burnt sienna fill, paper text, soft halo pulse so
+   it reads as the interactive element without being a banner. */
 .loadCta {
   position: relative;
   display: inline-flex;
   align-items: center;
   gap: 0.8rem;
-  background: var(--ink);
+  background: var(--accent);
   color: var(--paper);
   border: none;
-  padding: 1.05rem 1.7rem;
+  padding: 0.85rem 1.4rem 0.85rem 1.05rem;
   font-family: var(--font-body);
   font-size: 1rem;
   font-weight: 500;
   letter-spacing: -0.005em;
   border-radius: 999px;
   cursor: pointer;
-  overflow: hidden;
-  isolation: isolate;
-  transition: background var(--med) var(--ease);
-  align-self: flex-start;
+  box-shadow:
+    0 0 0 0 color-mix(in srgb, var(--accent) 35%, transparent),
+    0 14px 28px -12px color-mix(in srgb, var(--accent) 80%, transparent);
+  animation: loadCtaPulse 2.4s ease-in-out infinite;
+  transition: transform var(--med) var(--ease),
+    background var(--med) var(--ease),
+    box-shadow var(--med) var(--ease);
 }
-.loadCta::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--accent);
-  transform: translateY(101%);
-  transition: transform var(--med) var(--ease);
-  z-index: -1;
+@keyframes loadCtaPulse {
+  0%, 100% {
+    box-shadow:
+      0 0 0 0 color-mix(in srgb, var(--accent) 30%, transparent),
+      0 12px 28px -12px color-mix(in srgb, var(--accent) 75%, transparent);
+  }
+  50% {
+    box-shadow:
+      0 0 0 0.7rem color-mix(in srgb, var(--accent) 8%, transparent),
+      0 14px 30px -10px color-mix(in srgb, var(--accent) 95%, transparent);
+  }
 }
 .loadCta:hover {
-  background: transparent;
+  background: var(--accent-bright);
+  transform: translateY(-2px);
+  animation-play-state: paused;
+  box-shadow:
+    0 0 0 0.85rem color-mix(in srgb, var(--accent) 14%, transparent),
+    0 22px 36px -10px color-mix(in srgb, var(--accent) 95%, transparent);
+  color: var(--paper);
 }
-.loadCta:hover::before {
+.loadCta:active {
   transform: translateY(0);
 }
-.loadCtaLabel,
-.loadCtaArr {
-  position: relative;
-  z-index: 1;
+.loadCtaIcon {
+  display: inline-grid;
+  place-items: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--paper) 20%, transparent);
+  font-size: 0.65rem;
+  padding-left: 0.12rem;
+  flex-shrink: 0;
 }
-.loadCtaArr {
+.loadCtaLabel {
+  font-family: "Instrument Serif", Georgia, serif;
   font-size: 1.2rem;
-  transition: transform var(--med) var(--ease);
+  line-height: 1;
+  letter-spacing: -0.005em;
 }
-.loadCta:hover .loadCtaArr {
-  transform: translateX(0.3em);
+.loadCtaSize {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 0.2em 0.6em;
+  border: 1px solid color-mix(in srgb, var(--paper) 38%, transparent);
+  border-radius: 999px;
+  opacity: 0.85;
+}
+
+.idleHint {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--paper) 55%, transparent);
+  margin: 0;
+  text-align: center;
+}
+.idleHint span {
+  color: var(--accent-bright);
+  margin-right: 0.3ch;
 }
 
 .fine {
@@ -280,11 +333,10 @@
   color: color-mix(in srgb, var(--paper) 60%, transparent);
 }
 .chatBarDot {
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: 999px;
+  display: inline-block;
+  width: 0.8rem;
+  height: 1px;
   background: var(--accent-bright);
-  box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--accent-bright) 22%, transparent);
 }
 .chatBarLabel {
   color: var(--paper);

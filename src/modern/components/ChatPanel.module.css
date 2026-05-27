@@ -20,6 +20,50 @@
   box-shadow: 0 1px 0 var(--paper-deep), 0 22px 60px -32px rgba(26, 23, 20, 0.2);
 }
 
+/* Small header strip that appears once the user has a conversation
+   going. Shows message count, persistence hint, and a Clear button. */
+.frameHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.65rem 1.1rem;
+  background: var(--paper-deep);
+  border-bottom: 1px solid var(--rule);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+.frameHeaderMeta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4ch;
+  flex-wrap: wrap;
+}
+.frameHeaderSep {
+  opacity: 0.5;
+  margin: 0 0.2ch;
+}
+.frameClearBtn {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  background: transparent;
+  border: 1px solid var(--rule);
+  color: var(--ink-soft);
+  padding: 0.32rem 0.75rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all var(--fast) var(--ease);
+}
+.frameClearBtn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 .transcript {
   flex: 1;
   overflow-y: auto;
@@ -107,28 +151,12 @@
   text-transform: uppercase;
   color: var(--ink-mute);
   padding-top: 0.45em;
-  position: relative;
-}
-.msgLabel::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.85em;
-  width: 1.1rem;
-  height: 1px;
-  background: var(--rule);
 }
 .msgUser .msgLabel {
   color: var(--ink);
 }
-.msgUser .msgLabel::before {
-  background: var(--ink);
-}
 .msgAi .msgLabel {
   color: var(--accent);
-}
-.msgAi .msgLabel::before {
-  background: var(--accent);
 }
 
 .msgBody {
@@ -182,6 +210,55 @@
 .msgAi .msgBody ol {
   margin: 0.4rem 0 0.6rem;
   padding-left: 1.2rem;
+}
+
+/* Inline redirect indicator — appears in the assistant message bubble
+   when the model issued a navigate() tool call. Visually anchored to
+   the bottom of the message so the visitor sees: text → arrow →
+   "Redirecting to Projects…" → page transitions. */
+.navHint {
+  margin-top: 0.8rem;
+  padding-top: 0.7rem;
+  border-top: 1px dashed color-mix(in srgb, var(--accent) 35%, transparent);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6ch;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.navHint strong {
+  color: var(--accent);
+  font-weight: 600;
+}
+.navHintArr {
+  font-size: 0.9rem;
+  animation: navHintArr 1.2s ease-in-out infinite;
+}
+@keyframes navHintArr {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(0.25em); }
+}
+.navHintDots {
+  display: inline-flex;
+  gap: 0.18rem;
+  margin-left: 0.4ch;
+  vertical-align: middle;
+}
+.navHintDots span {
+  width: 0.22rem;
+  height: 0.22rem;
+  border-radius: 999px;
+  background: var(--accent);
+  animation: navHintDot 1s ease-in-out infinite;
+}
+.navHintDots span:nth-child(2) { animation-delay: 150ms; }
+.navHintDots span:nth-child(3) { animation-delay: 300ms; }
+@keyframes navHintDot {
+  0%, 60%, 100% { opacity: 0.3; }
+  30% { opacity: 1; }
 }
 
 /* ─────────── Typing indicator ─────────── */
@@ -287,9 +364,6 @@
   .msg {
     grid-template-columns: 1fr;
     gap: 0.4rem;
-  }
-  .msgLabel::before {
-    display: none;
   }
 }
 

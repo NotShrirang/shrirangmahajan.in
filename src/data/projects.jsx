@@ -407,7 +407,7 @@ const projects = [
     image:
       "https://avatars.githubusercontent.com/u/139642488?s=400&u=149eca032a1ffec7243a91b81f6756576695588c&v=4",
     tags: ["Flutter", "Django REST Framework", "ReactJS", "Tensorflow", "AWS"],
-    domain: "Mobile",
+    domain: "App Dev",
     link: "https://github.com/Team-DevFinder",
   },
   {

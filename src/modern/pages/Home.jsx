@@ -130,8 +130,7 @@ export default function Home() {
             <CausalAttentionViz size={20} />
           </div>
           <div className={styles.attnCaption}>
-            <span className={styles.attnCaptionDot} />
-            <span>{HERO_CAPTION}</span>
+            <span><sup>*</sup><em>{HERO_CAPTION}</em></span>
           </div>
         </aside>
       </header>
@@ -244,10 +243,12 @@ export default function Home() {
             My 95M-parameter LLM, <em>running on your device.</em>
           </h2>
           <p className={styles.sectionLede}>
-            The model I trained from scratch on a single RTX 3070 Ti, then
-            instruction-tuned on Stanford Alpaca. Click to download the ONNX
-            weights (~95 MB) — inference then runs locally via WebGPU (or
-            WASM fallback). Fluent English, often wrong facts — it's small.
+            The model I pretrained from scratch on{" "}
+            <strong>~6.5B tokens of OpenWebText</strong> using a single RTX
+            3070 Ti, then instruction-tuned on Stanford Alpaca. Click to
+            download the ONNX weights (~536 MB) — inference then runs
+            locally via WebGPU (or WASM fallback). Fluent English, often
+            wrong facts — it's small.
           </p>
         </div>
         <LiveDemo />
@@ -406,17 +407,18 @@ export default function Home() {
             <span className={styles.sectionNum}>06</span>
             <span className={styles.sectionLabelText}>
               Site Assistant{" "}
-              <span className={styles.sectionLabelTag}>· Groq · grounded</span>
+              <span className={styles.sectionLabelTag}>· grounded · navigates</span>
             </span>
           </div>
           <h2 className={styles.sectionTitle}>
             Ask <em>about</em> this site.
           </h2>
           <p className={styles.sectionLede}>
-            A production-grade LLM hosted on Groq, grounded in this site's
-            content — every project, role, blog post, and skill on this page
-            is in its context. Different from TinyGPT above: this one is
-            factually reliable about <em>me.</em>
+            A production-grade LLM grounded in this site's content — every
+            project, role, blog post, and skill on this page is in its
+            context. It can also fetch fresh GitHub data and send you to
+            the right page when you ask for it. Different from TinyGPT
+            above: this one is factually reliable about <em>me.</em>
           </p>
         </div>
         <ChatPanel />

@@ -3,8 +3,8 @@
   100% { opacity: 1; transform: translateY(0); }
 }
 @keyframes mTextReveal {
-  0% { clip-path: inset(0 100% 0 0); }
-  100% { clip-path: inset(0 0% 0 0); }
+  0% { clip-path: inset(-10% 100% -20% 0); }
+  100% { clip-path: inset(-10% 0% -20% 0); }
 }
 
 .article {
@@ -55,31 +55,23 @@
   color: var(--ink-mute);
   animation: mFadeUp 700ms var(--ease) both;
 }
+/* Small horizontal accent rule — replaces the previous orb-and-halo
+   pattern. Quieter, more editorial. */
 .kickerDot {
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: 999px;
+  display: inline-block;
+  width: 1rem;
+  height: 1px;
   background: var(--accent);
-  box-shadow: 0 0 0 0.2rem var(--accent-glow);
-  animation: kdPulse 2.4s ease-in-out infinite;
-}
-@keyframes kdPulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.4;
-  }
 }
 
 .heroTitle {
   font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
   font-weight: 400;
   font-size: clamp(4rem, 12vw, 9rem);
-  line-height: 0.95;
+  line-height: 1.05;
   letter-spacing: -0.024em;
   margin: 0;
+  padding-bottom: 0.08em;
   color: var(--ink);
   animation: mTextReveal 1200ms cubic-bezier(0.4, 0, 0.2, 1) both;
   animation-delay: 100ms;
@@ -246,11 +238,10 @@
   color: var(--ink-mute);
 }
 .heroSideDot {
-  width: 0.4rem;
-  height: 0.4rem;
-  border-radius: 999px;
+  display: inline-block;
+  width: 0.8rem;
+  height: 1px;
   background: var(--accent);
-  box-shadow: 0 0 0 0.18rem var(--accent-glow);
 }
 .heroSideLink {
   color: var(--ink-soft);
@@ -335,6 +326,534 @@
   padding: 0.1em 0.4em;
   border-radius: 3px;
   color: var(--ink);
+}
+
+/* ───────────────────── Two-column section layout ─────────────────────
+   Used for sections that pair prose with a diagram on the right.
+   Collapses to single column under 880px. */
+
+.twoCol {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(15rem, 24vw, 18rem);
+  gap: clamp(2rem, 4vw, 3.5rem);
+  align-items: start;
+}
+@media (max-width: 880px) {
+  .twoCol {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+/* ───────────────── Try It: quick-reference card ───────────────── */
+
+.refCard {
+  display: flex;
+  flex-direction: column;
+  padding: 1.1rem 1.2rem;
+  background: var(--paper-deep);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--paper) 50%, transparent);
+}
+.refHead {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 0.8rem;
+}
+.refList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin: 0;
+}
+.refRow {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.8rem;
+  align-items: baseline;
+}
+.refRow dt {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin: 0;
+}
+.refRow dd {
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: 1.02rem;
+  line-height: 1.1;
+  color: var(--ink);
+  text-align: right;
+  margin: 0;
+}
+.refFoot {
+  margin-top: 1rem;
+  padding-top: 0.8rem;
+  border-top: 1px dashed color-mix(in srgb, var(--rule) 80%, transparent);
+  font-family: "Instrument Serif", Georgia, serif;
+  font-style: italic;
+  font-size: 0.92rem;
+  line-height: 1.4;
+  color: var(--ink-soft);
+}
+
+/* ───────────────── SFT: template + stop tokens ───────────────── */
+
+.sftCard {
+  display: flex;
+  flex-direction: column;
+  background: var(--paper-deep);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--paper) 50%, transparent);
+}
+.sftCardChrome {
+  background: var(--ink);
+  color: color-mix(in srgb, var(--paper) 60%, transparent);
+  padding: 0.5rem 0.85rem;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-align: center;
+  border-bottom: 1px solid color-mix(in srgb, var(--paper) 14%, transparent);
+}
+.sftCode {
+  margin: 0;
+  padding: 1rem 1.1rem;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  line-height: 1.65;
+  white-space: pre;
+  overflow-x: auto;
+}
+.sftMuted {
+  color: color-mix(in srgb, var(--paper) 55%, transparent);
+}
+.sftSlot {
+  color: #b8d4a8;
+}
+.sftHighlight {
+  color: var(--accent-bright);
+  background: color-mix(in srgb, var(--accent) 18%, var(--ink));
+  padding: 0.05em 0.25em;
+  border-radius: 2px;
+}
+.sftStopHead {
+  background: var(--paper);
+  padding: 0.7rem 1.1rem 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border-top: 1px solid var(--rule);
+}
+.sftStopList {
+  background: var(--paper);
+  list-style: none;
+  margin: 0;
+  padding: 0 1.1rem 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.sftStopList li {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--ink);
+  padding-left: 1rem;
+  position: relative;
+}
+.sftStopList li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+.sftStopList code {
+  background: var(--paper-deep);
+  padding: 0.1em 0.35em;
+  border-radius: 2px;
+  font-size: 0.72rem;
+}
+
+/* ───────────────── Browser inference: conversion pipeline ───────────────── */
+
+.convPipeline {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 1.1rem;
+  background: var(--paper-deep);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--paper) 50%, transparent);
+}
+.convStep {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  gap: 0.15rem 0.7rem;
+  padding: 0.7rem 0.9rem;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+}
+.convStepActive {
+  background: color-mix(in srgb, var(--accent-soft) 35%, var(--paper));
+  border-color: color-mix(in srgb, var(--accent) 35%, transparent);
+}
+.convStepIdx {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  align-self: center;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--paper-deep) 70%, var(--paper));
+  padding: 0.25em 0.45em;
+  border-radius: 3px;
+}
+.convStepFmt {
+  grid-column: 2;
+  grid-row: 1;
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: 1.1rem;
+  color: var(--ink);
+  line-height: 1.1;
+}
+.convStepName {
+  grid-column: 2;
+  grid-row: 2;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+}
+.convStepMeta {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: end;
+  align-self: baseline;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+.convArrow {
+  align-self: center;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  color: var(--accent);
+  padding: 0.25rem 0;
+}
+
+/* ─────── Architecture: vertical transformer-pipeline diagram ───────
+   A clean, labeled flow showing the TinyGPT2 forward pass:
+   Tokens → Embedding → Block ×12 (with internals exposed) → Norm →
+   LM Head → Logits. A glowing dot traces the path.
+*/
+
+.archPipeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  padding: 1.1rem 1rem;
+  background: var(--paper-deep);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--paper) 50%, transparent);
+}
+
+.archStage {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0.55rem 0.85rem;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.6rem;
+  font-family: var(--font-mono);
+}
+.archStageName {
+  font-family: "Instrument Serif", Georgia, serif;
+  font-style: normal;
+  font-size: 1.02rem;
+  line-height: 1.1;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+}
+.archStageShape {
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+/* Connector dashes between stages. */
+.archConn {
+  display: block;
+  width: 1px;
+  height: 0.85rem;
+  margin: 0 auto;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--accent) 50%, transparent),
+    color-mix(in srgb, var(--accent) 15%, transparent)
+  );
+}
+
+/* The decoder block — highlighted with accent-tinted background, the
+   "× 12" badge floating in the top-right corner. */
+.archBlock {
+  position: relative;
+  background: color-mix(in srgb, var(--accent-soft) 30%, var(--paper));
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  border-radius: 6px;
+  padding: 0.75rem 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.archBlockBadge {
+  position: absolute;
+  top: -0.55rem;
+  right: 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  background: var(--accent);
+  color: var(--paper);
+  padding: 0.2em 0.55em;
+  border-radius: 999px;
+  z-index: 2;
+}
+.archBlockName {
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: 0.95rem;
+  color: var(--accent-deep);
+  margin-bottom: 0.2rem;
+  letter-spacing: -0.005em;
+}
+.archBlockSteps {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.archStep {
+  background: var(--paper);
+  border: 1px solid color-mix(in srgb, var(--accent) 18%, transparent);
+  border-radius: 3px;
+  padding: 0.32rem 0.55rem;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.4rem;
+}
+.archStepName {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+}
+.archStepShape {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+.archStepAttn {
+  border-left: 2px solid var(--accent);
+}
+.archStepFfn {
+  border-left: 2px solid color-mix(in srgb, var(--ink) 50%, var(--accent));
+}
+
+/* Residual-add rows: a thinner inline pill instead of a card. */
+.archStepResidual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  padding: 0.08rem 0;
+}
+
+/* Data-flow indicator — glowing dot that travels down the pipeline. */
+.archFlow {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 0.55rem;
+  height: 0.55rem;
+  margin-left: -0.275rem;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 70%, transparent);
+  pointer-events: none;
+  animation: archFlowDown 4.5s ease-in-out infinite;
+  z-index: 3;
+}
+@keyframes archFlowDown {
+  0%, 100% {
+    top: 0;
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 1;
+    top: calc(100% - 0.55rem);
+  }
+}
+
+/* ─────── Pretraining: VRAM budget as labeled rows ─────── */
+
+.memBudget {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.1rem;
+  background: var(--paper-deep);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--paper) 50%, transparent);
+}
+.memBudgetHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+.memBudgetTitle {
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: 1.75rem;
+  line-height: 1;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.memBudgetSub {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+.memRows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.memRow {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.25rem;
+  animation: memRowIn 700ms var(--ease) both;
+}
+@keyframes memRowIn {
+  from { opacity: 0; transform: translateY(0.4rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.memRowLabel {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+.memRowTrack {
+  position: relative;
+  display: block;
+  height: 0.65rem;
+  background: color-mix(in srgb, var(--paper) 40%, var(--paper-deep));
+  border-radius: 999px;
+  overflow: hidden;
+}
+.memRowBar {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  transform-origin: left center;
+  animation: memBarGrow 700ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+@keyframes memBarGrow {
+  from { transform: scaleX(0.05); }
+  to { transform: scaleX(1); }
+}
+.memRow_weights {
+  background: var(--accent);
+}
+.memRow_optim {
+  background: color-mix(in srgb, var(--accent) 75%, var(--paper-deep));
+}
+.memRow_acts {
+  background: color-mix(in srgb, var(--accent) 45%, var(--paper-deep));
+}
+.memRow_free {
+  background: color-mix(in srgb, var(--accent) 18%, var(--paper-deep));
+}
+.memRowVal {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.memRow {
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
+  gap: 0.25rem 0.6rem;
+  align-items: center;
+}
+.memRowLabel { grid-column: 1 / 2; grid-row: 1; }
+.memRowVal { grid-column: 2 / 3; grid-row: 1; text-align: right; }
+.memRowTrack { grid-column: 1 / 3; grid-row: 2; }
+
+.memBudgetFooter {
+  display: flex;
+  align-items: center;
+  gap: 0.55ch;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-mute);
+  padding-top: 0.4rem;
+  border-top: 1px dashed color-mix(in srgb, var(--rule) 80%, transparent);
+}
+.memBudgetFooter strong {
+  color: var(--accent);
+  font-weight: 500;
+}
+.memBudgetDot {
+  display: inline-block;
+  width: 0.8rem;
+  height: 1px;
+  background: var(--accent);
 }
 
 /* ─────────────────────────── SPECS TABLE ─────────────────────────── */

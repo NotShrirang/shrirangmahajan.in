@@ -90,6 +90,42 @@
   background: var(--rule);
 }
 
+/* Site-assistant button — small icon that scrolls to / navigates to the
+   chat section. Sits left of the TinyGPT promo so it reads as another
+   way into the interactive features without being as loud. */
+.chatBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45ch;
+  padding: 0.38rem 0.7rem 0.38rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid var(--rule);
+  background: transparent;
+  color: var(--ink-soft);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  cursor: pointer;
+  transition: all var(--fast) var(--ease);
+}
+.chatBtn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent-soft) 30%, transparent);
+}
+.chatIcon {
+  width: 1.05rem;
+  height: 1.05rem;
+  flex-shrink: 0;
+}
+.chatBtnLabel {
+  font-family: "Instrument Serif", Georgia, serif;
+  font-style: italic;
+  font-size: 0.98rem;
+  line-height: 1;
+}
+
 /* Promoted nav link — calls attention to the TinyGPT demo without yelling. */
 .promoLink {
   display: inline-flex;
@@ -106,6 +142,10 @@
   letter-spacing: -0.005em;
   transition: all var(--fast) var(--ease);
 }
+.promoLink:hover {
+  box-shadow: 0 0 0 0.18rem color-mix(in srgb, var(--accent) 30%, transparent);
+}
+
 .promoLink:hover,
 .promoLinkActive {
   background: var(--accent);
@@ -113,12 +153,10 @@
   color: var(--paper);
 }
 .promoDot {
-  width: 0.45rem;
-  height: 0.45rem;
-  border-radius: 999px;
+  display: inline-block;
+  width: 0.7rem;
+  height: 1px;
   background: var(--accent);
-  box-shadow: 0 0 0 0.2rem var(--accent-glow);
-  animation: promoPulse 2s ease-in-out infinite;
 }
 .promoLinkActive .promoDot,
 .promoLink:hover .promoDot {
@@ -167,12 +205,10 @@
   color: var(--accent);
 }
 .jupyterDot {
-  width: 0.45rem;
-  height: 0.45rem;
-  border-radius: 999px;
+  display: inline-block;
+  width: 0.7rem;
+  height: 1px;
   background: var(--accent);
-  box-shadow: 0 0 0 0.15rem var(--accent-glow);
-  animation: navPulse 2.4s var(--ease) infinite;
 }
 @keyframes navPulse {
   0%,
@@ -256,5 +292,15 @@
   }
   .jupyterLink {
     font-size: 0.7rem;
+  }
+  /* On phones the chat button collapses to icon-only. */
+  .chatBtnLabel {
+    display: none;
+  }
+  .chatBtn {
+    padding: 0.4rem;
+    width: 2.1rem;
+    height: 2.1rem;
+    justify-content: center;
   }
 }

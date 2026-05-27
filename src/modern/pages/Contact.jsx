@@ -84,7 +84,7 @@ export default function Contact() {
               <textarea
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                placeholder="Hi Shrirang, I'm working on…"
+                placeholder="Hi Shrirang, I'm working on..."
                 rows={6}
                 required
                 className={styles.textarea}

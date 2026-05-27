@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import styles from "./Projects.module.css";
 import { projects } from "../../data/projects";
 
-const domains = ["All", "ML", "Web", "Mobile"];
+const domains = ["All", "ML", "Web", "App Dev"];
 
 export default function Projects() {
   const [domain, setDomain] = useState("All");
