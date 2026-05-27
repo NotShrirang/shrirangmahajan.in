@@ -12,11 +12,42 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
       workbox: {
-        // Don't precache onnxruntime-web's WASM artifacts (~20MB each); they're
-        // pulled from a CDN at runtime via ort.env.wasm.wasmPaths.
-        globPatterns: ['**/*.{js,css,html,svg,png,ico,woff,woff2,ttf}'],
+        // Don't precache onnxruntime-web's WASM artifacts (~20MB each);
+        // they're pulled from CDN at runtime via ort.env.wasm.wasmPaths.
+        // Also skip index.html — we serve it via NetworkFirst below so
+        // a Vercel deploy is visible immediately, not after a hard refresh.
+        globPatterns: ['**/*.{js,css,svg,png,ico,woff,woff2,ttf}'],
+        globIgnores: ['**/index.html'],
+        navigateFallback: null,
         maximumFileSizeToCacheInBytes: 10 * 1024 * 1024,
+        // New SW takes over immediately, purges stale caches.
+        skipWaiting: true,
+        clientsClaim: true,
+        cleanupOutdatedCaches: true,
         runtimeCaching: [
+          {
+            // HTML / navigation — always try network first so a fresh deploy
+            // shows up on the next page load. Falls back to cached HTML
+            // after a 3s timeout (offline mode).
+            urlPattern: ({ request }) => request.mode === 'navigate',
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'pages',
+              networkTimeoutSeconds: 3,
+              cacheableResponse: { statuses: [0, 200] },
+              expiration: { maxEntries: 8 },
+            },
+          },
+          {
+            // Hashed JS/CSS chunks — content-addressed, safe to cache long.
+            urlPattern: ({ url, sameOrigin }) =>
+              sameOrigin && /\/assets\/.+\.(js|css|woff2?|ttf)$/.test(url.pathname),
+            handler: 'StaleWhileRevalidate',
+            options: {
+              cacheName: 'static-assets',
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
           {
             urlPattern: ({ url }) =>
               url.pathname.search('api.github.com') !== -1,
