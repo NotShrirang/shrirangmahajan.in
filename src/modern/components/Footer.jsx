@@ -40,7 +40,7 @@ export default function Footer() {
               target="_blank"
               rel="noreferrer noopener"
             >
-              GitHub ↗
+              GitHub ›
             </a>
             .
           </p>
@@ -70,7 +70,7 @@ export default function Footer() {
             {social.map((s) => (
               <li key={s.label}>
                 <a href={s.href} target="_blank" rel="noreferrer noopener">
-                  {s.label} ↗
+                  {s.label} ›
                 </a>
               </li>
             ))}
@@ -82,7 +82,7 @@ export default function Footer() {
           <ul className={styles.list}>
             <li>
               <Link to="/jupyter" className={styles.jupyter}>
-                Jupyter mode →
+                Jupyter mode ›
               </Link>
             </li>
           </ul>

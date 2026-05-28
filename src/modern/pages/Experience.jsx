@@ -64,7 +64,7 @@ export default function Experience() {
                   className={styles.company}
                 >
                   {e.company}
-                  <span aria-hidden="true">↗</span>
+                  <span aria-hidden="true">›</span>
                 </a>
                 <ul className={styles.bullets}>
                   {e.description.map((d, j) => (
@@ -86,7 +86,7 @@ export default function Experience() {
             rel="noreferrer noopener"
             className={styles.resumeLink}
           >
-            Download résumé (PDF) →
+            Download résumé (PDF) ›
           </a>
         </p>
       </footer>

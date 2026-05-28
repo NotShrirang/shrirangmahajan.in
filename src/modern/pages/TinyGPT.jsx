@@ -547,7 +547,7 @@ export default function TinyGPT() {
                 <Tag {...props} className={styles.linkRow}>
                   <span className={styles.linkLabel}>{l.label}</span>
                   <span className={styles.linkArrow} aria-hidden="true">
-                    {internal ? "→" : "↗"}
+                    {internal ? "›" : "›"}
                   </span>
                 </Tag>
               </li>

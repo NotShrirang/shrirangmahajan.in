@@ -83,18 +83,26 @@ export default function Projects() {
       <ol className={styles.list}>
         {filtered.map((p, i) => (
           <li key={p.title} className={styles.item}>
-            <a
-              href={p.link || "#"}
-              target={p.link ? "_blank" : undefined}
-              rel="noreferrer noopener"
-              className={styles.link}
-            >
+            <div className={styles.link}>
               <div className={styles.index}>
                 {String(i + 1).padStart(2, "0")}
               </div>
               <div className={styles.body}>
                 <div className={styles.titleRow}>
-                  <h2 className={styles.itemTitle}>{p.title}</h2>
+                  <h2 className={styles.itemTitle}>
+                    {p.link ? (
+                      <a
+                        href={p.link}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        className={styles.itemTitleLink}
+                      >
+                        {p.title}
+                      </a>
+                    ) : (
+                      p.title
+                    )}
+                  </h2>
                   <span className={styles.domain}>{p.domain}</span>
                 </div>
                 <div className={styles.desc}>{p.description}</div>
@@ -105,13 +113,23 @@ export default function Projects() {
                     </span>
                   ))}
                 </div>
+                {p.link && (
+                  <a
+                    href={p.link}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className={styles.viewCta}
+                  >
+                    View project <span aria-hidden="true">›</span>
+                  </a>
+                )}
               </div>
               {p.image && (
                 <div className={styles.thumb}>
                   <img src={p.image} alt={p.title} loading="lazy" />
                 </div>
               )}
-            </a>
+            </div>
           </li>
         ))}
       </ol>

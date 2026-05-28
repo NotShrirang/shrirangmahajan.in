@@ -105,7 +105,7 @@ export default function Nav() {
           >
             <span className={styles.promoLabel}>TinyGPT</span>
             <span className={styles.promoArrow} aria-hidden="true">
-              ↗
+              ›
             </span>
           </NavLink>
           <span className={styles.divider} aria-hidden="true" />

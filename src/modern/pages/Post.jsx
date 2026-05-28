@@ -111,7 +111,7 @@ export default function Post() {
               `Reading "${blog.title}" by @notshrirang`
             )}&url=${encodeURIComponent(window.location.href)}`}
           >
-            Share on X →
+            Share on X ›
           </a>
           <a
             target="_blank"
@@ -120,7 +120,7 @@ export default function Post() {
               window.location.href
             )}`}
           >
-            Share on LinkedIn →
+            Share on LinkedIn ›
           </a>
           <a
             target="_blank"
@@ -129,7 +129,7 @@ export default function Post() {
               window.location.href
             )}&t=${encodeURIComponent(blog.title)}`}
           >
-            Submit to HN →
+            Submit to HN ›
           </a>
         </div>
       </div>
@@ -143,7 +143,7 @@ export default function Post() {
                 <Link to={`/blogs/${b.slug}`} className={styles.relatedLink}>
                   <span className={styles.relatedTitle}>{b.title}</span>
                   <span className={styles.relatedArr} aria-hidden="true">
-                    →
+                    ›
                   </span>
                 </Link>
               </li>

@@ -116,7 +116,7 @@ export default function Home() {
             <Link to="/projects" className={styles.ctaPrimary}>
               <span className={styles.ctaLabel}>See selected work</span>
               <span className={styles.ctaArr} aria-hidden="true">
-                →
+                ›
               </span>
             </Link>
             <Link to="/contact" className={styles.ctaSecondary}>
@@ -133,6 +133,15 @@ export default function Home() {
             <span><sup>*</sup><em>{HERO_CAPTION}</em></span>
           </div>
         </aside>
+
+        <a
+          href="#approach"
+          className={styles.heroScroll}
+          aria-label="Scroll to next section"
+        >
+          <span>scroll</span>
+          <span className={styles.heroScrollArrow} aria-hidden="true">⌄</span>
+        </a>
       </header>
 
       {/* ─────────────────────────  APPROACH  ───────────────────────── */}
@@ -249,17 +258,21 @@ export default function Home() {
         <ol className={styles.workList}>
           {featured.map((p, i) => (
             <li key={p.title} className={styles.workItem}>
-              <a
-                href={p.link}
-                target="_blank"
-                rel="noreferrer noopener"
-                className={styles.workLink}
-              >
+              <div className={styles.workLink}>
                 <div className={styles.workIndex}>
                   <span>{String(i + 1).padStart(2, "0")}</span>
                 </div>
                 <div className={styles.workBody}>
-                  <h3 className={styles.workTitle}>{p.title}</h3>
+                  <h3 className={styles.workTitle}>
+                    <a
+                      href={p.link}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className={styles.workTitleLink}
+                    >
+                      {p.title}
+                    </a>
+                  </h3>
                   <div className={styles.workDesc}>{p.description}</div>
                   <div className={styles.workTags}>
                     {p.tags.slice(0, 5).map((t) => (
@@ -269,40 +282,76 @@ export default function Home() {
                     ))}
                   </div>
                 </div>
-                <div className={styles.workArrow} aria-hidden="true">
-                  →
-                </div>
-              </a>
+                <a
+                  href={p.link}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className={styles.workArrow}
+                  aria-label={`Open ${p.title}`}
+                >
+                  ›
+                </a>
+              </div>
             </li>
           ))}
         </ol>
 
         <Link to="/projects" className={styles.sectionMore}>
           View all {projects.length} projects{" "}
-          <span aria-hidden="true">→</span>
+          <span aria-hidden="true">›</span>
         </Link>
       </section>
 
       {/* ─────────────────────────  LIVE DEMO  ───────────────────────── */}
       <section id="demo" className={styles.section}>
-        <div className={styles.sectionHead}>
-          <div className={styles.sectionLabel}>
-            <span className={styles.sectionNum}>03</span>
-            <span className={styles.sectionLabelText}>
-              TinyGPT <span className={styles.sectionLabelTag}>· my model · local</span>
-            </span>
+        <div className={styles.demoTop}>
+          <div className={styles.sectionHead}>
+            <div className={styles.sectionLabel}>
+              <span className={styles.sectionNum}>03</span>
+              <span className={styles.sectionLabelText}>
+                TinyGPT{" "}
+                <span className={styles.sectionLabelTag}>· my model · local</span>
+              </span>
+            </div>
+            <h2 className={styles.sectionTitle}>
+              My 95M-parameter LLM, <em>running on your device.</em>
+            </h2>
+            <p className={styles.sectionLede}>
+              The model I pretrained from scratch on{" "}
+              <strong>~6.5B tokens of OpenWebText</strong> using a single RTX
+              3070 Ti, then instruction-tuned on Stanford Alpaca. Click to
+              download the ONNX weights (~536 MB) — inference then runs
+              locally via WebGPU (or WASM fallback). Fluent English, often
+              wrong facts — it's small.
+            </p>
           </div>
-          <h2 className={styles.sectionTitle}>
-            My 95M-parameter LLM, <em>running on your device.</em>
-          </h2>
-          <p className={styles.sectionLede}>
-            The model I pretrained from scratch on{" "}
-            <strong>~6.5B tokens of OpenWebText</strong> using a single RTX
-            3070 Ti, then instruction-tuned on Stanford Alpaca. Click to
-            download the ONNX weights (~536 MB) — inference then runs
-            locally via WebGPU (or WASM fallback). Fluent English, often
-            wrong facts — it's small.
-          </p>
+
+          <aside className={styles.demoSpec} aria-label="Model spec">
+            <div className={styles.demoSpecHeader}>
+              <span className={styles.demoSpecKicker}>Model spec</span>
+              <Link to="/tinygpt" className={styles.demoSpecLink}>
+                full breakdown <span aria-hidden="true">›</span>
+              </Link>
+            </div>
+            <dl className={styles.demoSpecList}>
+              {[
+                ["Parameters", "95M"],
+                ["Layers", "12 · 768 dim"],
+                ["Attention", "GQA · 12Q / 4KV"],
+                ["Positional", "RoPE + RMSNorm"],
+                ["Vocab", "50,257 (GPT-2 BPE)"],
+                ["Context", "512 tokens"],
+                ["Pretrain", "~6.5B tokens · OpenWebText"],
+                ["Hardware", "1× RTX 3070 Ti (8 GB)"],
+                ["SFT", "Stanford Alpaca · 52K"],
+              ].map(([k, v]) => (
+                <div key={k} className={styles.demoSpecRow}>
+                  <dt className={styles.demoSpecKey}>{k}</dt>
+                  <dd className={styles.demoSpecVal}>{v}</dd>
+                </div>
+              ))}
+            </dl>
+          </aside>
         </div>
         <LiveDemo />
       </section>
@@ -342,7 +391,7 @@ export default function Home() {
                     </div>
                   </div>
                   <div className={styles.postArrow} aria-hidden="true">
-                    →
+                    ›
                   </div>
                 </Link>
               </li>
@@ -351,7 +400,7 @@ export default function Home() {
         </ul>
 
         <Link to="/blogs" className={styles.sectionMore}>
-          All {blogs.length} posts <span aria-hidden="true">→</span>
+          All {blogs.length} posts <span aria-hidden="true">›</span>
         </Link>
       </section>
 
@@ -387,7 +436,7 @@ export default function Home() {
                 <div className={styles.expCompany}>
                   <span>{e.company}</span>
                   <span className={styles.expArr} aria-hidden="true">
-                    ↗
+                    ›
                   </span>
                 </div>
               </a>
@@ -396,30 +445,175 @@ export default function Home() {
         </div>
 
         <Link to="/experience" className={styles.sectionMore}>
-          Full work history <span aria-hidden="true">→</span>
+          Full work history <span aria-hidden="true">›</span>
         </Link>
       </section>
 
       {/* ─────────────────────  SITE ASSISTANT (CHAT)  ────────────────── */}
       <section id="chat" className={styles.section}>
-        <div className={styles.sectionHead}>
-          <div className={styles.sectionLabel}>
-            <span className={styles.sectionNum}>06</span>
-            <span className={styles.sectionLabelText}>
-              Site Assistant{" "}
-              <span className={styles.sectionLabelTag}>· grounded · navigates</span>
-            </span>
+        <div className={styles.askTop}>
+          <div className={styles.sectionHead}>
+            <div className={styles.sectionLabel}>
+              <span className={styles.sectionNum}>06</span>
+              <span className={styles.sectionLabelText}>
+                Site Assistant{" "}
+                <span className={styles.sectionLabelTag}>
+                  · grounded · navigates
+                </span>
+              </span>
+            </div>
+            <h2 className={styles.sectionTitle}>
+              Ask <em>about</em> this site.
+            </h2>
+            <p className={styles.sectionLede}>
+              A production-grade LLM grounded in this site's content — every
+              project, role, blog post, and skill on this page is in its
+              context. It can also fetch fresh GitHub data and send you to
+              the right page when you ask for it. Different from TinyGPT
+              above: this one is factually reliable about <em>me.</em>
+            </p>
           </div>
-          <h2 className={styles.sectionTitle}>
-            Ask <em>about</em> this site.
-          </h2>
-          <p className={styles.sectionLede}>
-            A production-grade LLM grounded in this site's content — every
-            project, role, blog post, and skill on this page is in its
-            context. It can also fetch fresh GitHub data and send you to
-            the right page when you ask for it. Different from TinyGPT
-            above: this one is factually reliable about <em>me.</em>
-          </p>
+
+          <aside className={styles.askSketch} aria-hidden="true">
+            <div className={styles.askSketchCaption}>
+              <span className={styles.askSketchKicker}>how it answers</span>
+            </div>
+            <svg
+              className={styles.askSketchSvg}
+              viewBox="0 0 320 420"
+              xmlns="http://www.w3.org/2000/svg"
+              role="img"
+            >
+              <defs>
+                <filter
+                  id="askRough"
+                  x="-5%"
+                  y="-5%"
+                  width="110%"
+                  height="110%"
+                >
+                  <feTurbulence
+                    type="fractalNoise"
+                    baseFrequency="0.03"
+                    numOctaves="2"
+                    seed="7"
+                  />
+                  <feDisplacementMap
+                    in="SourceGraphic"
+                    scale="2.4"
+                  />
+                </filter>
+                <marker
+                  id="askArrow"
+                  viewBox="0 0 10 10"
+                  refX="8"
+                  refY="5"
+                  markerWidth="8"
+                  markerHeight="8"
+                  orient="auto-start-reverse"
+                >
+                  <path
+                    d="M 0 1 L 9 5 L 0 9"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </marker>
+              </defs>
+
+              {/* Stroke layer — gets the rough filter for hand-drawn feel */}
+              <g
+                className={styles.askInk}
+                filter="url(#askRough)"
+              >
+                {/* You box */}
+                <rect
+                  x="100"
+                  y="14"
+                  width="120"
+                  height="44"
+                  rx="4"
+                />
+                <path d="M160 60 L160 88" markerEnd="url(#askArrow)" />
+
+                {/* LLM box */}
+                <rect
+                  x="60"
+                  y="92"
+                  width="200"
+                  height="78"
+                  rx="6"
+                />
+
+                {/* Loop: LLM → tools (right side, curves out) */}
+                <path d="M260 122 C 290 122, 296 170, 274 188" markerEnd="url(#askArrow)" />
+                {/* Loop back: tools → LLM */}
+                <path d="M274 226 C 296 244, 290 270, 260 252" markerEnd="url(#askArrow)" />
+
+                {/* Tools box (small, to the right) */}
+                <rect
+                  x="218"
+                  y="188"
+                  width="84"
+                  height="40"
+                  rx="4"
+                />
+
+                {/* LLM → reply (down) */}
+                <path d="M160 170 L160 250" markerEnd="url(#askArrow)" />
+
+                {/* Reply box */}
+                <rect
+                  x="60"
+                  y="254"
+                  width="200"
+                  height="60"
+                  rx="6"
+                />
+
+                {/* Streaming wavy line under reply */}
+                <path d="M82 336 q 12 -8 24 0 t 24 0 t 24 0 t 24 0 t 24 0 t 24 0 t 24 0" />
+              </g>
+
+              {/* Text layer — crisp, NOT filtered, so labels read clean */}
+              <g className={styles.askLabels}>
+                <text x="160" y="40" textAnchor="middle" className={styles.askLabelSmall}>
+                  YOUR QUESTION
+                </text>
+
+                <text x="160" y="124" textAnchor="middle" className={styles.askLabelBig}>
+                  LLM
+                </text>
+                <text x="160" y="148" textAnchor="middle" className={styles.askLabelSub}>
+                  grounded in this page
+                </text>
+
+                <text x="260" y="212" textAnchor="middle" className={styles.askLabelMid}>
+                  tools
+                </text>
+                <text x="260" y="225" textAnchor="middle" className={styles.askLabelTiny}>
+                  github · nav
+                </text>
+
+                <text x="160" y="284" textAnchor="middle" className={styles.askLabelBig}>
+                  reply
+                </text>
+                <text x="160" y="304" textAnchor="middle" className={styles.askLabelSub}>
+                  streamed back, with links
+                </text>
+
+                {/* Tiny annotations to add life */}
+                <text x="312" y="148" textAnchor="end" className={styles.askLabelHand}>
+                  if needed ↶
+                </text>
+                <text x="46" y="298" textAnchor="end" className={styles.askLabelHand}>
+                  ~~
+                </text>
+              </g>
+            </svg>
+          </aside>
         </div>
         <ChatPanel />
       </section>

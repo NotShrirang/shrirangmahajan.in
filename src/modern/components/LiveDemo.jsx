@@ -380,7 +380,7 @@ export default function LiveDemo() {
                     rel="noreferrer noopener"
                     className={styles.statLink}
                   >
-                    HuggingFace ↗
+                    HuggingFace ›
                   </a>
                 </div>
                 <div className={styles.statSub}>weights live on HF</div>

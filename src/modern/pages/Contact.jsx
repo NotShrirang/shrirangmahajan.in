@@ -101,7 +101,7 @@ export default function Contact() {
                   {state === "sending" ? "Sending…" : "Send message"}
                 </span>
                 <span className={styles.submitArr} aria-hidden="true">
-                  →
+                  ›
                 </span>
               </button>
               {state === "sent" && (
@@ -138,7 +138,7 @@ export default function Contact() {
                   target="_blank"
                   rel="noreferrer noopener"
                 >
-                  GitHub <span>↗</span>
+                  GitHub <span>›</span>
                 </a>
               </li>
               <li>
@@ -147,7 +147,7 @@ export default function Contact() {
                   target="_blank"
                   rel="noreferrer noopener"
                 >
-                  LinkedIn <span>↗</span>
+                  LinkedIn <span>›</span>
                 </a>
               </li>
               <li>
@@ -156,7 +156,7 @@ export default function Contact() {
                   target="_blank"
                   rel="noreferrer noopener"
                 >
-                  X <span>↗</span>
+                  X <span>›</span>
                 </a>
               </li>
               <li>
@@ -165,7 +165,7 @@ export default function Contact() {
                   target="_blank"
                   rel="noreferrer noopener"
                 >
-                  Hugging Face <span>↗</span>
+                  Hugging Face <span>›</span>
                 </a>
               </li>
             </ul>

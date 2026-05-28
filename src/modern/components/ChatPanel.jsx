@@ -243,7 +243,7 @@ Description: ${reactElementToString(e.description)}`
                 {m.navTarget && (
                   <div className={styles.navHint} aria-live="polite">
                     <span className={styles.navHintArr} aria-hidden="true">
-                      →
+                      ›
                     </span>
                     <span>
                       Redirecting to{" "}

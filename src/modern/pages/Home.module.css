@@ -23,12 +23,53 @@
 
 .hero {
   position: relative;
-  padding: clamp(4rem, 10vw, 9rem) 0 clamp(4rem, 10vw, 9rem);
+  padding: clamp(2.5rem, 6vw, 5.5rem) 0 clamp(5rem, 8vw, 7rem);
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: clamp(2rem, 5vw, 4.5rem);
   align-items: center;
   border-bottom: 1px solid var(--rule);
+  min-height: calc(100svh - 4rem);
+}
+
+.heroScroll {
+  position: absolute;
+  bottom: clamp(1.4rem, 3vw, 2.4rem);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  text-decoration: none;
+  animation: heroScrollFade 2.6s ease-in-out infinite;
+}
+.heroScroll:hover {
+  color: var(--accent);
+}
+.heroScrollArrow {
+  font-size: 1.4rem;
+  line-height: 1;
+  margin-top: -0.1em;
+  animation: heroScrollBob 2.6s ease-in-out infinite;
+}
+@keyframes heroScrollFade {
+  0%, 100% { opacity: 0.45; }
+  50%      { opacity: 1; }
+}
+@keyframes heroScrollBob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(5px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .heroScroll,
+  .heroScrollArrow { animation: none; }
 }
 .heroText {
   display: flex;
@@ -327,7 +368,7 @@
 /* ─────────────────────────── SECTIONS ─────────────────────────── */
 
 .section {
-  padding: clamp(4rem, 9vw, 7.5rem) 0;
+  padding: clamp(2.8rem, 6vw, 5rem) 0;
   border-bottom: 1px solid var(--rule);
   position: relative;
   animation: mFadeUp 700ms var(--ease) both;
@@ -346,7 +387,7 @@
   flex-direction: column;
   gap: 1.1rem;
   max-width: 44rem;
-  margin-bottom: clamp(2.4rem, 5vw, 4rem);
+  margin-bottom: clamp(1.6rem, 3.5vw, 2.6rem);
 }
 
 .sectionLabel {
@@ -440,6 +481,9 @@
   border-bottom: 1px solid var(--rule);
   align-items: start;
   position: relative;
+}
+.belief:last-child {
+  border-bottom: 0;
 }
 
 .beliefNum {
@@ -630,28 +674,6 @@
   padding: clamp(1.6rem, 3vw, 2.4rem) 0;
   align-items: start;
   position: relative;
-  transition: padding var(--med) var(--ease);
-}
-.workLink::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    var(--paper-deep) 50%,
-    transparent 100%
-  );
-  opacity: 0;
-  transition: opacity var(--med) var(--ease);
-  z-index: -1;
-}
-.workLink:hover::before {
-  opacity: 0.5;
-}
-.workLink:hover {
-  padding-left: clamp(0.6rem, 2vw, 1.4rem);
-  padding-right: clamp(0.6rem, 2vw, 1.4rem);
 }
 
 .workIndex {
@@ -660,9 +682,6 @@
   letter-spacing: 0.12em;
   color: var(--ink-mute);
   padding-top: 0.6em;
-}
-.workLink:hover .workIndex {
-  color: var(--accent);
 }
 
 .workBody {
@@ -679,10 +698,20 @@
   letter-spacing: -0.018em;
   color: var(--ink);
   margin: 0;
-  transition: color var(--med) var(--ease);
 }
-.workLink:hover .workTitle {
+.workTitleLink {
+  color: inherit;
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: color var(--med) var(--ease),
+    background-size var(--med) var(--ease);
+}
+.workTitleLink:hover {
   color: var(--accent);
+  background-size: 100% 1px;
 }
 
 .workDesc {
@@ -745,17 +774,32 @@
 }
 
 .workArrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-family: var(--font-display);
-  font-size: 2rem;
+  font-size: 1.6rem;
+  line-height: 1;
+  font-weight: 400;
   color: var(--ink-mute);
-  padding-top: 0.4em;
-  text-align: right;
+  width: 2.4rem;
+  height: 2.4rem;
+  margin-top: 0.2em;
+  margin-left: auto;
+  padding: 0 0 0.08em 0.1em;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  text-decoration: none;
   transition: transform var(--med) var(--ease),
-    color var(--med) var(--ease);
+    color var(--med) var(--ease),
+    border-color var(--med) var(--ease),
+    background var(--med) var(--ease);
 }
-.workLink:hover .workArrow {
-  transform: translateX(0.4em);
-  color: var(--accent);
+.workArrow:hover {
+  transform: translateX(0.25em);
+  color: var(--paper);
+  background: var(--accent);
+  border-color: var(--accent);
 }
 
 @media (max-width: 700px) {
@@ -1015,4 +1059,209 @@
   font-size: 1.2rem;
   color: var(--ink-mute);
   margin: 2rem 0 0;
+}
+
+/* ─── Section 03 (TinyGPT) — header + spec sidebar layout ─── */
+.demoTop {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(18rem, 0.95fr);
+  gap: clamp(2rem, 6vw, 4.5rem);
+  align-items: start;
+  margin-bottom: clamp(1.6rem, 3.5vw, 2.6rem);
+}
+.demoTop > .sectionHead {
+  margin-bottom: 0;
+  max-width: none;
+}
+
+.demoSpec {
+  position: relative;
+  padding: 1rem 1.2rem 1.1rem;
+  background: var(--paper-deep, rgba(0, 0, 0, 0.03));
+  border: 1px solid var(--rule);
+  border-top: 2px solid var(--ink);
+}
+
+.demoSpecHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.6rem;
+  margin-bottom: 0.6rem;
+  border-bottom: 1px solid var(--rule);
+}
+.demoSpecKicker {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+.demoSpecLink {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  transition: color var(--fast, 180ms) var(--ease, ease);
+}
+.demoSpecLink:hover {
+  color: var(--ink);
+}
+
+.demoSpecList {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+.demoSpecRow {
+  display: grid;
+  grid-template-columns: minmax(6rem, 0.85fr) minmax(0, 1.4fr);
+  gap: 1rem;
+  align-items: baseline;
+  padding: 0.3rem 0;
+  border-bottom: 1px dashed var(--rule);
+}
+.demoSpecRow:last-child {
+  border-bottom: 0;
+}
+.demoSpecKey {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin: 0;
+}
+.demoSpecVal {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--ink);
+  margin: 0;
+  text-align: right;
+  letter-spacing: 0.01em;
+}
+
+@media (max-width: 880px) {
+  .demoTop {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .demoSpec {
+    padding: 1.1rem 1.2rem 1.2rem;
+  }
+  .demoSpecVal {
+    text-align: left;
+  }
+  .demoSpecRow {
+    grid-template-columns: minmax(6rem, 0.7fr) 1fr;
+  }
+}
+
+/* ─── Section 06 (Ask) — header + hand-drawn sketch sidebar ─── */
+.askTop {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(16rem, 0.85fr);
+  gap: clamp(2rem, 6vw, 4.5rem);
+  align-items: start;
+  margin-bottom: clamp(1.6rem, 3.5vw, 2.6rem);
+}
+.askTop > .sectionHead {
+  margin-bottom: 0;
+  max-width: none;
+}
+
+.askSketch {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.5rem 0.4rem 0;
+  max-width: 20rem;
+  margin-left: auto;
+  width: 100%;
+}
+.askSketchCaption {
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--rule);
+}
+.askSketchKicker {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+.askSketchSvg {
+  width: 100%;
+  height: auto;
+  display: block;
+  color: var(--accent);
+  overflow: visible;
+}
+
+.askInk {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  /* SVG filter feDisplacementMap can produce subtle pixel noise around edges
+     when over a textured background; the parent .askSketch sits on the
+     paper bg so we don't need to clip. */
+}
+
+.askLabels {
+  fill: var(--ink);
+}
+.askLabelBig {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 22px;
+  font-weight: 400;
+}
+.askLabelMid {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 15px;
+  font-weight: 400;
+}
+.askLabelSmall {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  fill: var(--ink-mute);
+}
+.askLabelSub {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 11px;
+  fill: var(--ink-soft);
+}
+.askLabelTiny {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  fill: var(--ink-mute);
+  text-transform: uppercase;
+}
+.askLabelHand {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 11px;
+  fill: var(--ink-mute);
+}
+
+@media (max-width: 880px) {
+  .askTop {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .askSketch {
+    max-width: 26rem;
+    margin: 0 auto;
+    padding: 0.6rem 0 0;
+  }
 }
