@@ -1,0 +1,288 @@
+/* Mirrors Cell.module.css visually but adds inference-specific UI:
+   editable prompt input, progress bar, streaming output. */
+
+.cell {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 100%;
+  border-radius: 4px;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  outline: none;
+}
+
+.cellInput,
+.cellOutput {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: start;
+  gap: 1rem;
+  width: 100%;
+}
+
+.cellActive {
+  height: 100%;
+  width: 4px;
+  border: 1px solid transparent;
+  border-radius: 2px;
+}
+.cellInactive {
+  background-color: transparent;
+  height: 100%;
+  width: 4px;
+  border: 1px solid transparent;
+  border-radius: 2px;
+}
+
+.cellContent {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: start;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.cellControl {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.controlItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.controlIcon {
+  width: 1rem;
+  height: 1rem;
+  padding: 0.25rem;
+  cursor: pointer;
+  border-radius: 2px;
+}
+.controlIcon:hover {
+  background-color: #4e4e4e;
+}
+.controlIcon[data-disabled="true"] {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.cellCount {
+  font-size: 13px;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: 400;
+  text-align: center;
+  min-width: 2rem;
+}
+
+.codeContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 0.6rem;
+  width: 100%;
+  border: 1px solid #4e4e4e;
+}
+
+.codeLine {
+  font-size: 13px;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: 400;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Syntax-token colors. Themed in the dark/light blocks below. */
+.kw,
+.fn,
+.var,
+.str,
+.num,
+.cm {
+  font-family: inherit;
+}
+
+/* Inline prompt input — looks like a string literal but is editable. */
+.promptInput {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 13px;
+  font-weight: 400;
+  border: none;
+  background: transparent;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  min-width: 4rem;
+  max-width: 100%;
+}
+.promptInput::placeholder {
+  opacity: 0.5;
+}
+.promptInputFocus {
+  background-color: rgba(255, 200, 0, 0.07);
+}
+.promptQuote {
+  user-select: none;
+}
+
+/* Inline numeric literal — same monospace as code, no spinner chrome. */
+.numInput {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 13px;
+  font-weight: 400;
+  border: none;
+  background: transparent;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  min-width: 2ch;
+  text-align: left;
+  -moz-appearance: textfield;
+}
+.numInput::-webkit-outer-spin-button,
+.numInput::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.numInput:focus {
+  background: rgba(255, 200, 0, 0.08);
+}
+.numInput:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Output side */
+.outputItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0px 2px;
+}
+.outputIcon {
+  width: 1rem;
+  height: 1rem;
+  padding: 0.25rem;
+  border-radius: 2px;
+}
+
+.outputContent {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 13px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  word-break: break-word;
+  min-height: 1.8rem;
+  border: 1px solid transparent;
+  gap: 0.4rem;
+}
+
+.outputStatus {
+  font-size: 11px;
+  font-family: "Courier New", Courier, monospace;
+  letter-spacing: 0.04em;
+  opacity: 0.65;
+}
+
+.outputCursor {
+  display: inline-block;
+  width: 0.4em;
+  height: 1em;
+  background: currentColor;
+  margin-left: 1px;
+  vertical-align: -2px;
+  animation: tgptBlink 0.95s steps(1) infinite;
+}
+@keyframes tgptBlink {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+
+.progressTrack {
+  width: 100%;
+  height: 4px;
+  background: rgba(127, 127, 127, 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #ec7424, #f2a25c);
+  transition: width 0.15s ease;
+}
+
+.errorText {
+  color: #d8443c;
+}
+
+.statsLine {
+  font-size: 11px;
+  font-family: "Courier New", Courier, monospace;
+  opacity: 0.6;
+  letter-spacing: 0.04em;
+  margin-top: 0.2rem;
+}
+
+.outputEmpty {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 12px;
+  opacity: 0.55;
+}
+
+@media (prefers-color-scheme: light) {
+  .cell { background-color: #fff; border: 1px solid transparent; }
+  .cellActive { background-color: #ec7424; }
+  .cellInactive { background-color: #ffffff; }
+  .codeContainer { background-color: #fff; }
+  .outputContent { background-color: #fff; color: #111; }
+
+  .kw  { color: #0f37bc; }
+  .fn  { color: #0f37bc; }
+  .var { color: #479AFF; }
+  .str { color: #6a8a35; }
+  .num { color: #af00db; }
+  .cm  { color: #6c6c6c; font-style: italic; }
+  .promptInput { color: #6a8a35; caret-color: #ec7424; }
+  .promptQuote { color: #6a8a35; }
+  .numInput { color: #af00db; caret-color: #ec7424; }
+  .outputStatus { color: #6c6c6c; }
+}
+
+@media (prefers-color-scheme: dark) {
+  .cell { background-color: #000000; border: 1px solid transparent; }
+  .cellActive { background-color: #2196f3; }
+  .cellInactive { background-color: #000000; }
+  .codeContainer { background-color: #212121; border: 1px solid #4e4e4e; }
+  .outputContent { background-color: #000; color: #e8e8e8; }
+
+  .kw  { color: #64b5f6; }
+  .fn  { color: #64b5f6; }
+  .var { color: #479AFF; }
+  .str { color: #c5e478; }
+  .num { color: #d6a3ff; }
+  .cm  { color: #9aa0a6; font-style: italic; }
+  .promptInput { color: #c5e478; caret-color: #2196f3; }
+  .promptQuote { color: #c5e478; }
+  .numInput { color: #d6a3ff; caret-color: #2196f3; }
+  .outputStatus { color: #bdbdbd; }
+}
+
+@media (max-width: 600px) {
+  .codeContainer { padding: 0.4rem; }
+  .outputContent { padding: 0.5rem; }
+}

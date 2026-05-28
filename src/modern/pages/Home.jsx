@@ -230,35 +230,11 @@ export default function Home() {
         </ol>
       </section>
 
-      {/* ─────────────────────────  LIVE DEMO  ───────────────────────── */}
-      <section id="demo" className={styles.section}>
-        <div className={styles.sectionHead}>
-          <div className={styles.sectionLabel}>
-            <span className={styles.sectionNum}>02</span>
-            <span className={styles.sectionLabelText}>
-              TinyGPT <span className={styles.sectionLabelTag}>· my model · local</span>
-            </span>
-          </div>
-          <h2 className={styles.sectionTitle}>
-            My 95M-parameter LLM, <em>running on your device.</em>
-          </h2>
-          <p className={styles.sectionLede}>
-            The model I pretrained from scratch on{" "}
-            <strong>~6.5B tokens of OpenWebText</strong> using a single RTX
-            3070 Ti, then instruction-tuned on Stanford Alpaca. Click to
-            download the ONNX weights (~536 MB) — inference then runs
-            locally via WebGPU (or WASM fallback). Fluent English, often
-            wrong facts — it's small.
-          </p>
-        </div>
-        <LiveDemo />
-      </section>
-
       {/* ─────────────────────  SELECTED WORK  ───────────────────── */}
       <section id="work" className={styles.section}>
         <div className={styles.sectionHead}>
           <div className={styles.sectionLabel}>
-            <span className={styles.sectionNum}>03</span>
+            <span className={styles.sectionNum}>02</span>
             <span className={styles.sectionLabelText}>Selected Work</span>
           </div>
           <h2 className={styles.sectionTitle}>
@@ -305,6 +281,30 @@ export default function Home() {
           View all {projects.length} projects{" "}
           <span aria-hidden="true">→</span>
         </Link>
+      </section>
+
+      {/* ─────────────────────────  LIVE DEMO  ───────────────────────── */}
+      <section id="demo" className={styles.section}>
+        <div className={styles.sectionHead}>
+          <div className={styles.sectionLabel}>
+            <span className={styles.sectionNum}>03</span>
+            <span className={styles.sectionLabelText}>
+              TinyGPT <span className={styles.sectionLabelTag}>· my model · local</span>
+            </span>
+          </div>
+          <h2 className={styles.sectionTitle}>
+            My 95M-parameter LLM, <em>running on your device.</em>
+          </h2>
+          <p className={styles.sectionLede}>
+            The model I pretrained from scratch on{" "}
+            <strong>~6.5B tokens of OpenWebText</strong> using a single RTX
+            3070 Ti, then instruction-tuned on Stanford Alpaca. Click to
+            download the ONNX weights (~536 MB) — inference then runs
+            locally via WebGPU (or WASM fallback). Fluent English, often
+            wrong facts — it's small.
+          </p>
+        </div>
+        <LiveDemo />
       </section>
 
       {/* ───────────────────────  WRITING  ─────────────────────── */}

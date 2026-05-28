@@ -23,6 +23,15 @@ export default function Footer() {
           <p className={styles.tag}>
             <em>In search of global maximum.</em>
           </p>
+          <p className={styles.reach}>
+            Reach me at{" "}
+            <a
+              href="mailto:shrirangmahajan123@gmail.com"
+              className={styles.reachLink}
+            >
+              shrirangmahajan123@gmail.com
+            </a>
+          </p>
           <p className={styles.meta}>
             Built without templates. Source on{" "}
             <a

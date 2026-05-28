@@ -48,6 +48,26 @@
   max-width: 24rem;
 }
 
+.reach {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+  color: var(--ink-soft);
+  margin: 0;
+  max-width: 24rem;
+}
+.reachLink {
+  color: var(--ink);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.05em;
+  transition: color var(--fast) var(--ease),
+    border-color var(--fast) var(--ease);
+}
+.reachLink:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
 .meta {
   font-size: 0.85rem;
   color: var(--ink-mute);

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import styles from "./CellsPage.module.css";
 import Cell from "../../components/Cell/Cell";
+import TinyGPTCell from "../../components/TinyGPTCell/TinyGPTCell";
 import { fetchExperience } from "../../data/experiences";
 import MarkdownCell from "../../components/MarkdownCell/MarkdownCell.jsx";
 import skills from "../../data/skills";
@@ -164,9 +165,47 @@ const CellsPage = () => {
           activeCell={activeCell}
           setActiveCell={setActiveCell}
         />
-        <Cell
+        <MarkdownCell
           cell={{
             id: 2,
+            output: (
+              <div className={styles.tinygptIntro}>
+                <h2 className={styles.tinygptIntroTitle}>
+                  Try TinyGPT — my 95M-param LLM, in this notebook.
+                </h2>
+                <p className={styles.tinygptIntroBody}>
+                  The cell below runs a small language model{" "}
+                  <em>entirely in your browser</em> via WebGPU (or WASM
+                  fallback). I pretrained it on ~6.5B tokens of OpenWebText on
+                  a single RTX 3070 Ti and instruction-tuned it on Stanford
+                  Alpaca.
+                </p>
+                <p className={styles.tinygptIntroBody}>
+                  <strong>What you can edit:</strong> the{" "}
+                  <code>prompt</code>, plus <code>max_new_tokens</code>,{" "}
+                  <code>temperature</code>, and <code>top_k</code> on the
+                  generate call. Click any of them to type a new value, then
+                  hit ▶ (or <kbd>Shift</kbd>+<kbd>Enter</kbd>) to run.
+                </p>
+                <p className={styles.tinygptIntroNote}>
+                  First run downloads ~536&nbsp;MB of ONNX weights (cached
+                  after). The model is fluent but tiny — expect coherent
+                  English with shaky facts.
+                </p>
+              </div>
+            ),
+          }}
+          activeCell={activeCell}
+          setActiveCell={setActiveCell}
+        />
+        <TinyGPTCell
+          id={3}
+          activeCell={activeCell}
+          setActiveCell={setActiveCell}
+        />
+        <Cell
+          cell={{
+            id: 4,
             content: (
               <span>
                 <span
@@ -255,7 +294,7 @@ const CellsPage = () => {
         />
         <Cell
           cell={{
-            id: 3,
+            id: 5,
             content: (
               <span>
                 <span style={{ color: "#479AFF" }}>experience</span> =
@@ -321,7 +360,7 @@ const CellsPage = () => {
         />
         <Cell
           cell={{
-            id: 4,
+            id: 6,
             content: (
               <span>
                 <span style={{ color: "#479AFF" }}>languages</span> = portfolio.
@@ -377,7 +416,7 @@ const CellsPage = () => {
         />
         <Cell
           cell={{
-            id: 5,
+            id: 7,
             content: (
               <span>
                 <span style={{ color: "#479AFF" }}>education</span> = portfolio.
