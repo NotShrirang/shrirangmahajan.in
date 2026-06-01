@@ -1,0 +1,68 @@
+# Shrirang Mahajan
+
+> Machine Learning Engineer based in Pune, India. Currently ML Engineer II
+> at Skylark Labs. Trains LLMs from scratch (TinyGPT — 95M params on a
+> single RTX 3070 Ti), writes CUDA kernels by hand (Tensorax — `pip install
+> tensorax`), and ships production ML systems with real throughput wins
+> (2× via TensorRT + Triton, 3× via distributed annotation).
+
+This site has two equivalent views: a modern editorial-paper design at
+the root, and a Jupyter-notebook-styled view at `/jupyter`. Both render
+the same underlying content.
+
+## About
+
+- [Home](https://www.shrirangmahajan.in/): one-page overview — approach,
+  selected work, writing, experience, and a grounded site assistant.
+- [Experience](https://www.shrirangmahajan.in/experience/): full work
+  history with dates, scope, and impact for each role.
+- [Contact](https://www.shrirangmahajan.in/contact/): email and social
+  links. Best response on weekdays, IST.
+
+## Featured
+
+- [TinyGPT](https://www.shrirangmahajan.in/tinygpt): A 95M-parameter LLM
+  pretrained from scratch on ~6.5B tokens of OpenWebText with a single
+  RTX 3070 Ti, instruction-tuned on Stanford Alpaca, converted to ONNX,
+  and runnable in-browser via WebGPU/WASM. Architecture details, training
+  setup, conversion pipeline, and a live demo.
+
+## Selected work
+
+- [Projects index](https://www.shrirangmahajan.in/projects/): complete list,
+  filterable by domain (ML, Web, App Dev). Includes Tensorax (CUDA kernel
+  library on PyPI), QuillGPT (LLM fine-tuning), LoomRAG (multimodal RAG),
+  Sonnet (LangChain chatbots), and more.
+
+## Writing
+
+- [All posts](https://www.shrirangmahajan.in/blogs/): essays on transformer
+  internals, LLM pretraining, CUDA kernels, and multimodal models.
+- [Pretraining a 95M LLM on a Consumer GPU](https://www.shrirangmahajan.in/blogs/pretraining-95m-llm-consumer-gpu)
+- [Writing CUDA Kernels from Scratch — a Beginner's Guide](https://www.shrirangmahajan.in/blogs/writing-cuda-kernels-from-scratch-a-beginner's-guide)
+- [Attention Explained Layer-by-Layer](https://www.shrirangmahajan.in/blogs/attention-and-the-versions-of-it-layer-by-layer)
+- [Attention is All You Need — explained](https://www.shrirangmahajan.in/blogs/attention-explanation-is-all-you-need)
+- [Llama 2 Explained](https://www.shrirangmahajan.in/blogs/llama-2-explained)
+- [Llama 4 — the Natively Multimodal AI](https://www.shrirangmahajan.in/blogs/llama-4-the-natively-multimodal-ai)
+- [From Words to Meaning: Word Vectors → Learnable Embeddings](https://www.shrirangmahajan.in/blogs/from-words-to-meaning:-the-journey-from-word-vectors-to-learnable-embeddings)
+
+## Identity
+
+These accounts all refer to the same person:
+
+- GitHub: https://github.com/NotShrirang
+- LinkedIn: https://www.linkedin.com/in/shrirang-mahajan
+- X / Twitter: https://x.com/notshrirang
+- Hugging Face: https://huggingface.co/NotShrirang
+- Kaggle: https://www.kaggle.com/notshrirang
+- PyPI: https://pypi.org/user/NotShrirang/
+- Email: shrirangmahajan123@gmail.com
+
+## Optional
+
+- [Jupyter mode](https://www.shrirangmahajan.in/jupyter): the same site
+  rendered as a Jupyter notebook — every section is a cell, the TinyGPT
+  cell runs real inference with an editable prompt and generation params.
+- [Sitemap](https://www.shrirangmahajan.in/sitemap.xml)
+- [Repository](https://github.com/NotShrirang/shrirangmahajan.in): source
+  code for this site.

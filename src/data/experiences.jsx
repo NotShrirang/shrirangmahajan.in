@@ -64,7 +64,7 @@ const fetchExperience = () => [
       </>,
     ],
     duration: "July 2024 - October 2025",
-    link: "https://www.ellicium.com/",
+    link: "https://www.emergys.com/",
   },
   {
     id: 4,
@@ -86,7 +86,7 @@ const fetchExperience = () => [
         <b>Flutter</b>.
       </>,
     ],
-    duration: "April 2023 - December 2024",
+    duration: "April 2023 - December 2023",
     link: "https://atomicloops.com/",
   },
   {

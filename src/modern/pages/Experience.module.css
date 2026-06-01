@@ -232,7 +232,7 @@
     align-items: center;
   }
   .gutterDates {
-    flex-direction: row;
+    flex-direction: row-reverse;
     align-items: center;
     gap: 0.5rem;
   }

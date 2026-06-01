@@ -48,7 +48,7 @@ export default function Experience() {
                 </div>
                 <div className={styles.gutterDates}>
                   <div className={styles.year}>{endYear}</div>
-                  <div className={styles.month}>{endMonth || "—"}</div>
+                  <div className={styles.month}>{endMonth}</div>
                   <div className={styles.bar} aria-hidden="true" />
                   <div className={styles.year}>{startYear}</div>
                   <div className={styles.month}>{startMonth}</div>
