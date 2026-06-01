@@ -5,70 +5,170 @@ const Expander = ({ children }) => {
   const [theme, setTheme] = useState("light");
 
   useEffect(() => {
-    const theme = window.matchMedia("(prefers-color-scheme: dark)").matches
+    const t = window.matchMedia("(prefers-color-scheme: dark)").matches
       ? "dark"
       : "light";
-    setTheme(theme);
+    setTheme(t);
   }, []);
+
+  // Site tokens used here: --ink (text), --paper (bg), --paper-deep (subtle
+  // bg), --rule (hairline), --accent (burnt sienna). The component reads them
+  // off `:root`, so it adapts whichever page it's rendered inside.
+  const collapsedBg =
+    "linear-gradient(to bottom, color-mix(in srgb, var(--paper) 0%, transparent), var(--paper-deep) 60%)";
+  const expandedBg = "var(--paper-deep)";
+
+  const bottomBarBase = {
+    width: "100%",
+    height: "60px",
+    cursor: "pointer",
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    border: 0,
+    borderTop: "1px solid var(--rule)",
+    background: expanded ? expandedBg : collapsedBg,
+    color: "var(--accent)",
+    fontFamily: "var(--font-mono, ui-monospace)",
+    fontSize: "0.72rem",
+    letterSpacing: "0.18em",
+    textTransform: "uppercase",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: "0.5rem",
+    transition: "color 180ms ease, background 180ms ease",
+    padding: "0 1rem",
+  };
+
+  const onBottomEnter = (e) => {
+    e.currentTarget.style.color = "var(--paper)";
+    e.currentTarget.style.background = "var(--accent)";
+  };
+  const onBottomLeaveCollapsed = (e) => {
+    e.currentTarget.style.color = "var(--accent)";
+    e.currentTarget.style.background = collapsedBg;
+  };
+  const onBottomLeaveExpanded = (e) => {
+    e.currentTarget.style.color = "var(--accent)";
+    e.currentTarget.style.background = expandedBg;
+  };
+
+  const togglePill = {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: "0.45rem",
+    padding: "0.4rem 0.95rem",
+    fontFamily: "var(--font-mono, ui-monospace)",
+    fontSize: "0.7rem",
+    letterSpacing: "0.18em",
+    textTransform: "uppercase",
+    color: "var(--ink)",
+    background: "transparent",
+    border: "1px solid var(--rule)",
+    borderRadius: "999px",
+    cursor: "pointer",
+    userSelect: "none",
+    lineHeight: 1,
+    transition:
+      "color 180ms ease, background 180ms ease, border-color 180ms ease",
+  };
 
   return (
     <div
       style={{
-        border: theme === "dark" ? "1px solid #f0f0f0" : "1px solid #333",
-        borderRadius: "0.75rem",
+        border: "1px solid var(--rule)",
+        borderRadius: "6px",
+        background: "var(--paper)",
+        margin: "1.6rem 0",
+        overflow: "hidden",
       }}
     >
       <div
-        style={{ paddingLeft: "1rem", display: "flex", alignItems: "center" }}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: "1rem",
+          padding: "0.6rem 1rem 0.6rem 1rem",
+        }}
       >
-        <h3>Explanation</h3>
+        <h3
+          style={{
+            fontFamily: "var(--font-display, ui-serif)",
+            fontWeight: 400,
+            fontSize: "1.15rem",
+            letterSpacing: "-0.015em",
+            color: "var(--ink)",
+            margin: 0,
+          }}
+        >
+          Explanation
+        </h3>
         {expanded && (
           <div
-            style={{
-              marginLeft: "auto",
-              marginRight: "1rem",
-              color: theme === "dark" ? "white" : "black",
-              cursor: "pointer",
+            role="button"
+            tabIndex={0}
+            onClick={() => setExpanded(false)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") setExpanded(false);
             }}
-            onClick={() => setExpanded(!expanded)}
+            style={togglePill}
           >
-            {expanded ? "Read Less" : "Read More"}
+            <span>Read less</span>
+            <span aria-hidden="true" style={{ transform: "rotate(180deg)", fontSize: "0.95rem", lineHeight: 1 }}>
+              ⌄
+            </span>
           </div>
         )}
       </div>
       <div
         style={{
           position: "relative",
-          height: expanded ? "auto" : "50px",
+          height: expanded ? "auto" : "60px",
           overflow: "hidden",
-          paddingBottom: expanded ? "50px" : "0",
+          paddingBottom: expanded ? "0" : "0",
         }}
       >
-        <button
-          onClick={() => setExpanded(!expanded)}
+        <div
           style={{
-            width: "100%",
-            height: expanded ? "50px" : "50px",
-            cursor: "pointer",
-            border: "none",
-            position: "absolute",
-            bottom: "0",
-            right: "0",
-            background: `linear-gradient(to bottom, ${
-              theme === "light" ? "#f0f0f0" : "#444"
-            }, ${theme === "light" ? "#e0e0e0" : "#222"})`,
-            opacity: "0.9",
-            borderRadius: "0 0 1rem 1rem",
-            color: theme === "dark" ? "white" : "black",
-            zIndex: "100",
+            paddingLeft: "1rem",
+            paddingRight: "1rem",
+            paddingBottom: expanded ? "1rem" : "60px",
           }}
         >
-          {expanded ? "Read Less" : "Read More"}
-        </button>
-        <div style={{ paddingLeft: "1rem", paddingRight: "1rem" }}>
           {children}
         </div>
+        {!expanded && (
+          <button
+            onClick={() => setExpanded(true)}
+            style={bottomBarBase}
+            onMouseEnter={onBottomEnter}
+            onMouseLeave={onBottomLeaveCollapsed}
+          >
+            <span>Read more</span>
+            <span aria-hidden="true" style={{ fontSize: "0.95rem", lineHeight: 1 }}>
+              ⌄
+            </span>
+          </button>
+        )}
       </div>
+      {expanded && (
+        <button
+          onClick={() => setExpanded(false)}
+          style={{ ...bottomBarBase, position: "static", height: "44px" }}
+          onMouseEnter={onBottomEnter}
+          onMouseLeave={onBottomLeaveExpanded}
+        >
+          <span>Read less</span>
+          <span
+            aria-hidden="true"
+            style={{ fontSize: "0.95rem", lineHeight: 1, transform: "rotate(180deg)" }}
+          >
+            ⌄
+          </span>
+        </button>
+      )}
     </div>
   );
 };

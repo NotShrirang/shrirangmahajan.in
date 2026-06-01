@@ -1,13 +1,40 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import styles from "./Post.module.css";
-import blogs from "../../data/blogs";
+import blogs, { loadBlogContent } from "../../data/blogs";
 
 export default function Post() {
   const { slug } = useParams();
   const [scroll, setScroll] = useState(0);
+  const [content, setContent] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const blog = useMemo(() => blogs.find((b) => b.slug === slug), [slug]);
+
+  // Pull the heavy JSX body in lazily — only this post's content chunk
+  // gets fetched, instead of all 7 shipping with the initial bundle.
+  useEffect(() => {
+    let cancelled = false;
+    setContent(null);
+    if (!blog) {
+      setLoading(false);
+      return;
+    }
+    setLoading(true);
+    loadBlogContent(slug)
+      .then((full) => {
+        if (!cancelled) {
+          setContent(full?.content || null);
+          setLoading(false);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [slug, blog]);
 
   const similar = useMemo(() => {
     if (!blog) return [];
@@ -95,7 +122,15 @@ export default function Post() {
         </figure>
       )}
 
-      <div className={styles.content}>{blog.content}</div>
+      <div className={styles.content}>
+        {loading ? (
+          <p className={styles.loadingNote}>
+            <em>Loading post…</em>
+          </p>
+        ) : (
+          content
+        )}
+      </div>
 
       <hr className={styles.sep} />
 

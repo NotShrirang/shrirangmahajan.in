@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, lazy, Suspense } from "react";
 import {
   BrowserRouter,
   Routes,
@@ -13,30 +13,31 @@ import "./modern/styles/tokens.css";
 import "./modern/styles/base.css";
 
 import MyContext from "./MyContext";
-import Chatbot from "./components/Chatbot/Chatbot";
 
-// Jupyter (legacy) chrome
-import TitleBar from "./components/TitleBar/TitleBar";
-import MenuBar from "./components/MenuBar/MenuBar";
-import ControlBar from "./components/ControlBar/ControlBar";
-
-// Existing pages — now mounted under /jupyter/*
-import CellsPage from "./pages/CellsPage/CellsPage";
-import ExperiencePage from "./pages/ExperiencePage/ExperiencePage";
-import ProjectPage from "./pages/ProjectsPage/ProjectPage";
-import BlogsPage from "./pages/Blogs/BlogsPage";
-import Blog from "./pages/Blog/Blog";
-import ContactPage from "./pages/ContactPage/ContactPage";
-
-// Modern site
+// Modern layout + Home stay eager — Home is the entry route and the layout
+// renders on every navigation. Everything else loads on demand.
 import ModernLayout from "./modern/components/Layout";
 import Home from "./modern/pages/Home";
-import Projects from "./modern/pages/Projects";
-import Writing from "./modern/pages/Writing";
-import Post from "./modern/pages/Post";
-import Experience from "./modern/pages/Experience";
-import Contact from "./modern/pages/Contact";
-import TinyGPT from "./modern/pages/TinyGPT";
+
+const Projects = lazy(() => import("./modern/pages/Projects"));
+const Writing = lazy(() => import("./modern/pages/Writing"));
+const Post = lazy(() => import("./modern/pages/Post"));
+const Experience = lazy(() => import("./modern/pages/Experience"));
+const Contact = lazy(() => import("./modern/pages/Contact"));
+const TinyGPT = lazy(() => import("./modern/pages/TinyGPT"));
+
+// Jupyter mode is legacy / alt-view. Every route below is lazy so a visitor
+// who never opens /jupyter never downloads any of it.
+const Chatbot = lazy(() => import("./components/Chatbot/Chatbot"));
+const TitleBar = lazy(() => import("./components/TitleBar/TitleBar"));
+const MenuBar = lazy(() => import("./components/MenuBar/MenuBar"));
+const ControlBar = lazy(() => import("./components/ControlBar/ControlBar"));
+const CellsPage = lazy(() => import("./pages/CellsPage/CellsPage"));
+const ExperiencePage = lazy(() => import("./pages/ExperiencePage/ExperiencePage"));
+const ProjectPage = lazy(() => import("./pages/ProjectsPage/ProjectPage"));
+const BlogsPage = lazy(() => import("./pages/Blogs/BlogsPage"));
+const Blog = lazy(() => import("./pages/Blog/Blog"));
+const ContactPage = lazy(() => import("./pages/ContactPage/ContactPage"));
 
 function ModeBodyClass() {
   const location = useLocation();
@@ -86,26 +87,28 @@ function App() {
       <BrowserRouter>
         <ModeBodyClass />
         <div className="appContainer">
-          <Routes>
-            <Route element={<ModernLayout />}>
-              <Route index element={<Home />} />
-              <Route path="/projects" element={<Projects />} />
-              <Route path="/blogs" element={<Writing />} />
-              <Route path="/blogs/:slug" element={<Post />} />
-              <Route path="/experience" element={<Experience />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/tinygpt" element={<TinyGPT />} />
-            </Route>
-            <Route path="/jupyter" element={<JupyterLayout />}>
-              <Route index element={<CellsPage />} />
-              <Route path="experience" element={<ExperiencePage />} />
-              <Route path="projects" element={<ProjectPage />} />
-              <Route path="blogs" element={<BlogsPage />} />
-              <Route path="blogs/:slug" element={<Blog />} />
-              <Route path="contact" element={<ContactPage />} />
-            </Route>
-          </Routes>
-          <ChatbotOnJupyterOnly />
+          <Suspense fallback={<div className="routeFallback" aria-hidden="true" />}>
+            <Routes>
+              <Route element={<ModernLayout />}>
+                <Route index element={<Home />} />
+                <Route path="/projects" element={<Projects />} />
+                <Route path="/blogs" element={<Writing />} />
+                <Route path="/blogs/:slug" element={<Post />} />
+                <Route path="/experience" element={<Experience />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/tinygpt" element={<TinyGPT />} />
+              </Route>
+              <Route path="/jupyter" element={<JupyterLayout />}>
+                <Route index element={<CellsPage />} />
+                <Route path="experience" element={<ExperiencePage />} />
+                <Route path="projects" element={<ProjectPage />} />
+                <Route path="blogs" element={<BlogsPage />} />
+                <Route path="blogs/:slug" element={<Blog />} />
+                <Route path="contact" element={<ContactPage />} />
+              </Route>
+            </Routes>
+            <ChatbotOnJupyterOnly />
+          </Suspense>
         </div>
       </BrowserRouter>
     </MyContext.Provider>

@@ -8,7 +8,7 @@
 }
 
 .article {
-  max-width: 44rem;
+  max-width: clamp(44rem, 70vw, 52rem);
   margin: 0 auto;
   padding: clamp(2.5rem, 6vw, 5rem) var(--gutter) 4rem;
   position: relative;
@@ -114,11 +114,16 @@
   border-radius: 4px;
   overflow: hidden;
   background: var(--paper-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .cover img {
-  width: 100%;
-  height: auto;
   display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: clamp(16rem, 38vh, 26rem);
 }
 
 .content {

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import styles from "./BlogsPage.module.css";
 import BlogCard from "../../components/BlogCard/BlogCard";
-import blogs from "../../data/blogs.js";
+import blogs from "../../data/blogs-jupyter.js";
 import Footer from "../../components/Footer/Footer.jsx";
 
 const BlogsPage = () => {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import styles from "./Blog.module.css";
-import blogs from "../../data/blogs";
+import blogs from "../../data/blogs-jupyter";
 import Footer from "../../components/Footer/Footer";
 import BlogCard from "../../components/BlogCard/BlogCard";
 
