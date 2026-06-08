@@ -54,9 +54,9 @@
   color: var(--accent);
 }
 .heroScrollArrow {
-  font-size: 1.4rem;
-  line-height: 1;
-  margin-top: -0.1em;
+  width: 1.25rem;
+  height: 1.25rem;
+  display: block;
   animation: heroScrollBob 2.6s ease-in-out infinite;
 }
 @keyframes heroScrollFade {
@@ -192,6 +192,22 @@
     grid-template-columns: 1fr;
     gap: 2.2rem;
     justify-items: center;
+    /* Single-column: don't force a full-viewport hero. Centering inside
+       100svh left an empty gap above the kicker on tall phones and pushed
+       content past the fold on short ones. Let it size to content from the
+       top instead. */
+    min-height: auto;
+    align-content: start;
+  }
+  /* In single-column flow the scroll cue can't stay absolutely pinned to the
+     bottom — it would overlap the attention caption. Drop it into normal flow
+     as the last centered row instead, so it sits below the caption. */
+  .heroScroll {
+    position: static;
+    transform: none;
+    bottom: auto;
+    left: auto;
+    margin-top: 0.4rem;
   }
   .heroText {
     width: 100%;
@@ -566,8 +582,17 @@
 /* ─────────────────────── Phone tightening ─────────────────────── */
 @media (max-width: 520px) {
   .hero {
-    padding: clamp(2.5rem, 7vw, 4rem) 0 clamp(2.5rem, 7vw, 4rem);
-    gap: 1.4rem;
+    padding: clamp(1rem, 4vw, 1.75rem) 0 clamp(2.5rem, 7vw, 4rem);
+    gap: 1.1rem;
+  }
+  /* Tighten the stacked hero so everything — including the in-flow scroll
+     cue — fits within the first screen. The default 1.8rem rhythm and the
+     16rem attention grid pushed the cue below the fold on phones. */
+  .heroText {
+    gap: 1.5rem;
+  }
+  .heroVisual {
+    max-width: 13.5rem;
   }
   .titleItalic {
     padding-left: 0;
@@ -600,8 +625,7 @@
     white-space: normal;
   }
   .ctaSecondary {
-    text-align: center;
-    margin: 0 auto;
+    display: none;
   }
   .section {
     padding: clamp(2.8rem, 9vw, 4.5rem) 0;
