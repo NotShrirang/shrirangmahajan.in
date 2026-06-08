@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./TitleBar.module.css";
-import profilePic from "../../assets/shrirang.png";
+import profilePic from "../../assets/shrirang-avatar.jpeg";
 import formatDate from "../../utils/DateUtil";
 
 const TitleBar = () => {
