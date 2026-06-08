@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { NavLink, Link, useLocation, useNavigate } from "react-router-dom";
 import styles from "./Nav.module.css";
+import avatar from "../../assets/shrirang-avatar.jpeg";
 
 const links = [
   { to: "/projects", label: "Work" },
@@ -46,6 +47,15 @@ export default function Nav() {
     >
       <div className={styles.inner}>
         <Link to="/" className={styles.brand} aria-label="Shrirang Mahajan — home">
+          <img
+            src={avatar}
+            alt=""
+            className={styles.brandAvatar}
+            width="36"
+            height="36"
+            loading="eager"
+            decoding="async"
+          />
           <span className={styles.brandWord}>Shrirang</span>
           <span className={styles.brandWord + " " + styles.brandWordItalic}>
             Mahajan

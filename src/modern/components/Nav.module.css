@@ -26,13 +26,28 @@
 
 .brand {
   display: inline-flex;
-  align-items: baseline;
-  gap: 0.45ch;
+  align-items: center;
+  gap: 0.55ch;
   font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
   font-size: 1.55rem;
   letter-spacing: -0.012em;
   line-height: 1;
   color: var(--ink);
+}
+.brandAvatar {
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 999px;
+  object-fit: cover;
+  /* The source photo is a wide portrait — bias the crop toward the face. */
+  object-position: 50% 28%;
+  flex-shrink: 0;
+  border: 1px solid var(--rule);
+  margin-right: 0.15ch;
+  transition: border-color var(--fast) var(--ease);
+}
+.brand:hover .brandAvatar {
+  border-color: var(--accent);
 }
 
 .brandWord {
@@ -285,6 +300,10 @@
   }
   .brand {
     font-size: 1.25rem;
+  }
+  .brandAvatar {
+    width: 1.8rem;
+    height: 1.8rem;
   }
   .link {
     font-size: 1.05rem;
