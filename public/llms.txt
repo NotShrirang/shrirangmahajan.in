@@ -1,10 +1,11 @@
 # Shrirang Mahajan
 
-> Machine Learning Engineer based in Pune, India. Currently ML Engineer II
-> at Skylark Labs. Trains LLMs from scratch (TinyGPT — 95M params on a
-> single RTX 3070 Ti), writes CUDA kernels by hand (Tensorax — `pip install
-> tensorax`), and ships production ML systems with real throughput wins
-> (2× via TensorRT + Triton, 3× via distributed annotation).
+> Machine Learning & LLM Engineer based in Pune, India. Currently ML
+> Engineer II at Skylark Labs. Trains LLMs from scratch (TinyGPT — 95M
+> params on a single RTX 3070 Ti), fine-tunes them, and builds multimodal
+> RAG and AI agents, shipping production ML systems with real impact. Also
+> goes low-level when it sharpens understanding — e.g. Tensorax, a tensor
+> library written from scratch (`pip install tensorax`).
 
 This site has two equivalent views: a modern editorial-paper design at
 the root, and a Jupyter-notebook-styled view at `/jupyter`. Both render

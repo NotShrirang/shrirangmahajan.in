@@ -57,7 +57,7 @@ export default function Writing() {
           Essays, with <em>illustrations.</em>
         </h1>
         <p className={styles.lede}>
-          Notes on attention, embeddings, CUDA, and the everyday strangeness of
+          Notes on attention, embeddings, LLMs, and the everyday strangeness of
           training neural networks on a budget.
         </p>
       </header>

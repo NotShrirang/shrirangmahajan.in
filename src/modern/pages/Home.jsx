@@ -7,7 +7,7 @@ import { fetchExperience } from "../../data/experiences";
 import ChatPanel from "../components/ChatPanel";
 import LiveDemo from "../components/LiveDemo";
 
-const featuredProjectTitles = ["Tensorax", "TinyGPT", "AgentFlow", "LoomRAG: A Multimodal RAG"];
+const featuredProjectTitles = ["TinyGPT", "LoomRAG: A Multimodal RAG", "AgentFlow", "Tensorax"];
 
 function durationToYears(d) {
   const m = d.match(/(\w+ \d{4}) - (.+)/);
@@ -65,7 +65,7 @@ const HERO_CAPTION = "Causal attention";
 
 export default function Home() {
   useEffect(() => {
-    document.title = "Shrirang Mahajan — Full-Stack AI Developer & ML Engineer";
+    document.title = "Shrirang Mahajan — Machine Learning & LLM Engineer";
   }, []);
 
   const featured = featuredProjectTitles
@@ -94,9 +94,10 @@ export default function Home() {
           </h1>
 
           <p className={styles.lede}>
-            I build the systems that build the systems — LLMs trained from
-            scratch, CUDA kernels written by hand, and production ML that
-            triples throughput.
+            I train language models from scratch, fine-tune them for the real
+            world, and ship the production ML systems that put them to work —
+            from an LLM that runs in your browser to models serving users at
+            scale.
           </p>
 
           <p className={styles.currently}>
@@ -162,12 +163,12 @@ export default function Home() {
             <span className={styles.sectionLabelText}>Approach</span>
           </div>
           <h2 className={styles.sectionTitle}>
-            I'd rather write a <em>tensor library</em>
-            <br /> than wrap an API.
+            I'd rather <em>train the model</em>
+            <br /> than just prompt one.
           </h2>
           <p className={styles.sectionLede}>
-            Three things I've come to believe about building AI systems —
-            the kind of engineer I'm trying to be.
+            Three things I've come to believe about building ML and LLM
+            systems — the kind of engineer I'm trying to be.
           </p>
         </div>
 
@@ -182,21 +183,28 @@ export default function Home() {
               </h3>
               <p className={styles.beliefText}>
                 Most "AI engineering" today means orchestrating APIs that
-                someone else built — wrapping endpoints, chaining services,
-                paying for inference. I want to be the someone else. The
-                engineer who writes the kernels behind the matmul, the
-                autograd behind the loss, the loader that makes a
-                95M-parameter LLM trainable on 8 GB of VRAM.{" "}
+                someone else built — wrapping endpoints, chaining prompts,
+                paying for inference. I'd rather understand the model end to
+                end: pretrain it, fine-tune it, and serve it.{" "}
+                <a
+                  href="https://github.com/NotShrirang/tinygpt"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  <strong>TinyGPT</strong>
+                </a>{" "}
+                is a 95M-parameter LLM I pretrained from scratch on 8 GB of
+                VRAM — and when I wanted to know what really happens under{" "}
+                <code>.cuda()</code>, I wrote{" "}
                 <a
                   href="https://pypi.org/project/tensorax/"
                   target="_blank"
                   rel="noreferrer noopener"
                 >
                   <strong>Tensorax</strong>
-                </a>{" "}
-                is on PyPI for exactly this reason: a tensor library written
-                from scratch in C++ and CUDA — <em>no NumPy, no PyTorch, no
-                cuBLAS underneath.</em>
+                </a>
+                , a tensor library from scratch. <em>Depth, not just
+                glue.</em>
               </p>
             </div>
           </li>
@@ -212,10 +220,9 @@ export default function Home() {
               <p className={styles.beliefText}>
                 A degree describes potential. Code describes what you've
                 actually shipped. The bar I hold myself to is whether someone
-                can <code>pip install</code> my work and have it run on their
-                machine. Understanding the hardware — memory hierarchy, kernel
-                execution, what actually happens when you call{" "}
-                <code>.cuda()</code> — matters more than where I studied it.
+                can <code>pip install</code> my work — or talk to a model I
+                trained — and have it just run. What I can build, train, and
+                ship matters more than where I studied it.
               </p>
             </div>
           </li>
@@ -229,10 +236,8 @@ export default function Home() {
                 The <em>right</em> hard path.
               </h3>
               <p className={styles.beliefText}>
-                I use AI to learn systems faster. I do not use it to write
-                code I can't read. When I built Tensorax's CUDA kernels, I
-                sat with the GPU memory hierarchy until tiling, shared
-                memory, and coalescing made sense. When I pretrained{" "}
+                I use AI to learn faster. I do not use it to write code I
+                can't read. When I pretrained{" "}
                 <a
                   href="https://github.com/NotShrirang/tinygpt"
                   target="_blank"
@@ -240,9 +245,11 @@ export default function Home() {
                 >
                   <strong>TinyGPT</strong>
                 </a>{" "}
-                on a single 8 GB GPU, I learned mixed precision and gradient
-                accumulation by hand — not by autocomplete. A shortcut that
-                skips the part where you become better isn't a shortcut.
+                on a single 8 GB GPU, I learned attention internals, mixed
+                precision, and gradient accumulation by hand — not by
+                autocomplete. Going one layer deeper than I strictly need to
+                is the whole point. A shortcut that skips the part where you
+                become better isn't a shortcut.
               </p>
             </div>
           </li>
@@ -260,8 +267,9 @@ export default function Home() {
             A few things <em>I've built</em> recently.
           </h2>
           <p className={styles.sectionLede}>
-            From CUDA kernels you can <code>pip install</code> to LLMs you can
-            train on a single 8 GB GPU. All open source.
+            From LLMs you can train on a single 8 GB GPU to multimodal RAG and
+            AI agents — plus the occasional tensor library, for when I want to
+            know how it all works underneath. All open source.
           </p>
         </div>
 
@@ -377,8 +385,8 @@ export default function Home() {
             Essays, with <em>illustrations.</em>
           </h2>
           <p className={styles.sectionLede}>
-            Long-form posts on attention, embeddings, CUDA kernels, and
-            pre-training LLMs on consumer hardware.
+            Long-form posts on attention, embeddings, and pre-training LLMs on
+            consumer hardware — with the occasional dive under the hood.
           </p>
         </div>
 

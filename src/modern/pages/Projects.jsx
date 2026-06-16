@@ -36,9 +36,9 @@ export default function Projects() {
           Things <em>I've built.</em>
         </h1>
         <p className={styles.lede}>
-          A complete index of projects — from tensor libraries with custom CUDA
-          kernels to AI agents and fault-tolerant receipt parsers. Most are
-          open-source.
+          A complete index of projects — from LLMs and AI agents to multimodal
+          RAG and full-stack ML apps, with a from-scratch tensor library thrown
+          in for the low-level fun. Most are open-source.
         </p>
       </header>
 
