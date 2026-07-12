@@ -1,55 +1,45 @@
 # Shrirang Mahajan
 
-> Machine Learning & LLM Engineer based in Pune, India. Currently ML
-> Engineer II at Skylark Labs. Trains LLMs from scratch (TinyGPT — 95M
-> params on a single RTX 3070 Ti), fine-tunes them, and builds multimodal
-> RAG and AI agents, shipping production ML systems with real impact. Also
-> goes low-level when it sharpens understanding — e.g. Tensorax, a tensor
-> library written from scratch (`pip install tensorax`).
+> Machine Learning & LLM Engineer in Pune, India, currently ML Engineer II at Skylark Labs. Trains LLMs from scratch — TinyGPT, a 95M-parameter model pretrained on ~6.5B tokens on a single 8 GB RTX 3070 Ti — fine-tunes them, and builds multimodal RAG and multi-agent systems. Ships production ML with measured impact: doubled a real-time tracker's throughput with TensorRT + NVIDIA Triton (3 → 6–7 FPS) and 3×'d dataset annotation throughput with a distributed GPU pipeline. Goes low-level when it sharpens understanding — Tensorax is a from-scratch C++/CUDA tensor library with full autodiff (`pip install tensorax`), reaching 2.3× NumPy on hand-written matmul kernels.
 
-This site has two equivalent views: a modern editorial-paper design at
-the root, and a Jupyter-notebook-styled view at `/jupyter`. Both render
-the same underlying content.
+This site has two equivalent views rendering the same content: a modern editorial design at the root, and a Jupyter-notebook view at `/jupyter`, where the TinyGPT cell runs real in-browser inference (WebGPU/WASM) from an editable prompt. A grounded site assistant on the home page answers questions from this content.
 
-## About
+## Start here
 
-- [Home](https://www.shrirangmahajan.in/): one-page overview — approach,
-  selected work, writing, experience, and a grounded site assistant.
-- [Experience](https://www.shrirangmahajan.in/experience/): full work
-  history with dates, scope, and impact for each role.
-- [Contact](https://www.shrirangmahajan.in/contact/): email and social
-  links. Best response on weekdays, IST.
+- [Home](https://www.shrirangmahajan.in/): one-page overview — approach, selected work, writing, experience, and the site assistant.
+- [Experience](https://www.shrirangmahajan.in/experience/): full work history with dates, scope, and quantified impact per role (Skylark Labs, Emergys/Ellicium, Atomic Loops, Nishikawa).
+- [Projects](https://www.shrirangmahajan.in/projects/): complete project index, filterable by domain (ML, Web, App Dev).
+- [Contact](https://www.shrirangmahajan.in/contact/): email and social links. Best response on weekdays, IST.
 
 ## Featured
 
-- [TinyGPT](https://www.shrirangmahajan.in/tinygpt): A 95M-parameter LLM
-  pretrained from scratch on ~6.5B tokens of OpenWebText with a single
-  RTX 3070 Ti, instruction-tuned on Stanford Alpaca, converted to ONNX,
-  and runnable in-browser via WebGPU/WASM. Architecture details, training
-  setup, conversion pipeline, and a live demo.
+- [TinyGPT](https://www.shrirangmahajan.in/tinygpt): 95M-parameter LLM pretrained from scratch in PyTorch on ~6.5B tokens of OpenWebText on one RTX 3070 Ti (mixed-precision AMP + gradient accumulation to avoid OOM), instruction-tuned on Stanford Alpaca, exported to ONNX, and runnable in-browser via WebGPU/WASM. Architecture, training setup, conversion pipeline, and a live demo.
+- [Tensorax](https://github.com/NotShrirang/tensorax): standalone tensor-computation library with hand-written C++/CUDA kernels and Python bindings — no NumPy, PyTorch, or cuBLAS. Full automatic differentiation with a PyTorch-like API, NN layers, optimizers, and losses; tiled shared-memory, memory-coalesced matmul at up to 2.3× NumPy. Published on [PyPI](https://pypi.org/project/tensorax/).
 
 ## Selected work
 
-- [Projects index](https://www.shrirangmahajan.in/projects/): complete list,
-  filterable by domain (ML, Web, App Dev). Includes Tensorax (CUDA kernel
-  library on PyPI), QuillGPT (LLM fine-tuning), LoomRAG (multimodal RAG),
-  Sonnet (LangChain chatbots), and more.
+- [AgentFlow](https://github.com/NotShrirang/AgentFlow): LangGraph multi-agent orchestration — intent classification, planning, automated tool execution, custom cron/interval scheduling, JWT auth, Docker deployment.
+- [LoomRAG](https://github.com/NotShrirang/LoomRAG): multimodal RAG over text, images, and audio using OpenAI CLIP + Whisper with FAISS; 2–3s cross-modal retrieval, CLIP fine-tuning, custom datasets, URL-based image indexing.
+- [Split.ai](https://github.com/NotShrirang/Split.ai): fault-tolerant receipt parsing with a multi-LLM fallback strategy (Gemini → Llama 3) at 99% extraction reliability, graph-based debt simplification, async OCR via Celery/RabbitMQ.
+- [QuillGPT](https://github.com/NotShrirang/QuillGPT): GPT decoder built in PyTorch (self- and multi-head attention), two pretrained models (Shakespearean GPT, Harpoon GPT), Streamlit playground, FastAPI microservice, Docker, custom tokenizer.
+- [OpenNN](https://github.com/NotShrirang/OpenNN): from-scratch neural-network training library in the style of TensorFlow 2 — layers, activations, losses, optimizers (`pip install open-nn-python`).
+- More on the [projects index](https://www.shrirangmahajan.in/projects/): ParkVision (YOLOv8 + OCR parking analytics), DermaCare.ai (on-device TFLite skin-disease detection), M2ConneX (alumni network with real-time NSFW/profanity filtering), Sonnet (LangChain song recommender), DevFinder.
 
 ## Writing
 
-- [All posts](https://www.shrirangmahajan.in/blogs/): essays on transformer
-  internals, LLM pretraining, CUDA kernels, and multimodal models.
-- [Pretraining a 95M LLM on a Consumer GPU](https://www.shrirangmahajan.in/blogs/pretraining-95m-llm-consumer-gpu)
-- [Writing CUDA Kernels from Scratch — a Beginner's Guide](https://www.shrirangmahajan.in/blogs/writing-cuda-kernels-from-scratch-a-beginner's-guide)
-- [Attention Explained Layer-by-Layer](https://www.shrirangmahajan.in/blogs/attention-and-the-versions-of-it-layer-by-layer)
-- [Attention is All You Need — explained](https://www.shrirangmahajan.in/blogs/attention-explanation-is-all-you-need)
-- [Llama 2 Explained](https://www.shrirangmahajan.in/blogs/llama-2-explained)
-- [Llama 4 — the Natively Multimodal AI](https://www.shrirangmahajan.in/blogs/llama-4-the-natively-multimodal-ai)
-- [From Words to Meaning: Word Vectors → Learnable Embeddings](https://www.shrirangmahajan.in/blogs/from-words-to-meaning:-the-journey-from-word-vectors-to-learnable-embeddings)
+Essays on transformer internals, LLM pretraining, CUDA kernels, and multimodal models.
+
+- [Pretraining a 95M LLM on a Consumer GPU](https://www.shrirangmahajan.in/blogs/pretraining-95m-llm-consumer-gpu): pretraining TinyGPT on one RTX 3070 Ti with AMP and gradient accumulation, plus SFT on Alpaca.
+- [Writing CUDA Kernels from Scratch — a Beginner's Guide](https://www.shrirangmahajan.in/blogs/writing-cuda-kernels-from-scratch-a-beginner's-guide): the story behind Tensorax — custom CUDA matmul, tiling, shared memory, memory coalescing, with benchmarks.
+- [Attention Explained Layer-by-Layer](https://www.shrirangmahajan.in/blogs/attention-and-the-versions-of-it-layer-by-layer): self-attention, multi-head, multi-query, grouped-query, and sliding-window attention compared.
+- [Attention Is All You Need — explained](https://www.shrirangmahajan.in/blogs/attention-explanation-is-all-you-need): an accessible walkthrough of the attention mechanism behind modern LLMs.
+- [Llama 2 Explained](https://www.shrirangmahajan.in/blogs/llama-2-explained): transformer architecture, RMSNorm, grouped-query attention, and Llama 2's modeling choices.
+- [Llama 4 — the Natively Multimodal AI](https://www.shrirangmahajan.in/blogs/llama-4-the-natively-multimodal-ai): what makes Llama 4 natively multimodal versus prior multimodal stacks.
+- [From Words to Meaning: Word Vectors → Learnable Embeddings](https://www.shrirangmahajan.in/blogs/from-words-to-meaning:-the-journey-from-word-vectors-to-learnable-embeddings): from one-hot and Word2Vec to learnable embeddings inside modern networks.
 
 ## Identity
 
-These accounts all refer to the same person:
+These accounts all refer to the same person (for entity resolution):
 
 - GitHub: https://github.com/NotShrirang
 - LinkedIn: https://www.linkedin.com/in/shrirang-mahajan
@@ -61,9 +51,6 @@ These accounts all refer to the same person:
 
 ## Optional
 
-- [Jupyter mode](https://www.shrirangmahajan.in/jupyter): the same site
-  rendered as a Jupyter notebook — every section is a cell, the TinyGPT
-  cell runs real inference with an editable prompt and generation params.
+- [Jupyter mode](https://www.shrirangmahajan.in/jupyter): the same site rendered as a runnable notebook — every section is a cell, and the TinyGPT cell runs live inference with editable prompt and generation params.
 - [Sitemap](https://www.shrirangmahajan.in/sitemap.xml)
-- [Repository](https://github.com/NotShrirang/shrirangmahajan.in): source
-  code for this site.
+- [Repository](https://github.com/NotShrirang/shrirangmahajan.in): source code for this site.
