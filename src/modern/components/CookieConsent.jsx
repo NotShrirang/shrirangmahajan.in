@@ -24,6 +24,12 @@ export default function CookieConsent() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // scripts/prerender.js sets this flag. Without it the banner is captured
+    // into every static page: a returning visitor who already chose would see
+    // it flash before React re-renders, and crawlers would index it on every
+    // route. Nothing is lost by omitting it — with JS off the buttons cannot
+    // work and no analytics loads in the first place.
+    if (window.__PRERENDER__) return undefined;
     const record = initConsent();
     setDecided(record !== null);
     setMounted(true);
