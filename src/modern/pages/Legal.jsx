@@ -226,15 +226,13 @@ function Privacy() {
         Because this is a static site with embedded content, loading a page can
         cause your browser to connect to the services below — which means they
         receive your IP address and user agent as an unavoidable part of
-        serving a request:
+        serving a request. Web fonts are <em>not</em> among them: every
+        typeface is served from this domain, so reading a page hands your IP
+        address to no font provider.
       </p>
       <ul>
         <li>
           <strong>Vercel</strong> — hosting, analytics, speed insights.
-        </li>
-        <li>
-          <strong>Google Fonts</strong> (fonts.googleapis.com,
-          fonts.gstatic.com) — web fonts.
         </li>
         <li>
           <strong>Google Analytics</strong> — only after you opt in.
@@ -656,10 +654,6 @@ function Cookies() {
         </li>
         <li>
           <strong>Icons8</strong> — interface icons in Jupyter mode.
-        </li>
-        <li>
-          <strong>Google Fonts</strong> — typefaces. Google states it sets no
-          cookies for font requests, but it does receive your IP address.
         </li>
         <li>
           <strong>Hugging Face</strong> — serves the TinyGPT weights, only once

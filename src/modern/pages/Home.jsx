@@ -41,8 +41,11 @@ function CausalAttentionViz({ size = 16 }) {
           className={`${styles.causalCell} ${styles.causalCellActive}`}
           style={{
             "--cellIntensity": intensity,
-            animationDelay: `${delay}ms`,
-            animationDuration: `${cycle}ms`,
+            // Custom properties, not animationDelay/Duration: the animation
+            // runs on the cell's ::after overlay (see Home.module.css), and
+            // only custom properties inherit into a pseudo-element.
+            "--cellDelay": `${delay}ms`,
+            "--cellDuration": `${cycle}ms`,
           }}
         />
       );

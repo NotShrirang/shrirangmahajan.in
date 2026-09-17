@@ -127,45 +127,65 @@
   border-radius: 1px;
 }
 
+/* This used to animate `background` (through color-mix, re-interpolated every
+   frame) and `box-shadow` on ~210 cells, infinitely. Both are paint
+   properties, so every frame repainted the whole grid — Lighthouse flagged
+   "212 animated elements" and attributed 931 ms of Style & Layout to it.
+
+   Now the cell holds the resting colour as a static background and the bright
+   state lives on a ::after overlay whose *opacity* animates. Opacity is
+   composited, so the animation runs off the main thread and paints once.
+
+   The opacity stops are chosen so the blend reproduces the old colours: the
+   base is accent at 20% and the overlay accent at 95%, so overlay opacity
+   0.33 composites to 0.20×0.67 + 0.95×0.33 ≈ 45% — the old 22% keyframe. */
 .causalCellActive {
+  position: relative;
   background: color-mix(
     in srgb,
     var(--accent) calc(var(--cellIntensity, 0.6) * 20%),
     var(--paper-deep)
   );
+}
+
+.causalCellActive::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  background: color-mix(
+    in srgb,
+    var(--accent) calc(var(--cellIntensity, 0.6) * 95%),
+    var(--paper-deep)
+  );
+  /* Static — it fades in and out with the overlay rather than being
+     re-rasterised on its own keyframe track. */
+  box-shadow: 0 0 8px
+    color-mix(
+      in srgb,
+      var(--accent) calc(var(--cellIntensity, 0.6) * 50%),
+      transparent
+    );
+  /* Timing comes from custom properties set on the cell in Home.jsx. Custom
+     properties inherit into the pseudo-element natively; animation-delay and
+     animation-duration would not. */
   animation: causalCellPulse cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: var(--cellDelay, 0ms);
+  animation-duration: var(--cellDuration, 4800ms);
 }
 
 @keyframes causalCellPulse {
   0%,
   85%,
   100% {
-    background: color-mix(
-      in srgb,
-      var(--accent) calc(var(--cellIntensity, 0.6) * 20%),
-      var(--paper-deep)
-    );
-    box-shadow: none;
+    opacity: 0;
   }
   6% {
-    background: color-mix(
-      in srgb,
-      var(--accent) calc(var(--cellIntensity, 0.6) * 95%),
-      var(--paper-deep)
-    );
-    box-shadow: 0 0 8px
-      color-mix(
-        in srgb,
-        var(--accent) calc(var(--cellIntensity, 0.6) * 50%),
-        transparent
-      );
+    opacity: 1;
   }
   22% {
-    background: color-mix(
-      in srgb,
-      var(--accent) calc(var(--cellIntensity, 0.6) * 45%),
-      var(--paper-deep)
-    );
+    opacity: 0.33;
   }
 }
 

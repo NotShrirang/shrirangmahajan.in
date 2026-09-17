@@ -176,23 +176,88 @@ async function launchBrowser() {
 
 /* ───────────────────────── local static server ───────────────────────── */
 
-/* Mirrors Vercel's behaviour: a real file wins, anything else falls back to
-   the SPA shell. Without the fallback, Chrome would get a 404 for /projects
-   and render nothing. */
-function startServer(dir) {
+/* Serves the SPA shell for navigations and real files for everything else.
+   Without the fallback, Chrome would get a 404 for /projects and render
+   nothing.
+
+   The shell is read into memory ONCE, up front, and served from there. That
+   matters: "/" is rendered first and its output is written to
+   dist/index.html — the same file every later route would otherwise be
+   served as its shell, so each route after the first would inherit the
+   previous pass's injected tags. Snapshotting keeps every route rendering
+   from the pristine build output. */
+async function startServer(dir) {
+  const shell = await fs.readFile(path.join(dir, "index.html"));
+
   return new Promise((resolve) => {
-    const server = createServer((req, res) =>
-      handler(req, res, {
+    const server = createServer((req, res) => {
+      const pathname = decodeURIComponent(new URL(req.url, "http://x").pathname);
+      const isAsset = /\.[a-zA-Z0-9]+$/.test(pathname);
+
+      if (!isAsset) {
+        res.writeHead(200, { "content-type": "text/html; charset=utf-8" });
+        return res.end(shell);
+      }
+      return handler(req, res, {
         public: dir,
         cleanUrls: false,
         directoryListing: false,
-        rewrites: [{ source: "**", destination: "/index.html" }],
-      })
-    );
+      });
+    });
     server.listen(0, "127.0.0.1", () =>
       resolve({ server, port: server.address().port })
     );
   });
+}
+
+/* ───────────────────────── font preloads ─────────────────────────
+ *
+ * The two faces first paint needs: the display serif behind every <h1> and
+ * the body sans behind everything else. Without a preload the browser only
+ * discovers them after it has downloaded and parsed the CSS bundle, which
+ * puts a font swap right in the middle of LCP.
+ *
+ * Only the `latin` subsets are preloaded. latin-ext is left to its
+ * unicode-range so it costs nothing on English pages, and the mono face is
+ * not needed until code or small-caps labels render.
+ *
+ * Discovered from disk because Vite content-hashes the filenames, so they
+ * cannot be written into index.html by hand.
+ */
+async function findPreloadFonts() {
+  const assets = path.join(DIST, "assets");
+  const files = await fs.readdir(assets);
+  const wanted = [/^InstrumentSerif-normal-400-latin-[^.]+\.woff2$/, /^Manrope-normal-[\d_]+-latin-[^.]+\.woff2$/];
+  const found = wanted
+    .map((re) => files.find((f) => re.test(f)))
+    .filter(Boolean)
+    .map((f) => `/assets/${f}`);
+
+  if (found.length !== wanted.length) {
+    throw new Error(
+      `expected ${wanted.length} preloadable font files in dist/assets, found ${found.length}. ` +
+        `Did the font filenames in src/modern/fonts change?`
+    );
+  }
+  return found;
+}
+
+function injectFontPreloads(html, hrefs) {
+  // Idempotent: drop any font preload already in the document before adding
+  // ours, so re-running against an already-prerendered file cannot stack
+  // duplicates. Every other rewrite here replaces rather than appends; this
+  // is the one that needs the guard.
+  const cleaned = html.replace(
+    /\s*<link[^>]*rel="preload"[^>]*as="font"[^>]*>/gi,
+    ""
+  );
+  const tags = hrefs
+    .map(
+      (h) =>
+        `<link rel="preload" href="${h}" as="font" type="font/woff2" crossorigin>`
+    )
+    .join("\n  ");
+  return cleaned.replace(/<\/head>/i, `  ${tags}\n</head>`);
 }
 
 /* ───────────────────────── HTML rewriting ───────────────────────── */
@@ -313,6 +378,9 @@ async function main() {
     `prerender: ${routes.length} routes (${staticRoutes.length} static, ${blogs.length} posts)`
   );
 
+  const preloadFonts = await findPreloadFonts();
+  console.log(`prerender: preloading ${preloadFonts.length} fonts`);
+
   const { server, port } = await startServer(DIST);
   const origin = `http://127.0.0.1:${port}`;
   const browser = await launchBrowser();
@@ -368,7 +436,8 @@ async function main() {
         if (isHome) homeTitle = pageTitle;
 
         const url = absoluteUrl(route.path);
-        const { html, problems } = rewriteHead(rendered, {
+        const withPreloads = injectFontPreloads(rendered, preloadFonts);
+        const { html, problems } = rewriteHead(withPreloads, {
           url,
           isHome,
           title: pageTitle,

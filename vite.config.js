@@ -10,6 +10,11 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
+      // Default 'auto' emits a plain <script src="/registerSW.js"> in <head>,
+      // which blocks the first render. Lighthouse measured 510 ms of blocking
+      // for a 0.6 KiB file. Nothing about service-worker registration needs to
+      // happen before paint, so defer it.
+      injectRegister: 'script-defer',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
       workbox: {
         // Don't precache onnxruntime-web's WASM artifacts (~20MB each);
