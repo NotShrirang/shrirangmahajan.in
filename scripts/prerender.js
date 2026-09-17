@@ -26,9 +26,10 @@ import { createServer } from "node:http";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import fs from "node:fs/promises";
+import { existsSync } from "node:fs";
 import { build as esbuild } from "esbuild";
 import handler from "serve-handler";
-import puppeteer from "puppeteer";
+import puppeteer from "puppeteer-core";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
@@ -81,6 +82,96 @@ async function loadBlogSlugs() {
     throw new Error("prerender: no blogs resolved from src/data/blogs/index.js");
   }
   return blogs;
+}
+
+/* ───────────────────────── browser ─────────────────────────
+ *
+ * Vercel's build image is Amazon Linux with no desktop libraries, so a stock
+ * Chrome download dies with "libnspr4.so: cannot open shared object file".
+ * @sparticuz/chromium ships a Linux x64 Chromium that bundles the libraries
+ * it needs, which is why it is the primary path — and because it also runs on
+ * an ordinary Linux dev box, local builds exercise exactly what CI runs.
+ *
+ * It has no macOS or Windows build, so those fall back to a system Chrome.
+ */
+
+const SYSTEM_CHROME_CANDIDATES = [
+  process.env.CHROME_PATH,
+  "/usr/bin/google-chrome",
+  "/usr/bin/google-chrome-stable",
+  "/usr/bin/chromium",
+  "/usr/bin/chromium-browser",
+  "/snap/bin/chromium",
+  "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+  "/Applications/Chromium.app/Contents/MacOS/Chromium",
+  "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+].filter(Boolean);
+
+const BASE_ARGS = ["--no-sandbox", "--disable-dev-shm-usage"];
+
+async function launchViaSparticuz() {
+  const chromium = (await import("@sparticuz/chromium")).default;
+
+  // No WebGL is needed to serialise HTML, and turning it off drops the
+  // swiftshader/ANGLE flags along with their memory and startup cost.
+  chromium.setGraphicsMode = false;
+
+  const executablePath = await chromium.executablePath();
+
+  /* Strip the two flags tuned for Lambda's memory ceiling. --single-process
+     (and its companion --no-zygote) makes Chrome crash-prone once you drive
+     it across many navigations, which is exactly what this script does.
+     --headless is dropped in favour of the explicit option below so there is
+     one source of truth. */
+  const args = [
+    ...chromium.args.filter(
+      (a) =>
+        !a.startsWith("--single-process") &&
+        !a.startsWith("--no-zygote") &&
+        !a.startsWith("--headless")
+    ),
+    ...BASE_ARGS,
+  ];
+
+  return puppeteer.launch({ args, executablePath, headless: "shell" });
+}
+
+async function launchViaSystemChrome() {
+  const found = SYSTEM_CHROME_CANDIDATES.find((p) => existsSync(p));
+  if (!found) {
+    throw new Error(
+      "no system Chrome found (set CHROME_PATH to one)"
+    );
+  }
+  return puppeteer.launch({
+    executablePath: found,
+    headless: "new",
+    args: BASE_ARGS,
+  });
+}
+
+async function launchBrowser() {
+  try {
+    const browser = await launchViaSparticuz();
+    console.log("prerender: chromium via @sparticuz/chromium");
+    return browser;
+  } catch (err) {
+    const why = err.message.split("\n")[0];
+    console.log(`prerender: @sparticuz/chromium unavailable (${why})`);
+    console.log("prerender: falling back to a system Chrome");
+    try {
+      const browser = await launchViaSystemChrome();
+      console.log("prerender: chromium via system install");
+      return browser;
+    } catch (err2) {
+      throw new Error(
+        `could not start a browser.\n` +
+          `  @sparticuz/chromium: ${why}\n` +
+          `  system chrome:       ${err2.message.split("\n")[0]}\n` +
+          `  On macOS or Windows, install Chrome or set CHROME_PATH.`
+      );
+    }
+  }
 }
 
 /* ───────────────────────── local static server ───────────────────────── */
@@ -201,10 +292,7 @@ async function main() {
 
   const { server, port } = await startServer(DIST);
   const origin = `http://127.0.0.1:${port}`;
-  const browser = await puppeteer.launch({
-    headless: "new",
-    args: ["--no-sandbox", "--disable-dev-shm-usage"],
-  });
+  const browser = await launchBrowser();
 
   const failures = [];
   let homeTitle = null;

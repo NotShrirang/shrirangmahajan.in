@@ -5,13 +5,13 @@ import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 
 export default [
-  { ignores: ['dist', '.cache'] },
+  { ignores: ['dist'] },
   // Build tooling runs in Node, so it needs process/Buffer/__dirname. The
   // browser globals are here too because prerender.js passes closures to
   // page.evaluate()/waitForFunction(), and those really do execute inside
   // Chrome where window and document exist.
   {
-    files: ['scripts/**/*.js', '*.config.js', '.puppeteerrc.cjs'],
+    files: ['scripts/**/*.js', '*.config.js'],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
@@ -21,7 +21,7 @@ export default [
   },
   {
     files: ['**/*.{js,jsx}'],
-    ignores: ['scripts/**/*.js', '*.config.js', '.puppeteerrc.cjs'],
+    ignores: ['scripts/**/*.js', '*.config.js'],
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
