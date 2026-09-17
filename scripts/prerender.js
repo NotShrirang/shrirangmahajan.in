@@ -217,7 +217,7 @@ function setTagAttr(html, tagPattern, attr, value) {
   return [next, replaced];
 }
 
-function rewriteHead(html, { url, isHome, title }) {
+function rewriteHead(html, { url, isHome, title, description }) {
   const problems = [];
   let out = html;
   let ok;
@@ -255,6 +255,28 @@ function rewriteHead(html, { url, isHome, title }) {
     );
   }
 
+  /* index.html ships one homepage description, so without this every route
+     shares a single search snippet. Written here from the route data rather
+     than read back out of the DOM: the runtime hook in Layout.jsx sets the
+     same tags for client-side navigation, but depending on its timing would
+     make the build racy. Both read src/data, so they agree.
+
+     "/" deliberately has no description in the data — it keeps the one in
+     index.html, which is already written for it and already indexed. */
+  if (description) {
+    const DESCRIPTION_TAGS = [
+      ["description", /<meta[^>]*name="description"[^>]*>/i],
+      ["og:description", /<meta[^>]*property="og:description"[^>]*>/i],
+      ["twitter:description", /<meta[^>]*name="twitter:description"[^>]*>/i],
+    ];
+    for (const [name, pattern] of DESCRIPTION_TAGS) {
+      [out, ok] = setTagAttr(out, pattern, "content", description);
+      if (!ok) problems.push(`no <meta ${name}> found`);
+    }
+  } else if (!isHome) {
+    problems.push("no description in src/data for this route");
+  }
+
   /* The <noscript> block is a hand-written homepage summary. On a blog post
      it is duplicate off-topic body text — exactly the "every route serves
      homepage content" symptom. The prerendered DOM is now the no-JS
@@ -283,6 +305,7 @@ async function main() {
       priority: "0.8",
       kind: "post",
       title: b.title,
+      description: b.description,
     })),
   ];
 
@@ -349,6 +372,7 @@ async function main() {
           url,
           isHome,
           title: pageTitle,
+          description: route.description,
         });
 
         /* A route that fell through to the wrong component would still render

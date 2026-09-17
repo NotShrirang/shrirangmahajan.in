@@ -3,6 +3,18 @@ import { Outlet, useLocation } from "react-router-dom";
 import Nav from "./Nav";
 import Footer from "./Footer";
 import styles from "./Layout.module.css";
+import { descriptionFor, applyDescription } from "../../data/meta";
+
+/* Each page sets its own document.title, but the description tags are static
+   in index.html. Prerendering fixes them for the initial load; this keeps
+   them right after a client-side navigation. */
+function DescriptionHandler() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    applyDescription(descriptionFor(pathname));
+  }, [pathname]);
+  return null;
+}
 
 function ScrollHandler() {
   const { pathname, hash } = useLocation();
@@ -36,6 +48,7 @@ export default function ModernLayout() {
   return (
     <div className={styles.shell}>
       <ScrollHandler />
+      <DescriptionHandler />
       {/* First thing in the tab order: lets keyboard and screen-reader users
           jump the nav instead of tabbing it on every page. */}
       <a href="#main" className={styles.skipLink}>
