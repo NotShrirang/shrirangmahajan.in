@@ -388,10 +388,15 @@ export default function LiveDemo() {
             </div>
 
             <div className={styles.idleCtaRow}>
+              {/* The visible label is split across spans for layout, which
+                  reads as "Load TinyGPT 536 MB" to a screen reader. Spelling
+                  out the consequence matters here: this starts a 536 MB
+                  download, which is a real cost on a metered connection. */}
               <button
                 type="button"
                 className={styles.loadCta}
                 onClick={handleLoad}
+                aria-label="Load TinyGPT — downloads a 536 megabyte model file to your device"
               >
                 <span className={styles.loadCtaIcon} aria-hidden="true">
                   ▶

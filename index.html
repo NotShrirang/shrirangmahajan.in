@@ -2,15 +2,12 @@
 <html lang="en">
 
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1VWQMVR61X"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-
-    gtag('config', 'G-1VWQMVR61X');
-  </script>
+  <!--
+    Google Analytics is deliberately NOT loaded here.
+    gtag.js sets cookies, which under ePrivacy Art. 5(3) needs prior opt-in,
+    so the tag is injected from src/modern/lib/consent.js only after the
+    visitor accepts in the cookie banner. Don't re-add a <script> tag here.
+  -->
   <meta charset="UTF-8" />
   <!-- Icons -->
   <link rel="icon" href="/favicon.ico" />

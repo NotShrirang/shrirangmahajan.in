@@ -108,7 +108,9 @@
   font-size: 14px;
   border-radius: 0.5rem;
   font-weight: lighter;
-  background-color: #2196f3;
+  /* Was #2196f3, which gives white text only 3.12:1 — below WCAG AA for
+     14px text. #1565c0 gives 5.75:1 with the same blue identity. */
+  background-color: #1565c0;
   color: #ffffff;
   border: none;
   cursor: pointer;
@@ -118,7 +120,43 @@
 }
 
 .contactPageButton:hover {
-  background-color: #1976d2;
+  background-color: #0d5bab;
+}
+
+.contactPageButton:disabled {
+  opacity: 0.65;
+  cursor: progress;
+}
+
+.contactPageConsent {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  width: 70%;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.contactPageConsent input {
+  width: 1.05rem;
+  height: 1.05rem;
+  margin-top: 0.2rem;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.contactPageConsent label {
+  cursor: pointer;
+}
+
+.contactPageConsent a {
+  text-decoration: underline;
+}
+
+.contactPageStatus {
+  font-size: 14px;
+  margin: 0.6rem 0 0;
+  min-height: 1.4em;
 }
 
 .controlIcon {
@@ -143,6 +181,10 @@
   .contactPageFormFields {
     width: 100%;
     margin-right: 0.5rem;
+  }
+
+  .contactPageConsent {
+    width: 100%;
   }
 }
 

@@ -26,17 +26,17 @@ const projects = [
         <li>
           Developed and benchmarked optimized{" "}
           <strong>CUDA matrix multiplication kernels</strong> using tiling,
-          shared memory, and memory coalescing techniques, achieving up to{" "}
-          <strong>2.3× speedup over NumPy</strong>.
+          shared memory, and memory coalescing techniques, measuring up to{" "}
+          <strong>2.3× speedup over NumPy</strong> on the matmul benchmarks
+          included in the repository.
         </li>
         <li>
           Published on{" "}
           <a href="https://pypi.org/project/tensorax/" target="_blank">
             PyPI
           </a>{" "}
-          as production-ready package with complete neural network training
-          pipeline including SGD, Adam optimizers, and multiple activation
-          functions.
+          with a complete neural network training pipeline including SGD, Adam
+          optimizers, and multiple activation functions.
         </li>
         <li>
           Available on{" "}
@@ -125,8 +125,8 @@ const projects = [
       <ul>
         <li>
           Architected a <b>fault-tolerant receipt parsing engine</b> with a{" "}
-          <b>multi-LLM fallback strategy</b> (Gemini → Llama 3), ensuring{" "}
-          <b>99% extraction reliability</b>.
+          <b>multi-LLM fallback strategy</b> (Gemini → Llama 3), so a failed
+          parse retries on a second model rather than dropping the receipt.
         </li>
         <li>
           Implemented a <b>graph-based debt simplification algorithm</b> to{" "}
@@ -160,8 +160,8 @@ const projects = [
         </li>
         <li>
           Created <b>Python scripts</b> for training new GPT models and
-          performing inference, resulting into <b>20-25% reduction</b> of the
-          development time.
+          performing inference, so a new model can be trained and served
+          without rewriting the pipeline each time.
         </li>
         <li>
           Designed and implemented a <b>simple tokenizer</b> for efficient text

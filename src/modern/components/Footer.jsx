@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./Footer.module.css";
+import { resetConsent } from "../lib/consent";
 
 const social = [
   { label: "GitHub", href: "https://github.com/NotShrirang" },
@@ -89,15 +90,60 @@ export default function Footer() {
           <p className={styles.fine}>
             For ML engineers who miss <code>.ipynb</code>.
           </p>
+
+          <div className={styles.colLabel} style={{ marginTop: "1.6rem" }}>
+            Legal
+          </div>
+          <ul className={styles.list}>
+            <li>
+              <Link to="/privacy">Privacy policy</Link>
+            </li>
+            <li>
+              <Link to="/terms">Terms &amp; conditions</Link>
+            </li>
+            <li>
+              <Link to="/cookies">Cookie policy</Link>
+            </li>
+            <li>
+              {/* A real button: withdrawing consent must be as reachable as
+                  giving it, and this is the route back to the banner. */}
+              <button
+                type="button"
+                className={styles.consentBtn}
+                onClick={() => {
+                  resetConsent();
+                  window.dispatchEvent(new CustomEvent("sm:consent-reopen"));
+                }}
+              >
+                Cookie settings
+              </button>
+            </li>
+          </ul>
         </div>
       </div>
 
       <div className={styles.bottom}>
-        <span>© {new Date().getFullYear()} Shrirang Mahajan</span>
-        <span className={styles.dot} aria-hidden="true">
-          ·
-        </span>
-        <span>Pune, India</span>
+        <div className={styles.bottomRow}>
+          <span>© {new Date().getFullYear()} Shrirang Mahajan</span>
+          <span className={styles.dot} aria-hidden="true">
+            ·
+          </span>
+          <span>Pune, Maharashtra, India</span>
+          <span className={styles.dot} aria-hidden="true">
+            ·
+          </span>
+          <a href="mailto:shrirangmahajan123@gmail.com">
+            shrirangmahajan123@gmail.com
+          </a>
+        </div>
+        <p className={styles.imprint}>
+          A personal portfolio operated by an individual. Nothing is sold here
+          and no payments are taken — see the{" "}
+          <Link to="/terms" className={styles.imprintLink}>
+            terms
+          </Link>
+          .
+        </p>
       </div>
     </footer>
   );

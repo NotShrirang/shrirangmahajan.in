@@ -5,6 +5,26 @@
   flex-direction: column;
 }
 
+/* AI + data-sharing disclosure, sat directly under the frame. */
+.disclosure {
+  margin: 0.9rem 0 0;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--ink-mute);
+  max-width: 46rem;
+}
+.disclosure strong {
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+.disclosureLink {
+  color: var(--accent-deep);
+  border-bottom: 1px solid var(--rule);
+}
+.disclosureLink:hover {
+  border-bottom-color: var(--accent-deep);
+}
+
 /* ─────────── Chat frame ─────────── */
 
 .frame {

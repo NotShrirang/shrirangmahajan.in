@@ -5,16 +5,30 @@
   --paper-rich: #ddd1b6;
   --ink: #1a1714;
   --ink-soft: #3a342c;
-  --ink-mute: #7b7264;
+  /* Darkened from #7b7264 (3.99:1 — failed WCAG AA). Now 5.71:1 on --paper,
+     5.11:1 on --paper-deep, 4.48:1 on --paper-rich: AA for body text on all
+     three grounds. This token is used for small mono labels and metadata,
+     which are never large text, so 4.5:1 is the bar that applies. */
+  --ink-mute: #635a4c;
   --rule: #cdc2a8;
   --rule-soft: #ddd2b8;
+  /* Decorative rules above sit at ~1.5:1, which is fine for a hairline but
+     NOT for the visible boundary of a form control (WCAG 1.4.11 needs 3:1).
+     Use this one wherever a border is the only thing marking an input. */
+  --rule-strong: #8d8367;
 
-  /* Signature accent — burnt sienna */
-  --accent: #b8501b;
+  /* Signature accent — burnt sienna.
+     --accent darkened from #b8501b (4.21:1 — failed AA). Now 5.10:1 on
+     --paper and 4.57:1 on --paper-deep, and --paper text on an --accent fill
+     is 5.10:1, so the filled buttons pass too. */
+  --accent: #a44616;
   --accent-deep: #893710;
+  /* 3.13:1 on --paper: passes WCAG 1.4.11 for graphics and UI boundaries, and
+     AA for large text (≥24px / ≥18.66px bold) — but NOT for body copy.
+     Keep it for glyphs, rules, hovers and display type only. */
   --accent-bright: #d96026;
   --accent-soft: #efd2b3;
-  --accent-glow: rgba(184, 80, 27, 0.12);
+  --accent-glow: rgba(164, 70, 22, 0.12);
 
   /* Typography — Instrument Serif is self-hosted (see fonts.css), with
      widely-available serif fallbacks so even if the font fails to load

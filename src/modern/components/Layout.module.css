@@ -13,3 +13,29 @@
   z-index: 2;
   flex: 1;
 }
+
+/* The <main> is programmatically focusable so the skip link lands there, but
+   it should never show a focus ring of its own. */
+.main:focus {
+  outline: none;
+}
+
+/* Off-screen until focused, then pinned to the top-left. */
+.skipLink {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  transform: translateY(-120%);
+  background: var(--ink);
+  color: var(--paper) !important;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.75rem 1.2rem;
+  border-bottom-right-radius: 4px;
+  transition: transform var(--fast) var(--ease);
+}
+.skipLink:focus {
+  transform: translateY(0);
+}

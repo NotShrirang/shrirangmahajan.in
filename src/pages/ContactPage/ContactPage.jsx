@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import styles from "./ContactPage.module.css";
 import MarkdownCell from "../../components/MarkdownCell/MarkdownCell";
 import Cell from "../../components/Cell/Cell";
@@ -10,15 +11,39 @@ const ContactPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [consent, setConsent] = useState(false);
+  // idle | sending | sent | incomplete | noConsent | error
+  const [status, setStatus] = useState("idle");
 
   useEffect(() => {
     document.title = "Contact | Shrirang Mahajan";
   }, []);
 
-  const handleSubmit = () => {
+  const STATUS_TEXT = {
+    sending: "Sending…",
+    sent: "Message sent. I'll get back to you soon.",
+    incomplete: "Please fill in your name, email and message.",
+    noConsent: "Please tick the consent box so I'm allowed to reply to you.",
+    error: "Message could not be sent. Please email me directly instead.",
+  };
+
+  const handleSubmit = (e) => {
+    if (e) e.preventDefault();
+    if (!name || !email || !message) {
+      setStatus("incomplete");
+      return;
+    }
+    // Consent is the legal basis for processing this message — check it
+    // before anything leaves the browser.
+    if (!consent) {
+      setStatus("noConsent");
+      return;
+    }
+    setStatus("sending");
+
     const myForm = import.meta.env.VITE_FORMSPREE;
     const url = `https://formspree.io/f/${myForm}`;
-    var formData = new FormData();
+    const formData = new FormData();
     formData.append("name", name);
     formData.append("email", email);
     formData.append("message", message);
@@ -30,14 +55,18 @@ const ContactPage = () => {
       },
     })
       .then((response) => {
-        if (response.status === 200) {
-          alert("Message sent successfully!");
+        if (response.ok) {
+          setStatus("sent");
+          setName("");
+          setEmail("");
+          setMessage("");
+          setConsent(false);
         } else {
-          alert("Message could not be sent. Please try again later.");
+          setStatus("error");
         }
       })
-      .catch((error) => {
-        alert("Message could not be sent. Please try again later.");
+      .catch(() => {
+        setStatus("error");
       });
   };
 
@@ -73,37 +102,72 @@ const ContactPage = () => {
                       Or fill out the form below and I will get back to you as
                       soon as possible.
                     </div>
-                    <div className={styles.contactPageDescription}>
-                      <font className={styles.contactPageForm}>
-                        <div className={styles.contactPageFormFields}>
-                          Name:{" "}
-                          <input
-                            type="text"
-                            className={styles.contactPageInputField}
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                          />
-                        </div>
-                        <div className={styles.contactPageFormFields}>
-                          Email:{" "}
-                          <input
-                            type="email"
-                            className={styles.contactPageInputField}
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                          />
-                        </div>
-                        <div className={styles.contactPageFormFields}>
-                          Message:{" "}
-                          <textarea
-                            type="text"
-                            className={styles.contactPageInputField}
-                            value={message}
-                            onChange={(e) => setMessage(e.target.value)}
-                          />
-                        </div>
-                      </font>
-                    </div>
+                    {/* A real <form> with real <label for=...> pairs. The
+                        submit control lives in a later cell, so it links back
+                        here with the form="" attribute — which keeps
+                        Enter-to-submit and correct labelling intact. */}
+                    <form
+                      id="jupyter-contact-form"
+                      className={styles.contactPageForm}
+                      onSubmit={handleSubmit}
+                    >
+                      <div className={styles.contactPageFormFields}>
+                        <label htmlFor="jupyter-contact-name">Name:</label>{" "}
+                        <input
+                          id="jupyter-contact-name"
+                          name="name"
+                          type="text"
+                          autoComplete="name"
+                          required
+                          className={styles.contactPageInputField}
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                        />
+                      </div>
+                      <div className={styles.contactPageFormFields}>
+                        <label htmlFor="jupyter-contact-email">Email:</label>{" "}
+                        <input
+                          id="jupyter-contact-email"
+                          name="email"
+                          type="email"
+                          autoComplete="email"
+                          required
+                          className={styles.contactPageInputField}
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                        />
+                      </div>
+                      <div className={styles.contactPageFormFields}>
+                        <label htmlFor="jupyter-contact-message">
+                          Message:
+                        </label>{" "}
+                        <textarea
+                          id="jupyter-contact-message"
+                          name="message"
+                          rows={5}
+                          required
+                          className={styles.contactPageInputField}
+                          value={message}
+                          onChange={(e) => setMessage(e.target.value)}
+                        />
+                      </div>
+                      <div className={styles.contactPageConsent}>
+                        <input
+                          id="jupyter-contact-consent"
+                          type="checkbox"
+                          checked={consent}
+                          onChange={(e) => setConsent(e.target.checked)}
+                          required
+                        />
+                        <label htmlFor="jupyter-contact-consent">
+                          I agree that Shrirang may store my name, email and
+                          message in order to reply to me. Delivered via
+                          Formspree (US), kept up to 24 months, deleted on
+                          request. See the{" "}
+                          <Link to="/privacy">privacy policy</Link>.
+                        </label>
+                      </div>
+                    </form>
                   </div>
                 ),
               }}
@@ -161,18 +225,29 @@ const ContactPage = () => {
                   <div className={styles.markdownContainer}>
                     <div className={styles.contactPageDescription}>
                       <button
+                        type="submit"
+                        form="jupyter-contact-form"
                         className={styles.contactPageButton}
-                        onClick={handleSubmit}
+                        disabled={status === "sending"}
                       >
                         <img
                           src={`https://img.icons8.com/?size=100&id=59862&format=png&color=${
                             getTheme() == "dark" ? "BDBDBD" : "616161"
                           }`}
-                          alt="Run this cell"
+                          alt=""
                           className={styles.controlIcon}
                         />{" "}
-                        Run Code
+                        {status === "sending" ? "Sending…" : "Send message"}
                       </button>
+                      {/* Replaces the old alert() calls: announced politely to
+                          screen readers, and it doesn't steal focus. */}
+                      <p
+                        className={styles.contactPageStatus}
+                        role="status"
+                        aria-live="polite"
+                      >
+                        {STATUS_TEXT[status] || ""}
+                      </p>
                     </div>
                   </div>
                 ),

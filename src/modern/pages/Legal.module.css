@@ -1,0 +1,289 @@
+@keyframes mFadeUp {
+  0% { opacity: 0; transform: translateY(0.6rem); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.article {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(3rem, 7vw, 5rem) var(--gutter) 4rem;
+  position: relative;
+  z-index: 2;
+  animation: mFadeUp 600ms var(--ease) both;
+}
+
+.head {
+  max-width: 48rem;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+.kicker span:first-child {
+  color: var(--accent-deep);
+}
+.kickerRule {
+  width: 2rem;
+  height: 1px;
+  background: var(--rule);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 6.5vw, 4.8rem);
+  line-height: 1;
+  letter-spacing: -0.022em;
+  margin: 0;
+}
+.title em {
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+.metaLine {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  margin: 0;
+  max-width: 38rem;
+}
+
+.updated {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin: 0;
+}
+
+/* ── sibling-document tabs ── */
+
+.docNav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: 0.9rem 0;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.docNavLink {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  padding: 0.4rem 0.8rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  transition: color var(--fast) var(--ease),
+    border-color var(--fast) var(--ease);
+}
+.docNavLink:hover {
+  color: var(--ink);
+  border-color: var(--rule);
+}
+.docNavLinkActive {
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
+/* ── the prose itself ── */
+
+.prose {
+  max-width: var(--readable);
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--ink-soft);
+}
+
+.lede {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  line-height: 1.5;
+  color: var(--ink);
+  margin: 0 0 2.4rem;
+}
+
+.prose h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.75rem;
+  line-height: 1.2;
+  letter-spacing: -0.012em;
+  color: var(--ink);
+  margin: 2.8rem 0 0.9rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--rule);
+}
+
+.prose h3 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1.02rem;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+  margin: 1.9rem 0 0.6rem;
+}
+
+.prose p {
+  margin: 0 0 1.1rem;
+}
+
+.prose ul {
+  margin: 0 0 1.3rem;
+  padding-left: 1.2rem;
+}
+.prose li {
+  margin-bottom: 0.6rem;
+}
+
+.prose strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: var(--paper-deep);
+  padding: 0.12em 0.36em;
+  border-radius: 2px;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+
+.link {
+  color: var(--accent-deep);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.05em;
+  transition: border-color var(--fast) var(--ease);
+  overflow-wrap: anywhere;
+}
+.link:hover {
+  color: var(--accent-deep);
+  border-bottom-color: var(--accent-deep);
+}
+
+/* A button that reads as a link but is a real <button> — so it is
+   keyboard-operable and announced correctly. */
+.inlineBtn {
+  font: inherit;
+  color: var(--accent-deep);
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--accent-deep);
+  padding: 0 0 0.05em;
+  cursor: pointer;
+  text-align: left;
+}
+.inlineBtn:hover {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+}
+
+/* ── operator details ── */
+
+.defs {
+  margin: 0 0 1.4rem;
+  border-top: 1px solid var(--rule);
+}
+
+.defRow {
+  display: grid;
+  grid-template-columns: 11rem 1fr;
+  gap: 1rem;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.defRow dt {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  padding-top: 0.25em;
+}
+.defRow dd {
+  margin: 0;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+
+/* ── cookie tables ── */
+
+.tableWrap {
+  overflow-x: auto;
+  margin: 0 0 1.3rem;
+  border: 1px solid var(--rule);
+}
+
+.table {
+  width: 100%;
+  min-width: 34rem;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+.table th,
+.table td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.7rem 0.9rem;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.table th {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  background: var(--paper-deep);
+  font-weight: 500;
+  white-space: nowrap;
+}
+.table td {
+  color: var(--ink-soft);
+}
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.disclaimer {
+  margin-top: 3rem;
+  padding: 1.2rem 1.3rem;
+  border: 1px dashed var(--rule);
+  background: var(--paper-deep);
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--ink-soft);
+}
+
+@media (max-width: 640px) {
+  .title {
+    font-size: clamp(2.1rem, 9vw, 2.9rem);
+  }
+  .lede {
+    font-size: 1.15rem;
+  }
+  .defRow {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+  .prose h2 {
+    font-size: 1.5rem;
+  }
+}

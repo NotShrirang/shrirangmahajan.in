@@ -1,5 +1,6 @@
 import Code from "../../utils/codeUtils";
 import TenorEmbed from "../../utils/TenorEmbed.jsx";
+import Figure from "../../utils/Figure.jsx";
 import BaseBlog from "./BaseBlog";
 import cover from "../../assets/images/blogs/Attention/cover.png";
 import attentionHeatmap from "../../assets/images/blogs/Attention/attention-heatmap.jpg";
@@ -117,25 +118,17 @@ const content = (
       weights, and then take a weighted sum of the token embeddings. This
       weighted sum is the output of self-attention.
     </p>
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <img
-        width={"60%"}
-        src={
-          "https://sebastianraschka.com/images/blog/2023/self-attention-from-scratch/summary.png"
-        }
-        alt="Self-Attention Diagram"
-      />
-      <p style={{ fontSize: "0.8rem" }}>
-        <i>Self-Attention</i>
-      </p>
-    </div>
+    <Figure
+      width="60%"
+      src="https://sebastianraschka.com/images/blog/2023/self-attention-from-scratch/summary.png"
+      alt="Summary diagram of the self-attention computation, from queries and keys through the attention weights to the weighted sum of values"
+      caption="Self-Attention"
+      /* TODO(licensing): hotlinked from Sebastian Raschka's blog. Credited
+         here, but ask permission or redraw it — a hotlink also breaks the
+         moment he reorganises his images. */
+      credit="Sebastian Raschka"
+      creditHref="https://sebastianraschka.com/blog/2023/self-attention-from-scratch.html"
+    />
     <p>
       Formula:
       <Code

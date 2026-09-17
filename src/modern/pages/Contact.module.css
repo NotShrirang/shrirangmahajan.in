@@ -106,7 +106,9 @@
 .textarea {
   background: transparent;
   border: none;
-  border-bottom: 1px solid var(--rule);
+  /* --rule-strong, not --rule: this underline is the only visible boundary
+     of the control, so it needs 3:1 contrast (WCAG 1.4.11). */
+  border-bottom: 1px solid var(--rule-strong);
   padding: 0.7rem 0;
   font-family: var(--font-body);
   font-size: 1.05rem;
@@ -132,12 +134,55 @@
   line-height: 1.6;
 }
 
+.consent {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.7rem;
+  align-items: start;
+  border-top: 1px solid var(--rule);
+  padding-top: 1.3rem;
+}
+
+.consentBox {
+  /* Big enough to be an easy target, and drawn in ink so the unchecked box
+     is actually visible against the paper ground. */
+  width: 1.15rem;
+  height: 1.15rem;
+  margin: 0.15rem 0 0;
+  flex-shrink: 0;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.consentLabel {
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.consentLink {
+  color: var(--accent-deep);
+  border-bottom: 1px solid var(--accent-deep);
+  padding-bottom: 0.05em;
+}
+.consentLink:hover {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+}
+
 .actions {
   display: flex;
   align-items: center;
   gap: 1.5rem;
   flex-wrap: wrap;
   margin-top: 0.6rem;
+}
+
+/* Reserves no space when empty, but stays in the DOM so aria-live works. */
+.statusRegion {
+  margin: 0;
+  min-height: 1.5em;
 }
 
 .submit {

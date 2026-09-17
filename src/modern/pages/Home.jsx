@@ -484,11 +484,12 @@ export default function Home() {
               Ask <em>about</em> this site.
             </h2>
             <p className={styles.sectionLede}>
-              A production-grade LLM grounded in this site's content — every
-              project, role, blog post, and skill on this page is in its
-              context. It can also fetch fresh GitHub data and send you to
-              the right page when you ask for it. Different from TinyGPT
-              above: this one is factually reliable about <em>me.</em>
+              A hosted LLM grounded in this site's content — every project,
+              role, blog post, and skill on this page is in its context. It can
+              also fetch fresh GitHub data and send you to the right page when
+              you ask for it. Much better informed about <em>me</em> than
+              TinyGPT above — though, like any language model, still capable of
+              getting things wrong.
             </p>
           </div>
 

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import styles from "./Footer.module.css";
 
 const Footer = () => {
@@ -96,6 +97,30 @@ const Footer = () => {
             />
           </a>
         </div>
+      </div>
+
+      <div className={styles.footerLegal}>
+        <nav className={styles.footerLegalLinks} aria-label="Legal">
+          <Link to="/privacy">Privacy policy</Link>
+          <Link to="/terms">Terms &amp; conditions</Link>
+          <Link to="/cookies">Cookie policy</Link>
+        </nav>
+        <p className={styles.footerCredits}>
+          Shrirang Mahajan · Pune, Maharashtra, India ·{" "}
+          <a href="mailto:shrirangmahajan123@gmail.com">
+            shrirangmahajan123@gmail.com
+          </a>
+          . A personal portfolio operated by an individual; nothing is sold
+          here.
+          {/* Icons8's free tier requires a visible, linked credit wherever
+              its icons are used. These pages use them throughout the
+              notebook chrome, so the credit belongs here. */}{" "}
+          Interface icons by{" "}
+          <a href="https://icons8.com" target="_blank" rel="noreferrer noopener">
+            Icons8
+          </a>
+          .
+        </p>
       </div>
     </footer>
   );

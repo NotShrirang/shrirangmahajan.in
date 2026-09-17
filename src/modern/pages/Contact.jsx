@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import styles from "./Contact.module.css";
 
 export default function Contact() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const [state, setState] = useState("idle"); // idle | sending | sent | error
+  const [consent, setConsent] = useState(false);
+  // idle | sending | sent | incomplete | noConsent | error
+  const [state, setState] = useState("idle");
 
   useEffect(() => {
     document.title = "Contact — Shrirang Mahajan";
@@ -14,7 +17,13 @@ export default function Contact() {
   const submit = async (e) => {
     e.preventDefault();
     if (!name || !email || !message) {
-      setState("error");
+      setState("incomplete");
+      return;
+    }
+    // Consent is the legal basis for processing this message, so it is
+    // checked before anything is sent — not assumed from the click.
+    if (!consent) {
+      setState("noConsent");
       return;
     }
     setState("sending");
@@ -30,10 +39,28 @@ export default function Contact() {
       setName("");
       setEmail("");
       setMessage("");
+      setConsent(false);
     } catch (err) {
       setState("error");
     }
   };
+
+  const STATUS = {
+    sent: { cls: styles.status, text: "Got it — I'll get back to you soon." },
+    incomplete: {
+      cls: styles.statusError,
+      text: "Please fill in your name, email and message.",
+    },
+    noConsent: {
+      cls: styles.statusError,
+      text: "Please tick the consent box so I'm allowed to reply to you.",
+    },
+    error: {
+      cls: styles.statusError,
+      text: "Something failed on the way out. Try emailing me directly instead?",
+    },
+  };
+  const status = STATUS[state];
 
   return (
     <article className={styles.article}>
@@ -91,6 +118,27 @@ export default function Contact() {
               />
             </label>
 
+            <div className={styles.consent}>
+              <input
+                type="checkbox"
+                id="contact-consent"
+                className={styles.consentBox}
+                checked={consent}
+                onChange={(e) => setConsent(e.target.checked)}
+                required
+              />
+              <label htmlFor="contact-consent" className={styles.consentLabel}>
+                I agree that Shrirang may store my name, email and message in
+                order to reply to me. The form is delivered via Formspree (US)
+                and kept for up to 24 months. No marketing, ever — and you can
+                ask me to delete it at any time. See the{" "}
+                <Link to="/privacy" className={styles.consentLink}>
+                  privacy policy
+                </Link>
+                .
+              </label>
+            </div>
+
             <div className={styles.actions}>
               <button
                 type="submit"
@@ -104,17 +152,14 @@ export default function Contact() {
                   ›
                 </span>
               </button>
-              {state === "sent" && (
-                <span className={styles.status}>
-                  Got it — I'll get back to you soon.
-                </span>
-              )}
-              {state === "error" && (
-                <span className={styles.statusError}>
-                  Hmm, something failed. Try email instead?
-                </span>
-              )}
             </div>
+
+            {/* One live region, always present, so a screen reader announces
+                success and failure alike instead of only what happens to be
+                mounted at the time. */}
+            <p className={styles.statusRegion} role="status" aria-live="polite">
+              {status && <span className={status.cls}>{status.text}</span>}
+            </p>
           </form>
         </section>
 

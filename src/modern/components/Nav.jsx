@@ -67,13 +67,18 @@ export default function Nav() {
           className={styles.toggle}
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
-          aria-label="Menu"
+          aria-controls="primary-navigation"
+          aria-label={open ? "Close menu" : "Open menu"}
         >
           <span></span>
           <span></span>
         </button>
 
-        <nav className={styles.menu}>
+        <nav
+          className={styles.menu}
+          id="primary-navigation"
+          aria-label="Primary"
+        >
           {links.map((l) => (
             <NavLink
               key={l.to}

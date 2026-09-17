@@ -1,5 +1,6 @@
 import Code from "../../utils/codeUtils";
 import TenorEmbed from "../../utils/TenorEmbed.jsx";
+import Figure from "../../utils/Figure.jsx";
 import BaseBlog from "./BaseBlog";
 import cover from "../../assets/images/blogs/VectorEmbeddings/cover.png";
 
@@ -59,16 +60,13 @@ const content = (
     </p>
     <h2>Enter Word Vectors (Inspired by Word2Vec)</h2>
     <h3>A More Meaningful Representation</h3>
-    <img
-      width={"100%"}
+    <Figure
       src="https://cdn.sanity.io/images/bbnkhnhl/production/9d9a653b2bb115c9ecae49532d8bbcd97e3e45ed-1920x1080.jpg?w=3840&q=75&fit=clip&auto=format"
-      alt="Vector Embeddings Visualized in 2D"
-      onClick={() => {
-        window.open(
-          "https://cdn.sanity.io/images/bbnkhnhl/production/9d9a653b2bb115c9ecae49532d8bbcd97e3e45ed-1920x1080.jpg?w=3840&q=75&fit=clip&auto=format",
-          "_blank"
-        );
-      }}
+      alt="Word embeddings plotted in two dimensions, with semantically similar words clustered together"
+      caption="Word embeddings visualised in 2D"
+      /* TODO(licensing): rights holder not identified. Replace with an
+         original diagram or a CC-licensed one, or obtain permission. */
+      credit="third party (rights holder not identified)"
     />
     <p>
       Instead of using a massive, mostly empty vector, word embeddings pack rich
@@ -87,17 +85,15 @@ const content = (
     <h3>The Famous King–Queen Relationship</h3>
     <p>A classic example often cited is:</p>
     <Code language="cpp" content={`v(King) – v(Man) + v(Woman) ≈ v(Queen)`} />
-    <img
-      style={{ backgroundColor: "white" }}
-      width={"100%"}
+    <Figure
+      background="white"
       src="https://www.askyourdata.co/uploads/9/7/6/7/97671206/linear-relationships_orig.png"
-      alt="Vector Embeddings Visualized in 2D"
-      onClick={() => {
-        window.open(
-          "https://www.askyourdata.co/uploads/9/7/6/7/97671206/linear-relationships_orig.png",
-          "_blank"
-        );
-      }}
+      alt="Vector arithmetic showing king minus man plus woman landing near queen"
+      caption="The king – man + woman ≈ queen relationship"
+      /* TODO(licensing): hotlinked from askyourdata.co without permission.
+         Replace with an original diagram or seek a licence. */
+      credit="askyourdata.co"
+      creditHref="https://www.askyourdata.co/"
     />
     <p>
       It’s a neat demonstration that these vectors can capture gender

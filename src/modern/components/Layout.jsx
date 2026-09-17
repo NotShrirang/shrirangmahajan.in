@@ -36,8 +36,13 @@ export default function ModernLayout() {
   return (
     <div className={styles.shell}>
       <ScrollHandler />
+      {/* First thing in the tab order: lets keyboard and screen-reader users
+          jump the nav instead of tabbing it on every page. */}
+      <a href="#main" className={styles.skipLink}>
+        Skip to main content
+      </a>
       <Nav />
-      <main className={styles.main}>
+      <main id="main" className={styles.main} tabIndex={-1}>
         <Outlet />
       </main>
       <Footer />

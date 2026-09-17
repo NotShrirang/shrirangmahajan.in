@@ -89,13 +89,16 @@ ${fetchExperience()
 
   if (!clicked)
     return (
-      <div className={styles.chatbotContainer} onClick={() => setClicked(true)}>
-        <img
-          src={ChatBotIcon}
-          alt="Chatbot Icon"
-          className={styles.chatbotIcon}
-        />
-      </div>
+      // A <button>, not a <div onClick> — otherwise there is no way to open
+      // the assistant from a keyboard at all.
+      <button
+        type="button"
+        className={styles.chatbotContainer}
+        onClick={() => setClicked(true)}
+        aria-label="Open the site assistant"
+      >
+        <img src={ChatBotIcon} alt="" className={styles.chatbotIcon} />
+      </button>
     );
   else
     return (
@@ -109,12 +112,14 @@ ${fetchExperience()
             />
             <h2 className={styles.chatbotTitle}>Chatbot</h2>
           </div>
-          <div
+          <button
+            type="button"
             className={styles.chatbotButton}
             onClick={() => setClicked(false)}
+            aria-label="Close the site assistant"
           >
-            <img src={CloseIcon} alt="Close" className={styles.chatbotIcon} />
-          </div>
+            <img src={CloseIcon} alt="" className={styles.chatbotIcon} />
+          </button>
         </div>
         <div className={styles.chatbotContent}>
           <div className={styles.chatbotMessages}>

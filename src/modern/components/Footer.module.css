@@ -143,19 +143,71 @@
   border-radius: 2px;
 }
 
+/* Styled to sit in the link list without looking like a stray control. */
+.consentBtn {
+  font: inherit;
+  font-size: 0.95rem;
+  color: var(--ink);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+  transition: color var(--fast) var(--ease);
+}
+.consentBtn:hover {
+  color: var(--accent);
+}
+
 .bottom {
   border-top: 1px solid var(--rule);
   max-width: var(--max);
   margin: 0 auto;
   padding: 1.4rem var(--gutter) 2.2rem;
   display: flex;
-  gap: 0.8rem;
+  flex-direction: column;
+  gap: 0.7rem;
   font-family: var(--font-mono);
   font-size: 0.72rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--ink-mute);
 }
+
+.bottomRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  align-items: baseline;
+}
+.bottomRow a {
+  color: var(--ink-mute);
+  text-transform: none;
+  letter-spacing: 0.04em;
+}
+.bottomRow a:hover {
+  color: var(--accent);
+}
+
+.imprint {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  letter-spacing: 0;
+  text-transform: none;
+  line-height: 1.6;
+  color: var(--ink-mute);
+  max-width: 44rem;
+}
+.imprintLink {
+  color: var(--ink-soft);
+  border-bottom: 1px solid var(--rule);
+}
+.imprintLink:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
 .dot {
   opacity: 0.5;
 }
@@ -189,10 +241,13 @@
     font-size: 0.92rem;
   }
   .bottom {
-    flex-direction: column;
     align-items: flex-start;
-    gap: 0.3rem;
+    gap: 0.6rem;
     padding: 1.2rem var(--gutter) 2rem;
+  }
+  .bottomRow {
+    flex-direction: column;
+    gap: 0.3rem;
   }
   .dot {
     display: none;

@@ -1,5 +1,8 @@
 import React, { useState, useEffect, lazy, Suspense } from "react";
 import { SpeedInsights } from '@vercel/speed-insights/react';
+// The /react entry, not /next — this is a Vite SPA, and the Next.js build
+// pulls in next/navigation, which breaks `vite build`.
+import { Analytics } from "@vercel/analytics/react";
 import {
   BrowserRouter,
   Routes,
@@ -19,8 +22,12 @@ import MyContext from "./MyContext";
 // renders on every navigation. Everything else loads on demand.
 import ModernLayout from "./modern/components/Layout";
 import Home from "./modern/pages/Home";
+// Eager: the banner decides whether analytics may load at all, so it must not
+// wait on a chunk download.
+import CookieConsent from "./modern/components/CookieConsent";
 
 const Projects = lazy(() => import("./modern/pages/Projects"));
+const Legal = lazy(() => import("./modern/pages/Legal"));
 const Writing = lazy(() => import("./modern/pages/Writing"));
 const Post = lazy(() => import("./modern/pages/Post"));
 const Experience = lazy(() => import("./modern/pages/Experience"));
@@ -86,6 +93,7 @@ function App() {
       }}
     >
       <SpeedInsights />
+      <Analytics />
       <BrowserRouter>
         <ModeBodyClass />
         <div className="appContainer">
@@ -99,6 +107,9 @@ function App() {
                 <Route path="/experience" element={<Experience />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/tinygpt" element={<TinyGPT />} />
+                <Route path="/privacy" element={<Legal doc="privacy" />} />
+                <Route path="/terms" element={<Legal doc="terms" />} />
+                <Route path="/cookies" element={<Legal doc="cookies" />} />
               </Route>
               <Route path="/jupyter" element={<JupyterLayout />}>
                 <Route index element={<CellsPage />} />
@@ -112,6 +123,7 @@ function App() {
             <ChatbotOnJupyterOnly />
           </Suspense>
         </div>
+        <CookieConsent />
       </BrowserRouter>
     </MyContext.Provider>
   );
