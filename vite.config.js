@@ -37,10 +37,30 @@ export default defineConfig({
             urlPattern: ({ request }) => request.mode === 'navigate',
             handler: 'NetworkFirst',
             options: {
-              cacheName: 'pages',
+              // Bumped to -v2 to abandon the pre-prerender entries.
+              //
+              // Every route used to be served the same SPA shell, so a
+              // visitor who browsed before prerendering shipped has the
+              // homepage HTML stored in this cache under /blogs/<slug> and
+              // every other path. cleanupOutdatedCaches only prunes the
+              // PRECACHE — runtime caches like this one survive every deploy
+              // untouched, so those entries would have been served forever
+              // whenever a navigation took longer than the timeout below.
+              // Renaming the cache orphans them; Workbox deletes caches it no
+              // longer knows about.
+              cacheName: 'pages-v2',
               networkTimeoutSeconds: 3,
-              cacheableResponse: { statuses: [0, 200] },
-              expiration: { maxEntries: 8 },
+              // [200] only, not [0, 200]. Status 0 is an opaque response,
+              // which a same-origin navigation should never produce — so the
+              // only thing allowing it can do here is let an error get stored
+              // and later served as though it were a page.
+              cacheableResponse: { statuses: [200] },
+              // maxAgeSeconds is what stops this recurring: entries now expire
+              // on their own after a day, so a future content change cannot
+              // strand stale HTML in a visitor's browser until someone
+              // remembers to bump the name again. 20 entries covers the 16
+              // prerendered routes with room to spare.
+              expiration: { maxEntries: 20, maxAgeSeconds: 60 * 60 * 24 },
             },
           },
           {
