@@ -24,18 +24,11 @@ const projects = [
           neural network layers, optimizers, and loss functions.
         </li>
         <li>
-          Hand-wrote <strong>Tensor Core kernels in inline PTX</strong>{" "}
-          (mma.sync, cp.async double buffering, FA-2 split-Q across warps). The
-          fp16 flash attention kernel reaches{" "}
-          <strong>24.7 TFLOPS, 0.79× cuDNN</strong> at long sequences, and the
-          TF32 matmul runs <strong>3.9× faster than NumPy</strong>, without
-          calling any external math library.
-        </li>
-        <li>
-          Implemented <strong>7 matmul kernels</strong> (naive through 2D block
-          tiling) and <strong>5 attention kernels</strong> (naive, tiled,
-          flash, optimized flash, Tensor Core) behind scaled dot-product,
-          multi-head and grouped-query attention, with causal and padding masks.
+          Developed and benchmarked optimized{" "}
+          <strong>CUDA matrix multiplication kernels</strong> using tiling,
+          shared memory, and memory coalescing techniques, measuring up to{" "}
+          <strong>2.3× speedup over NumPy</strong> on the matmul benchmarks
+          included in the repository.
         </li>
         <li>
           Published on{" "}
@@ -125,33 +118,6 @@ const projects = [
     tags: ["LangGraph", "FastAPI", "React", "Docker", "Multi-Agent Systems"],
     domain: "ML",
     link: "https://github.com/NotShrirang/AgentFlow",
-  },
-  {
-    title: "Expense-AI",
-    description: (
-      <ul>
-        <li>
-          Built a <b>ReAct agent</b> (LangChain, Groq Llama/Qwen with a Gemini
-          fallback) that approves travel reimbursement claims, choosing between
-          four policy tools per claim: policy lookup, expense limits, receipt
-          compliance and duplicate detection.
-        </li>
-        <li>
-          Wrapped the LLM in <b>deterministic guardrails</b>: the approved
-          amount is computed and clamped in code, so a hallucination or a{" "}
-          <b>prompt injection</b> can never pay out more than policy allows.
-          Anything uncertain falls back to Manual Review.
-        </li>
-        <li>
-          Every decision is <b>schema-validated (Pydantic)</b> and comes with a
-          full audit trail of tool calls, checks and overrides, served through
-          a <b>FastAPI</b> endpoint with a deterministic test suite.
-        </li>
-      </ul>
-    ),
-    tags: ["LangChain", "LangGraph", "ReAct Agent", "FastAPI", "Pydantic", "LLM Guardrails"],
-    domain: "ML",
-    link: "https://github.com/NotShrirang/expense-ai",
   },
   {
     title: "Split.ai",

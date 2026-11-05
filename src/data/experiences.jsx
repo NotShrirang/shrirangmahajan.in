@@ -5,42 +5,32 @@ const fetchExperience = () => [
     company: "Skylark Labs",
     description: [
       <>
-        <b>Aircraft tracker:</b> designed and built from scratch, as the sole
-        engineer, an AI-based real-time PTZ camera tracking system that follows
-        every airfield takeoff and landing at the tightest optical zoom. It
-        combines YOLO object detection, an EfficientNet aircraft-type
-        classifier, a calibrated camera model, visual odometry with SIFT/RANSAC
-        pose correction against a reference bank, and predictive motion control
-        that aims ahead of the camera's 1–2 s command lag. It runs at{" "}
-        <b>22 FPS</b> with <b>22 ms</b> TensorRT detection, and has tracked{" "}
-        <b>1,400+ live operations</b> with the aircraft <b>in frame 90%</b> of
-        the time, following <b>86%</b> of them to the runway end.
+        Developed a production-grade <b>visual tracking system</b> featuring a{" "}
+        <b>7D Kalman filter</b> for multi-object tracking and predictive PiP
+        stabilization. Built an offline standalone tracker with{" "}
+        <b>Camera Motion Compensation</b> using sparse optical flow and affine
+        estimation, handling complex re-identification and dynamic state
+        switches.
       </>,
       <>
-        <b>FrameSeek:</b> prototyped a CCTV search tool where any LLM (Claude,
-        GPT, Gemini, Groq) answers plain-language questions about video
-        through <b>19 MCP tools</b>, such as search by description or photo,
-        re-identification, PPE and weapons. Video is indexed once with YOLO26,
-        ByteTrack, SigLIP2 and DINOv2 at <b>near real time on an 8 GB GPU</b>,
-        and every answer comes with evidence and a timestamped clip.
+        Optimized inference by deploying a <b>TensorRT-optimized model</b> on{" "}
+        <b>NVIDIA Triton Inference Server</b>, doubling throughput from{" "}
+        <b>3 FPS to 6–7 FPS</b> via profiling and optimized post-processing
+        logic over <b>gRPC</b>.
       </>,
       <>
-        Cut retrieval latency <b>88% (971 → 113 ms)</b> by searching
-        embeddings only around detected objects in a Qdrant (HNSW) vector store
-        instead of the full frame, and caching features to skip <b>87%</b> of
-        repeat model calls.
+        Architected and developed <b>Drishti</b>, a{" "}
+        <b>distributed annotation system</b> processing video datasets with{" "}
+        <b>GPU-accelerated</b> YOLO inference on Celery workers, automated
+        quality control, smart work distribution, and real-time batch
+        processing, deployed as a full-stack solution (
+        <b>Django + React + PostgreSQL + Docker</b>) with <b>Cloudflare R2</b>{" "}
+        integration, improving annotation throughput by <b>3x</b>.
       </>,
       <>
-        <b>Model serving:</b> doubled inference throughput{" "}
-        <b>(3 → 7 FPS)</b> by serving TensorRT models on NVIDIA Triton
-        Inference Server over gRPC, reaching <b>120+ inferences/s</b> at{" "}
-        <b>under 50 ms P95</b>.
-      </>,
-      <>
-        <b>Drishti:</b> built a distributed annotation platform with GPU
-        pre-labelling on Celery workers, automated QC and real-time batching
-        (Django, React, PostgreSQL, Docker, Cloudflare R2) that{" "}
-        <b>tripled annotation throughput</b>.
+        Worked on continuous training and validation of a{" "}
+        <b>YOLO-based object detection model</b>, including hyperparameter
+        tuning and false-positive analysis.
       </>,
     ],
     duration: "November 2025 - Present",
