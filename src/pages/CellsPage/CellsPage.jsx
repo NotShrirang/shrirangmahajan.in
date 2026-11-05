@@ -176,7 +176,7 @@ const CellsPage = () => {
                 <p className={styles.tinygptIntroBody}>
                   The cell below runs a small language model{" "}
                   <em>entirely in your browser</em> via WebGPU (or WASM
-                  fallback). I pretrained it on ~6.5B tokens of OpenWebText on
+                  fallback). I pretrained it on ~2.1B tokens of OpenWebText on
                   a single RTX 3070 Ti and instruction-tuned it on Stanford
                   Alpaca.
                 </p>

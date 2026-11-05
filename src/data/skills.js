@@ -1,25 +1,39 @@
 const skills = [
-    { name: "Python", language: "Python" },
-    { name: "PyTorch", language: "Python" },
+    // Generative AI / LLMs
+    { name: "vLLM", language: "Python" },
     { name: "LangChain", language: "Python" },
+    { name: "LangGraph", language: "Python" },
+    { name: "MCP", language: "Tools" },
+    { name: "PEFT / LoRA", language: "Python" },
     { name: "Hugging Face", language: "Tools" },
-    { name: "Scikit-learn", language: "Python" },
-    { name: "Tensorflow", language: "Python" },
+    // ML & computer vision
+    { name: "PyTorch", language: "Python" },
     { name: "OpenCV", language: "Python" },
-    { name: "MLFlow", language: "Python" },
-    { name: "PySpark", language: "Python" },
-    { name: "FastAPI", language: "Python" },
-    { name: "Streamlit", language: "Python" },
-    { name: "SQL", language: "SQL" },
+    { name: "Ultralytics YOLO", language: "Python" },
+    { name: "LightGBM", language: "Python" },
+    { name: "XGBoost", language: "Python" },
+    // Search & data
+    { name: "Qdrant", language: "Tools" },
+    { name: "FAISS", language: "Tools" },
     { name: "PostgreSQL", language: "SQL" },
-    { name: "JavaScript", language: "JavaScript" },
+    // Serving & GPU
+    { name: "NVIDIA Triton", language: "Tools" },
+    { name: "TensorRT", language: "Tools" },
+    { name: "ONNX Runtime", language: "Tools" },
+    { name: "Jetson", language: "Tools" },
+    { name: "gRPC", language: "Tools" },
+    { name: "FastAPI", language: "Python" },
     { name: "Docker", language: "Tools" },
-    { name: "AWS", language: "Tools" },
+    // Cloud
     { name: "Azure Databricks", language: "Tools" },
+    { name: "AWS", language: "Tools" },
     { name: "Git", language: "Tools" },
+    // Languages
+    { name: "Python", language: "Python" },
     { name: "C++", language: "C++" },
     { name: "CUDA", language: "C++" },
-    { name: "Triton", language: "Python" },
+    { name: "SQL", language: "SQL" },
+    { name: "JavaScript", language: "JavaScript" },
 ]
 
 export default skills;

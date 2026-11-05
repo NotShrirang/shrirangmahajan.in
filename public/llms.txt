@@ -1,24 +1,30 @@
 # Shrirang Mahajan
 
-> Machine Learning & LLM Engineer in Pune, India, currently ML Engineer II at Skylark Labs. Trains LLMs from scratch — TinyGPT, a 95M-parameter model pretrained on ~6.5B tokens on a single 8 GB RTX 3070 Ti — fine-tunes them, and builds multimodal RAG and multi-agent systems. Ships production ML with measured impact: doubled a real-time tracker's throughput with TensorRT + NVIDIA Triton (3 → 6–7 FPS) and 3×'d dataset annotation throughput with a distributed GPU pipeline. Goes low-level when it sharpens understanding — Tensorax is a from-scratch C++/CUDA tensor library with full autodiff (`pip install tensorax`), reaching 2.3× NumPy on hand-written matmul kernels.
+> Machine Learning Engineer in Pune, India, with 2+ years shipping computer vision and LLM systems to production. Currently ML Engineer II at Skylark Labs, and the sole ML engineer there since September 2026. Built most of the analytics on Kepler, a video analytics platform that scales from 4 cameras on a Jetson AGX Orin to 40 on an A5000 cluster at 400 ms P99; owns an aircraft tracking system live at an operational airfield (1,400+ takeoffs and landings, aircraft in frame 90% of the time, 22 FPS); built a TensorRT edge inference server on Jetson AGX Orin (65 → 24 ms per frame); cut retrieval latency 88% (971 → 113 ms) with Qdrant; doubled throughput with TensorRT on NVIDIA Triton (3 → 7 FPS); and prototyped FrameSeek, CCTV search where any LLM queries video through 19 MCP tools. Co-author of the arXiv paper "Continual Field-Adaptive Models (CFAMs) for Post-Deployment Physical AI" (2026). Goes low-level when it sharpens understanding: Tensorax is a from-scratch C++/CUDA deep learning framework with autograd (`pip install tensorax`) whose inline-PTX Tensor Core flash attention reaches 24.7 TFLOPS (0.79× cuDNN).
 
 This site has two equivalent views rendering the same content: a modern editorial design at the root, and a Jupyter-notebook view at `/jupyter`, where the TinyGPT cell runs real in-browser inference (WebGPU/WASM) from an editable prompt. A grounded site assistant on the home page answers questions from this content.
 
 ## Start here
 
 - [Home](https://www.shrirangmahajan.in/): one-page overview — approach, selected work, writing, experience, and the site assistant.
-- [Experience](https://www.shrirangmahajan.in/experience/): full work history with dates, scope, and quantified impact per role (Skylark Labs, Emergys/Ellicium, Atomic Loops, Nishikawa).
+- [Experience](https://www.shrirangmahajan.in/experience/): full work history with dates, scope, and quantified impact per role (Skylark Labs, Emergys/Ellicium, Atomic Loops, Nishikawa), plus publications.
 - [Projects](https://www.shrirangmahajan.in/projects/): complete project index, filterable by domain (ML, Web, App Dev).
 - [Contact](https://www.shrirangmahajan.in/contact/): email and social links. Best response on weekdays, IST.
 
+## Publications
+
+- [Continual Field-Adaptive Models (CFAMs) for Post-Deployment Physical AI](https://arxiv.org/abs/2609.04552) (arXiv, 2026), co-author. Ran the continual-learning experiments and benchmarks and wrote that section: learning new skills after deployment without catastrophic forgetting (backward transfer −0.5 pp vs −11.4 pp for LoRA).
+
 ## Featured
 
-- [TinyGPT](https://www.shrirangmahajan.in/tinygpt): 95M-parameter LLM pretrained from scratch in PyTorch on ~6.5B tokens of OpenWebText on one RTX 3070 Ti (mixed-precision AMP + gradient accumulation to avoid OOM), instruction-tuned on Stanford Alpaca, exported to ONNX, and runnable in-browser via WebGPU/WASM. Architecture, training setup, conversion pipeline, and a live demo.
-- [Tensorax](https://github.com/NotShrirang/tensorax): standalone tensor-computation library with hand-written C++/CUDA kernels and Python bindings — no NumPy, PyTorch, or cuBLAS. Full automatic differentiation with a PyTorch-like API, NN layers, optimizers, and losses; tiled shared-memory, memory-coalesced matmul at up to 2.3× NumPy. Published on [PyPI](https://pypi.org/project/tensorax/).
+- [Tensorax](https://github.com/NotShrirang/tensorax): deep learning framework with hand-written C++/CUDA kernels and Python bindings, with no NumPy, PyTorch, or cuBLAS. Full automatic differentiation with a PyTorch-like API, NN layers, optimizers, and losses; Tensor Core flash attention in inline PTX at 24.7 TFLOPS (0.79× cuDNN). Published on [PyPI](https://pypi.org/project/tensorax/).
+- [TinyGPT](https://www.shrirangmahajan.in/tinygpt): 95M-parameter LLM (RoPE, GQA, RMSNorm) pretrained from scratch in PyTorch on ~2.1B tokens of OpenWebText on one RTX 3070 Ti (mixed precision, gradient accumulation, Liger fused kernels), instruction-tuned on Stanford Alpaca (val perplexity 7.3), exported to ONNX, and runnable in-browser via WebGPU/WASM. Architecture, training setup, conversion pipeline, and a live demo.
+- LLM Serving Engine (private code): LLM inference server with continuous batching, KV caching and admission control, load-tested against vLLM on TTFT, TPOT and throughput; 788 tok/s at 64 concurrent requests on one 8 GB GPU.
+- Kiosk (private, in development): news search and recommendation product over 90K articles; hybrid BM25 + dense retrieval with RRF, cross-encoder rerank, LightGBM learning-to-rank, breaking-news clustering and RAG chat; 99 ms P95 feed.
 
 ## Selected work
 
-- [AgentFlow](https://github.com/NotShrirang/AgentFlow): LangGraph multi-agent orchestration — intent classification, planning, automated tool execution, custom cron/interval scheduling, JWT auth, Docker deployment.
+- [AgentFlow](https://www.shrirangmahajan.in/projects/): LangGraph multi-agent orchestration — intent classification, planning, automated tool execution, custom cron/interval scheduling, JWT auth, Docker deployment (no public code).
 - [LoomRAG](https://github.com/NotShrirang/LoomRAG): multimodal RAG over text, images, and audio using OpenAI CLIP + Whisper with FAISS; 2–3s cross-modal retrieval, CLIP fine-tuning, custom datasets, URL-based image indexing.
 - [Split.ai](https://github.com/NotShrirang/Split.ai): fault-tolerant receipt parsing with a multi-LLM fallback strategy (Gemini → Llama 3) at 99% extraction reliability, graph-based debt simplification, async OCR via Celery/RabbitMQ.
 - [QuillGPT](https://github.com/NotShrirang/QuillGPT): GPT decoder built in PyTorch (self- and multi-head attention), two pretrained models (Shakespearean GPT, Harpoon GPT), Streamlit playground, FastAPI microservice, Docker, custom tokenizer.

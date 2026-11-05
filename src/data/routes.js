@@ -22,26 +22,23 @@ export const SITE_ORIGIN = "https://www.shrirangmahajan.in";
    and twitter:description. Aim for 150–160 characters: past roughly that,
    Google truncates the snippet mid-sentence.
 
-   "/" repeats index.html's description verbatim. It is 334 characters, so
-   Google truncates it mid-sentence — but it is also the one snippet already
-   indexed, and shortening it is a call to make deliberately rather than as a
-   side effect of this change. It is here so that navigating back to the
-   homepage restores it; without an entry the previous page's description
-   would linger in the <head>. */
+   "/" repeats index.html's description verbatim. Keep the two in sync. It is
+   here so that navigating back to the homepage restores it; without an entry
+   the previous page's description would linger in the <head>. */
 export const staticRoutes = [
   {
     path: "/",
     changefreq: "weekly",
     priority: "1.0",
     description:
-      "Hey there! I'm Shrirang Mahajan — a Machine Learning & LLM Engineer based in Pune, India. I train LLMs from scratch, fine-tune them, and build multimodal RAG, AI agents, and production ML systems. Skilled in PyTorch, Hugging Face, LangChain, and FastAPI. Check out TinyGPT, LoomRAG, and AgentFlow with live demos and open-source code!",
+      "Shrirang Mahajan, ML Engineer in Pune shipping computer vision and LLM systems to production: video analytics, edge inference, LLM serving. Built TinyGPT and Tensorax.",
   },
   {
     path: "/projects",
     changefreq: "monthly",
     priority: "0.9",
     description:
-      "Machine learning and LLM projects by Shrirang Mahajan — TinyGPT, Tensorax, AgentFlow, LoomRAG and more, each with its source code on GitHub.",
+      "Machine learning and LLM projects by Shrirang Mahajan: an LLM serving engine, Tensorax, Kiosk, TinyGPT, LoomRAG and more.",
   },
   {
     path: "/blogs",
@@ -55,7 +52,7 @@ export const staticRoutes = [
     changefreq: "monthly",
     priority: "0.9",
     description:
-      "Work history of Shrirang Mahajan — Machine Learning Engineer II at Skylark Labs, previously Emergys, Atomic Loops and Nishikawa Communications.",
+      "Work history and publications of Shrirang Mahajan: ML Engineer II at Skylark Labs, previously Emergys, Atomic Loops and Nishikawa Communications.",
   },
   {
     path: "/tinygpt",

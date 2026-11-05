@@ -17,7 +17,7 @@ const SPECS = [
   ["Normalization", "RMSNorm  (ε = 1e-6)"],
   ["Activation", "GELU"],
   ["Weight tying", "lm_head ↔ token_embedding"],
-  ["Pretrain corpus", "OpenWebText  (~6.5B tokens)"],
+  ["Pretrain corpus", "OpenWebText  (~2.1B tokens)"],
   ["Hardware", "1 × RTX 3070 Ti  (8 GB)"],
   ["Instruction tune", "Stanford Alpaca  (52K)"],
 ];
@@ -60,7 +60,7 @@ export default function TinyGPT() {
           </h1>
           <p className={styles.heroLede}>
             A <strong>95M-parameter</strong> language model — pretrained
-            from scratch on <strong>~6.5B tokens of OpenWebText</strong>{" "}
+            from scratch on <strong>~2.1B tokens of OpenWebText</strong>{" "}
             with a single <strong>RTX 3070 Ti (8 GB VRAM)</strong>,
             instruction-tuned on Stanford Alpaca, and ONNX-converted so it
             runs <em>locally in your browser</em>.
@@ -289,7 +289,7 @@ export default function TinyGPT() {
             Fitting a 95M model into <em>8 GB</em> of VRAM.
           </h2>
           <p className={styles.sectionLede}>
-            6.7B tokens of <strong>OpenWebText</strong>, on a single RTX
+            ~2.1B tokens of <strong>OpenWebText</strong>, on a single RTX
             3070 Ti — the same GPU you can buy used for the price of one
             month of ChatGPT Pro.
           </p>

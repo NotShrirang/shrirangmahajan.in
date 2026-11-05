@@ -198,6 +198,27 @@
   font-weight: 600;
 }
 
+.pubs {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-top: 4rem;
+}
+.pubTitle {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  line-height: 1.15;
+  letter-spacing: -0.012em;
+  text-wrap: balance;
+  color: var(--ink);
+  margin: 0;
+}
+.pubs .company {
+  width: fit-content;
+  max-width: 100%;
+}
+
 .footer {
   padding: 3rem 0;
   text-align: center;

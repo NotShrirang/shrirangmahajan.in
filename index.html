@@ -18,9 +18,9 @@
   <!-- SEO -->
   <title>Shrirang Mahajan - Machine Learning & LLM Engineer</title>
   <meta name="description"
-    content="Hey there! I'm Shrirang Mahajan — a Machine Learning & LLM Engineer based in Pune, India. I train LLMs from scratch, fine-tune them, and build multimodal RAG, AI agents, and production ML systems. Skilled in PyTorch, Hugging Face, LangChain, and FastAPI. Check out TinyGPT, LoomRAG, and AgentFlow with live demos and open-source code!" />
+    content="Shrirang Mahajan, ML Engineer in Pune shipping computer vision and LLM systems to production: video analytics, edge inference, LLM serving. Built TinyGPT and Tensorax." />
   <meta name="keywords"
-    content="Shrirang Mahajan, Machine Learning Engineer, LLM Engineer, AI Engineer, LLM fine-tuning, LLM pretraining, multimodal RAG, AI agents, deep learning, generative AI, PyTorch, Hugging Face, LangChain, TensorFlow, FastAPI, TinyGPT, LoomRAG, AgentFlow, open-source AI, Pune, Tensorax, CUDA" />
+    content="Shrirang Mahajan, Machine Learning Engineer, LLM Engineer, AI Engineer, LLM fine-tuning, LLM pretraining, multimodal RAG, AI agents, deep learning, generative AI, PyTorch, Hugging Face, LangChain, vLLM, TensorRT, NVIDIA Triton, Jetson, computer vision, video analytics, FastAPI, TinyGPT, Tensorax, CUDA, Pune" />
   <meta name="author" content="Shrirang Mahajan" />
   <link rel="canonical" href="https://www.shrirangmahajan.in/" />
 
@@ -36,7 +36,7 @@
   <meta property="og:site_name" content="Shrirang Mahajan" />
   <meta property="og:title" content="Shrirang Mahajan - Machine Learning & LLM Engineer" />
   <meta property="og:description"
-    content="Machine Learning & LLM Engineer from Pune, India. Training LLMs from scratch, fine-tuning them, and building multimodal RAG, AI agents, and production ML systems. Explore projects like TinyGPT, LoomRAG, and AgentFlow." />
+    content="ML Engineer from Pune, India, shipping computer vision and LLM systems to production. Real-time video analytics, edge inference, LLM serving, and projects like TinyGPT and Tensorax." />
   <meta property="og:url" content="https://www.shrirangmahajan.in/" />
   <meta property="og:image" content="https://www.shrirangmahajan.in/apple-touch-icon-180x180.png" />
   <meta property="og:locale" content="en_US" />
@@ -49,7 +49,7 @@
   <meta name="twitter:creator" content="@notshrirang" />
   <meta name="twitter:title" content="Shrirang Mahajan - Machine Learning & LLM Engineer" />
   <meta name="twitter:description"
-    content="Machine Learning & LLM Engineer from Pune, India. Training LLMs from scratch, fine-tuning them, and building multimodal RAG, AI agents, and production ML systems." />
+    content="ML Engineer from Pune, India, shipping computer vision and LLM systems to production. Real-time video analytics, edge inference, LLM serving, and projects like TinyGPT and Tensorax." />
   <meta name="twitter:image" content="https://www.shrirangmahajan.in/apple-touch-icon-180x180.png" />
 
   <!-- JSON-LD: Person -->
@@ -76,7 +76,7 @@
       "@type": "CollegeOrUniversity",
       "name": "Savitribai Phule Pune University"
     },
-    "description": "Machine Learning & LLM Engineer specializing in LLM pretraining and fine-tuning, multimodal RAG, AI agents, and production ML systems.",
+    "description": "ML Engineer shipping computer vision and LLM systems to production: real-time video analytics, edge inference, LLM serving, and LLM agents.",
     "knowsAbout": [
       "Machine Learning",
       "Deep Learning",
@@ -215,9 +215,12 @@
       <section>
         <h2>Skills</h2>
         <p>
-          Python, C++, CUDA, JavaScript, SQL, PyTorch, Triton, TensorFlow, LangChain,
-          Scikit-learn, OpenCV, FastAPI, Streamlit, MLFlow, PySpark, Git, Azure Databricks,
-          Docker, Hugging Face, AWS, PostgreSQL.
+          Generative AI / LLMs: vLLM, LangChain, LangGraph, MCP, fine-tuning (PEFT / LoRA / SFT),
+          Hugging Face. ML &amp; computer vision: PyTorch, OpenCV, Ultralytics YOLO,
+          CLIP / SigLIP / DINOv2, LightGBM, XGBoost. Search &amp; data: Qdrant, FAISS, BM25,
+          PostgreSQL. Serving &amp; GPU: NVIDIA Triton, TensorRT, ONNX Runtime, CUDA, Jetson,
+          gRPC, FastAPI, Docker. Cloud: Azure Databricks, AWS, Git. Languages: Python, C++,
+          CUDA, SQL, JavaScript.
         </p>
       </section>
 
@@ -229,26 +232,38 @@
           <p><em>November 2025 &mdash; Present</em></p>
           <ul>
             <li>
-              Developed a production-grade visual tracking system featuring a 7D Kalman filter
-              for multi-object tracking and predictive PiP stabilization. Built an offline
-              standalone tracker with Camera Motion Compensation using sparse optical flow and
-              affine estimation, handling complex re-identification and dynamic state switches.
+              Sole ML engineer since September 2026, working with 3 SDEs and a product manager.
             </li>
             <li>
-              Optimized inference by deploying a TensorRT-optimized model on NVIDIA Triton
-              Inference Server, doubling throughput from 3 FPS to 6&ndash;7 FPS via profiling
-              and optimized post-processing logic over gRPC.
+              Video analytics platform (Kepler): built most of the CCTV and drone analytics
+              (fire/smoke, PPE, ANPR, weapons, intrusion, crowd counting) and face recognition,
+              served over gRPC on multiple hardware backends (Triton, Jetson, ONNX, CPU). Scales
+              from 4 cameras on a Jetson AGX Orin to 40 on an A5000 cluster at 400 ms P99.
             </li>
             <li>
-              Architected and developed Drishti, a distributed annotation system processing
-              video datasets with GPU-accelerated YOLO inference on Celery workers, automated
-              quality control, smart work distribution, and real-time batch processing,
-              deployed as a full-stack solution (Django + React + PostgreSQL + Docker) with
-              Cloudflare R2 integration, improving annotation throughput by 3x.
+              Inference performance: cut retrieval latency 88% (971 &rarr; 113 ms) by searching
+              Qdrant embeddings only around detected objects and caching features to skip 87% of
+              repeat model calls. Doubled throughput (3 &rarr; 7 FPS) with TensorRT on NVIDIA
+              Triton, at 120+ inferences/s under 50 ms P95.
             </li>
             <li>
-              Worked on continuous training and validation of a YOLO-based object detection
-              model, including hyperparameter tuning and false-positive analysis.
+              Aircraft tracking system: owned end to end as sole engineer, live at an operational
+              airfield. Tracked 1,400+ takeoffs and landings with the aircraft in frame 90% of
+              the time, at 22 FPS, using YOLO, visual odometry, SIFT/RANSAC pose correction and
+              predictive PTZ control.
+            </li>
+            <li>
+              Edge deployment: designed a TensorRT gRPC inference server for road-damage
+              detection (YOLO11) on Jetson AGX Orin, shipped as a .deb/systemd service. Cut
+              per-frame time 2.7&times; (65 &rarr; 24 ms), mostly by rewriting preprocessing.
+            </li>
+            <li>
+              FrameSeek (prototype): natural-language CCTV search where any LLM (Claude, GPT,
+              Gemini, Groq) queries an offline video index through 19 MCP tools.
+            </li>
+            <li>
+              Drishti: built the team's annotation platform with GPU pre-labelling on Celery
+              workers and automated QC, tripling annotation throughput.
             </li>
           </ul>
         </article>
@@ -258,20 +273,17 @@
           <p><em>July 2024 &mdash; October 2025</em></p>
           <ul>
             <li>
-              Designed and implemented, as an individual contributor, a comprehensive dashboard
-              for detecting price outliers in product flavor data, incorporating clustering
-              analysis, supplier concentration metrics, and portfolio optimization techniques.
+              Led development of an LLM agent for BI analytics that turns plain-English
+              questions into SQL and charts, cutting query turnaround 90% to under 5 s. Deployed
+              to multiple enterprise clients as a core revenue product.
             </li>
             <li>
-              Built a promo-sales forecasting engine using Gradient Boosting (R&sup2; 0.93) on
-              Azure Databricks; automated optimization using a TPE-based recommender to suggest
-              an optimal promotional strategy.
+              Built a promo-sales forecasting model (gradient boosting, R&sup2; 0.93) on Azure
+              Databricks, with TPE hyperparameter search, to plan promotions.
             </li>
             <li>
-              Led the development of an SQL AI Agent for BI dashboards using fine-tuned LLMs,
-              a React/Tailwind frontend, and a Django/Docker backend, delivering sub-5s queries
-              deployed across multiple enterprise clients. The product became a core
-              revenue-generating offering and reduced query turnaround time by 90%.
+              Owned a price-outlier detection system end to end, from clustering and
+              supplier-concentration metrics to the stakeholder dashboard.
             </li>
           </ul>
         </article>
@@ -311,34 +323,65 @@
       </section>
 
       <section>
+        <h2>Publications</h2>
+        <article>
+          <h3><a href="https://arxiv.org/abs/2609.04552">Continual Field-Adaptive Models (CFAMs) for Post-Deployment Physical AI</a></h3>
+          <p><em>arXiv, 2026 &mdash; co-author</em></p>
+          <p>
+            Ran the continual-learning experiments and benchmarks and wrote that section of the
+            paper: learning new skills after deployment without catastrophic forgetting
+            (backward transfer &minus;0.5 pp vs &minus;11.4 pp for LoRA).
+          </p>
+        </article>
+      </section>
+
+      <section>
         <h2>Featured Projects</h2>
+
+        <article>
+          <h3>LLM Serving Engine</h3>
+          <p>
+            An LLM inference server with continuous batching, KV caching and admission control,
+            load-tested against vLLM on TTFT, TPOT and throughput: 788 tok/s at 64 concurrent
+            requests on one 8 GB GPU.
+          </p>
+        </article>
 
         <article>
           <h3><a href="https://github.com/NotShrirang/tensorax">Tensorax</a></h3>
           <p>
-            A standalone tensor computation library built from scratch with custom C++/CUDA
-            kernels and Python bindings &mdash; no NumPy, PyTorch, or cuBLAS. Implements full
-            automatic differentiation with a PyTorch-like API, neural network layers,
-            optimizers, and loss functions. Custom CUDA matmul kernels (tiling, shared memory,
-            memory coalescing) achieve up to 2.3&times; speedup over NumPy. Published on
+            A deep learning framework built from scratch with custom C++/CUDA kernels and Python
+            bindings &mdash; no NumPy, PyTorch, or cuBLAS. Implements full automatic
+            differentiation with a PyTorch-like API, neural network layers, optimizers, and loss
+            functions. Its Tensor Core flash attention kernel, written in inline PTX, reaches
+            24.7 TFLOPS (0.79&times; cuDNN). Published on
             <a href="https://pypi.org/project/tensorax/">PyPI</a>.
+          </p>
+        </article>
+
+        <article>
+          <h3>Kiosk</h3>
+          <p>
+            A news search and recommendation product over 90K articles: hybrid BM25 + dense
+            retrieval with RRF, cross-encoder rerank, LightGBM learning-to-rank, breaking-news
+            clustering and RAG chat. Serves the feed at 99 ms P95.
           </p>
         </article>
 
         <article>
           <h3><a href="https://github.com/NotShrirang/tinygpt">TinyGPT</a></h3>
           <p>
-            A 95M-parameter LLM pretrained from scratch in PyTorch on a single RTX 3070 Ti
-            (8 GB VRAM), using mixed-precision (AMP) and gradient accumulation to avoid OOM.
-            Supervised fine-tuned on the Alpaca dataset for instruction-following. Deployed
-            via Streamlit with dynamic model switching; weights on
+            A 95M-parameter LLM (RoPE, GQA, RMSNorm) pretrained from scratch in PyTorch on
+            ~2.1B tokens on a single RTX 3070 Ti (8 GB VRAM), using mixed precision, gradient
+            accumulation and Liger fused kernels. Instruction-tuned on Alpaca (val perplexity
+            7.3) and runs in the browser via ONNX + WebGPU; weights on
             <a href="https://huggingface.co/NotShrirang">Hugging Face</a> and live at
             <a href="https://tinygpt.streamlit.app/">tinygpt.streamlit.app</a>.
           </p>
         </article>
 
         <article>
-          <h3><a href="https://github.com/NotShrirang/AgentFlow">AgentFlow</a></h3>
+          <h3>AgentFlow</h3>
           <p>
             A multi-agent orchestration platform using LangGraph for intent classification,
             planning, and automated tool execution. Scalable workflow engine with custom

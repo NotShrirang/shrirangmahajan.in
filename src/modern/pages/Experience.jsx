@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import styles from "./Experience.module.css";
 import { fetchExperience } from "../../data/experiences";
+import publications from "../../data/publications";
 
 function durationToYears(d) {
   const m = d.match(/(\w+ \d{4}) - (.+)/);
@@ -76,6 +77,46 @@ export default function Experience() {
           );
         })}
       </ol>
+
+      <section className={styles.pubs} aria-labelledby="publications">
+        <div className={styles.kicker}>
+          <span className={styles.kickerRule} />
+          <span id="publications">Publications</span>
+        </div>
+        <ol className={styles.timeline}>
+          {publications.map((p) => (
+            <li key={p.id} className={styles.row}>
+              <aside className={styles.gutter}>
+                <div className={styles.gutterPin} aria-hidden="true">
+                  <span />
+                </div>
+                <div className={styles.gutterDates}>
+                  <div className={styles.year}>{p.year}</div>
+                  <div className={styles.month}>{p.month}</div>
+                </div>
+              </aside>
+
+              <div className={styles.body}>
+                <h2 className={styles.pubTitle}>{p.title}</h2>
+                <a
+                  href={p.link}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className={styles.company}
+                >
+                  {p.venue} · {p.role}
+                  <span aria-hidden="true">›</span>
+                </a>
+                <ul className={styles.bullets}>
+                  {p.description.map((d, j) => (
+                    <li key={j}>{d}</li>
+                  ))}
+                </ul>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
 
       <footer className={styles.footer}>
         <p>

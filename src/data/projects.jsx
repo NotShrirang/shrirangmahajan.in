@@ -24,11 +24,10 @@ const projects = [
           neural network layers, optimizers, and loss functions.
         </li>
         <li>
-          Developed and benchmarked optimized{" "}
-          <strong>CUDA matrix multiplication kernels</strong> using tiling,
-          shared memory, and memory coalescing techniques, measuring up to{" "}
-          <strong>2.3× speedup over NumPy</strong> on the matmul benchmarks
-          included in the repository.
+          Hand-wrote a <strong>Tensor Core flash attention kernel</strong> in
+          inline PTX (mma.sync, ldmatrix, cp.async) that reaches{" "}
+          <strong>24.7 TFLOPS, 0.79× cuDNN</strong> at long sequences, without
+          calling any external math library.
         </li>
         <li>
           Published on{" "}
@@ -65,14 +64,15 @@ const projects = [
       <ul>
         <li>
           Pretrained <strong>TinyGPT</strong>, a <strong>95M-parameter</strong>{" "}
-          LLM from scratch in PyTorch on a constrained{" "}
-          <strong>RTX 3070 Ti (8GB VRAM)</strong>, utilizing{" "}
-          <strong>mixed-precision (AMP)</strong> and{" "}
-          <strong>gradient accumulation</strong> to prevent OOM errors.
+          GPT (RoPE, GQA, RMSNorm), from scratch in PyTorch on{" "}
+          <strong>~2.1B tokens</strong> on one{" "}
+          <strong>RTX 3070 Ti (8GB VRAM)</strong>, using mixed precision,
+          gradient accumulation and <strong>Liger fused kernels</strong>.
         </li>
         <li>
-          Executed <b>Supervised Fine-Tuning (SFT)</b> on the{" "}
-          <b>Alpaca dataset</b> to improve instruction-following capabilities.
+          Instruction-tuned it on <b>Stanford Alpaca</b> (
+          <b>val perplexity 7.3</b>), exported it to ONNX, and run it{" "}
+          <b>in the browser via WebGPU</b> on this site.
         </li>
         <li>
           Deployed an interactive <strong>Streamlit</strong> UI on a free-tier
@@ -98,6 +98,47 @@ const projects = [
     link: "https://github.com/NotShrirang/tinygpt",
   },
   {
+    title: "LLM Serving Engine",
+    description: (
+      <ul>
+        <li>
+          Designed an LLM inference server with{" "}
+          <b>continuous batching</b>, KV caching and admission control, serving
+          Qwen2.5-0.5B over <b>FastAPI</b>.
+        </li>
+        <li>
+          Load-tested it against <b>vLLM</b> on TTFT, TPOT and throughput,
+          sustaining <b>788 tok/s at 64 concurrent requests</b> on one 8 GB
+          GPU, and shedding load with HTTP 429 past capacity.
+        </li>
+      </ul>
+    ),
+    tags: ["PyTorch", "FastAPI", "vLLM", "Continuous Batching", "LLM Inference"],
+    domain: "ML",
+    link: "",
+  },
+  {
+    title: "Kiosk",
+    description: (
+      <ul>
+        <li>
+          Building a news search and recommendation product over{" "}
+          <b>90K articles</b>: hybrid <b>BM25 + dense retrieval</b> fused with
+          RRF, cross-encoder rerank, <b>LightGBM learning-to-rank</b> and MMR
+          diversity.
+        </li>
+        <li>
+          Detects breaking news by clustering articles, keeps stories stable
+          across updates, and adds <b>RAG chat</b> over the news. Serves the
+          feed at <b>99 ms P95</b>.
+        </li>
+      </ul>
+    ),
+    tags: ["Qdrant", "LightGBM", "FastAPI", "React", "Hybrid Search", "RAG"],
+    domain: "ML",
+    link: "",
+  },
+  {
     title: "AgentFlow",
     description: (
       <ul>
@@ -117,7 +158,7 @@ const projects = [
       "https://raw.githubusercontent.com/NotShrirang/NotShrirang/main/agentflow.png",
     tags: ["LangGraph", "FastAPI", "React", "Docker", "Multi-Agent Systems"],
     domain: "ML",
-    link: "https://github.com/NotShrirang/AgentFlow",
+    link: "",
   },
   {
     title: "Split.ai",

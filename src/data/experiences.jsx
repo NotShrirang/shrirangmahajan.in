@@ -5,32 +5,48 @@ const fetchExperience = () => [
     company: "Skylark Labs",
     description: [
       <>
-        Developed a production-grade <b>visual tracking system</b> featuring a{" "}
-        <b>7D Kalman filter</b> for multi-object tracking and predictive PiP
-        stabilization. Built an offline standalone tracker with{" "}
-        <b>Camera Motion Compensation</b> using sparse optical flow and affine
-        estimation, handling complex re-identification and dynamic state
-        switches.
+        Sole ML engineer since September 2026, working with 3 SDEs and a
+        product manager.
       </>,
       <>
-        Optimized inference by deploying a <b>TensorRT-optimized model</b> on{" "}
-        <b>NVIDIA Triton Inference Server</b>, doubling throughput from{" "}
-        <b>3 FPS to 6–7 FPS</b> via profiling and optimized post-processing
-        logic over <b>gRPC</b>.
+        <b>Video analytics platform (Kepler):</b> built most of the CCTV and
+        drone analytics (fire/smoke, PPE, ANPR, weapons, intrusion, crowd
+        counting) and face recognition, served over gRPC on multiple hardware
+        backends (Triton, Jetson, ONNX, CPU). Scales from{" "}
+        <b>4 cameras on a Jetson AGX Orin to 40 on an A5000 cluster</b> at{" "}
+        <b>400 ms P99</b>.
       </>,
       <>
-        Architected and developed <b>Drishti</b>, a{" "}
-        <b>distributed annotation system</b> processing video datasets with{" "}
-        <b>GPU-accelerated</b> YOLO inference on Celery workers, automated
-        quality control, smart work distribution, and real-time batch
-        processing, deployed as a full-stack solution (
-        <b>Django + React + PostgreSQL + Docker</b>) with <b>Cloudflare R2</b>{" "}
-        integration, improving annotation throughput by <b>3x</b>.
+        <b>Inference performance:</b> cut retrieval latency{" "}
+        <b>88% (971 → 113 ms)</b> by searching Qdrant embeddings only around
+        detected objects and caching features to skip <b>87%</b> of repeat
+        model calls. <b>Doubled throughput (3 → 7 FPS)</b> with TensorRT on
+        NVIDIA Triton, at <b>120+ inferences/s under 50 ms P95</b>.
       </>,
       <>
-        Worked on continuous training and validation of a{" "}
-        <b>YOLO-based object detection model</b>, including hyperparameter
-        tuning and false-positive analysis.
+        <b>Aircraft tracking system:</b> owned end to end as sole engineer, live
+        at an operational airfield. Tracked{" "}
+        <b>1,400+ takeoffs and landings</b> with the aircraft{" "}
+        <b>in frame 90%</b> of the time, at <b>22 FPS</b>, using YOLO, visual
+        odometry, SIFT/RANSAC pose correction and predictive PTZ control.
+      </>,
+      <>
+        <b>Edge deployment:</b> designed a TensorRT gRPC inference server for
+        road-damage detection (YOLO11) on Jetson AGX Orin, shipped as a
+        .deb/systemd service. Cut per-frame time{" "}
+        <b>2.7× (65 → 24 ms)</b>, mostly by rewriting preprocessing.
+      </>,
+      <>
+        <b>FrameSeek (prototype):</b> natural-language CCTV search where any LLM
+        (Claude, GPT, Gemini, Groq) queries an offline video index through{" "}
+        <b>19 MCP tools</b>. Index built with YOLO26, ByteTrack, SigLIP2 and
+        DINOv2.
+      </>,
+      <>
+        <b>Drishti:</b> built the team's annotation platform with GPU
+        pre-labelling on Celery workers and automated QC,{" "}
+        <b>tripling annotation throughput</b> (Django, React, PostgreSQL,
+        Docker).
       </>,
     ],
     duration: "November 2025 - Present",
@@ -42,25 +58,20 @@ const fetchExperience = () => [
     company: "Emergys",
     description: [
       <>
-        Designed and implemented, as an <b>individual contributor</b>, a
-        comprehensive dashboard for detecting <b>price outliers</b> in product
-        flavor data, incorporating <b>clustering analysis</b>,{" "}
-        <b>supplier concentration metrics</b>, and{" "}
-        <b>portfolio optimization techniques</b>.
+        Led development of an <b>LLM agent for BI analytics</b> that turns
+        plain-English questions into SQL and charts,{" "}
+        <b>cutting query turnaround 90%</b> to under 5 s. Deployed to multiple
+        enterprise clients as a <b>core revenue product</b>.
       </>,
       <>
-        Built a <b>promo-sales forecasting engine</b> using{" "}
-        <b>Gradient Boosting</b> (R2: 0.93) on <b>Azure Databricks</b>;
-        automated optimization using <b>TPE-based recommender</b> to suggest an
-        optimal promotional strategy.
+        Built a promo-sales forecasting model (gradient boosting,{" "}
+        <b>R² 0.93</b>) on Azure Databricks, with TPE hyperparameter search, to
+        plan promotions.
       </>,
       <>
-        Led the development of <b>SQL AI Agent</b> for BI dashboards using{" "}
-        <b>fine-tuned LLMs</b>, <b>React/Tailwind frontend</b>, and{" "}
-        <b>Django/Docker backend</b>, delivering <b>sub-5s queries</b> and
-        deployed across multiple enterprise clients, evolving into a{" "}
-        <b>core revenue-generating product</b> and reducing query turnaround
-        time by <b>90%</b>.
+        Owned a <b>price-outlier detection system</b> end to end, from
+        clustering and supplier-concentration metrics to the stakeholder
+        dashboard.
       </>,
     ],
     duration: "July 2024 - October 2025",

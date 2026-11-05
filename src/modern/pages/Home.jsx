@@ -7,7 +7,7 @@ import { fetchExperience } from "../../data/experiences";
 import ChatPanel from "../components/ChatPanel";
 import LiveDemo from "../components/LiveDemo";
 
-const featuredProjectTitles = ["TinyGPT", "LoomRAG: A Multimodal RAG", "AgentFlow", "Tensorax"];
+const featuredProjectTitles = ["LLM Serving Engine", "Tensorax", "Kiosk", "TinyGPT"];
 
 function durationToYears(d) {
   const m = d.match(/(\w+ \d{4}) - (.+)/);
@@ -270,9 +270,9 @@ export default function Home() {
             A few things <em>I've built</em> recently.
           </h2>
           <p className={styles.sectionLede}>
-            From LLMs you can train on a single 8 GB GPU to multimodal RAG and
-            AI agents — plus the occasional tensor library, for when I want to
-            know how it all works underneath. All open source.
+            From hand-written CUDA kernels and an LLM inference server to
+            hybrid search and an LLM trained on a single 8 GB GPU. I build
+            things to understand how they work underneath.
           </p>
         </div>
 
@@ -285,14 +285,18 @@ export default function Home() {
                 </div>
                 <div className={styles.workBody}>
                   <h3 className={styles.workTitle}>
-                    <a
-                      href={p.link}
-                      target="_blank"
-                      rel="noreferrer noopener"
-                      className={styles.workTitleLink}
-                    >
-                      {p.title}
-                    </a>
+                    {p.link ? (
+                      <a
+                        href={p.link}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        className={styles.workTitleLink}
+                      >
+                        {p.title}
+                      </a>
+                    ) : (
+                      p.title
+                    )}
                   </h3>
                   <div className={styles.workDesc}>{p.description}</div>
                   <div className={styles.workTags}>
@@ -303,15 +307,17 @@ export default function Home() {
                     ))}
                   </div>
                 </div>
-                <a
-                  href={p.link}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className={styles.workArrow}
-                  aria-label={`Open ${p.title}`}
-                >
-                  ›
-                </a>
+                {p.link && (
+                  <a
+                    href={p.link}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className={styles.workArrow}
+                    aria-label={`Open ${p.title}`}
+                  >
+                    ›
+                  </a>
+                )}
               </div>
             </li>
           ))}
@@ -339,7 +345,7 @@ export default function Home() {
             </h2>
             <p className={styles.sectionLede}>
               The model I pretrained from scratch on{" "}
-              <strong>~6.5B tokens of OpenWebText</strong> using a single RTX
+              <strong>~2.1B tokens of OpenWebText</strong> using a single RTX
               3070 Ti, then instruction-tuned on Stanford Alpaca. Click to
               download the ONNX weights (~536 MB) — inference then runs
               locally via WebGPU (or WASM fallback). Fluent English, often
@@ -362,7 +368,7 @@ export default function Home() {
                 ["Positional", "RoPE + RMSNorm"],
                 ["Vocab", "50,257 (GPT-2 BPE)"],
                 ["Context", "512 tokens"],
-                ["Pretrain", "~6.5B tokens · OpenWebText"],
+                ["Pretrain", "~2.1B tokens · OpenWebText"],
                 ["Hardware", "1× RTX 3070 Ti (8 GB)"],
                 ["SFT", "Stanford Alpaca · 52K"],
               ].map(([k, v]) => (
