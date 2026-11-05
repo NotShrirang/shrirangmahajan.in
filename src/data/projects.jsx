@@ -123,18 +123,28 @@ const projects = [
       <ul>
         <li>
           Building a news search and recommendation product over{" "}
-          <b>90K articles</b>: hybrid <b>BM25 + dense retrieval</b> fused with
-          RRF, cross-encoder rerank, <b>LightGBM learning-to-rank</b> and MMR
-          diversity.
+          <b>90K articles</b>. Search runs <b>hybrid BM25 + dense retrieval</b>{" "}
+          fused with RRF, adds query expansion only when results look weak, and
+          reranks the top results with a <b>cross-encoder</b>.
         </li>
         <li>
-          Detects breaking news by clustering articles, keeps stories stable
-          across updates, and adds <b>RAG chat</b> over the news. Serves the
-          feed at <b>99 ms P95</b>.
+          The home feed retrieves separately for each of the reader's interests
+          and merges the results, then ranks for relevance, freshness and{" "}
+          <b>MMR diversity</b>. Serves the feed at <b>99 ms P95</b>.
+        </li>
+        <li>
+          Detects <b>breaking news without any click data</b>: a story counts
+          as breaking when many different outlets cover it in a short window.
+          Groups articles into <b>stories that keep the same ID</b> across
+          updates, so readers can follow them.
+        </li>
+        <li>
+          Adds <b>RAG chat</b> with cited answers (vLLM, Groq or Gemini) and a
+          benchmark suite that tracks nDCG, MRR and latency stage by stage.
         </li>
       </ul>
     ),
-    tags: ["Qdrant", "LightGBM", "FastAPI", "React", "Hybrid Search", "RAG"],
+    tags: ["Qdrant", "Sentence Transformers", "FastAPI", "React", "Hybrid Search", "RAG"],
     domain: "ML",
     link: "",
   },
