@@ -7,7 +7,7 @@ import { fetchExperience } from "../../data/experiences";
 import ChatPanel from "../components/ChatPanel";
 import LiveDemo from "../components/LiveDemo";
 
-const featuredProjectTitles = ["LLM Serving Engine", "Tensorax", "Kiosk", "TinyGPT"];
+const featuredProjectTitles = ["Kiosk", "LLM Serving Engine", "Tensorax", "TinyGPT"];
 
 function durationToYears(d) {
   const m = d.match(/(\w+ \d{4}) - (.+)/);

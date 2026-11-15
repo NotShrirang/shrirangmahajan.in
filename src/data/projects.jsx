@@ -9,6 +9,48 @@ import { fetchPinnedRepos } from "../api/fetchData";
 
 const projects = [
   {
+    title: "Kiosk",
+    description: (
+      <ul>
+        <li>
+          A <b>live news app</b> that ingests <b>106 sources every 15 minutes</b>{" "}
+          (100K+ articles and growing). New articles show up in the app within a
+          minute, with no restart.
+        </li>
+        <li>
+          Search runs <b>hybrid BM25 + dense retrieval</b> in Qdrant, fused with
+          RRF, adds query expansion only when results look weak, and reranks the
+          top results with a <b>cross-encoder</b>. The home feed retrieves
+          separately for each of the reader's interests, then ranks for
+          relevance, freshness and <b>MMR diversity</b>.
+        </li>
+        <li>
+          Detects <b>breaking news without any click data</b>: a story counts
+          as breaking when many different outlets cover it in a short window.
+          Groups articles into <b>stories that keep the same ID</b> across
+          updates, so readers can follow them. <b>RAG chat</b> streams cited
+          answers.
+        </li>
+        <li>
+          Prototyped first, then rebuilt for production: FastAPI, PostgreSQL
+          with Alembic migrations, Qdrant and Redis caching in Docker Compose,{" "}
+          <b>self-hosted on a Raspberry Pi 5</b> behind Cloudflare. The
+          frontend is an installable <b>PWA</b> that opens offline.
+        </li>
+        <li>
+          <b>Performance:</b> the production rebuild cut search p95 by{" "}
+          <b>46% (104 → 56 ms)</b> against the prototype on the same 90K-article
+          corpus. Moving BM25 into Qdrant sparse vectors then cut the engine's
+          memory by <b>64% (2.6 → 0.9 GB)</b> so it fits the Pi, trading some
+          latency for RAM. (In-process measurements on a laptop.)
+        </li>
+      </ul>
+    ),
+    tags: ["Qdrant", "FastAPI", "PostgreSQL", "Redis", "React", "Hybrid Search", "RAG", "Raspberry Pi"],
+    domain: "ML",
+    link: "https://kiosk.shrirangmahajan.in",
+  },
+  {
     title: "Tensorax",
     description: (
       <ul>
@@ -114,37 +156,6 @@ const projects = [
       </ul>
     ),
     tags: ["PyTorch", "FastAPI", "vLLM", "Continuous Batching", "LLM Inference"],
-    domain: "ML",
-    link: "",
-  },
-  {
-    title: "Kiosk",
-    description: (
-      <ul>
-        <li>
-          Building a news search and recommendation product over{" "}
-          <b>90K articles</b>. Search runs <b>hybrid BM25 + dense retrieval</b>{" "}
-          fused with RRF, adds query expansion only when results look weak, and
-          reranks the top results with a <b>cross-encoder</b>.
-        </li>
-        <li>
-          The home feed retrieves separately for each of the reader's interests
-          and merges the results, then ranks for relevance, freshness and{" "}
-          <b>MMR diversity</b>. Serves the feed at <b>99 ms P95</b>.
-        </li>
-        <li>
-          Detects <b>breaking news without any click data</b>: a story counts
-          as breaking when many different outlets cover it in a short window.
-          Groups articles into <b>stories that keep the same ID</b> across
-          updates, so readers can follow them.
-        </li>
-        <li>
-          Adds <b>RAG chat</b> with cited answers (vLLM, Groq or Gemini) and a
-          benchmark suite that tracks nDCG, MRR and latency stage by stage.
-        </li>
-      </ul>
-    ),
-    tags: ["Qdrant", "Sentence Transformers", "FastAPI", "React", "Hybrid Search", "RAG"],
     domain: "ML",
     link: "",
   },

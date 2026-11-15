@@ -360,12 +360,15 @@
         </article>
 
         <article>
-          <h3>Kiosk</h3>
+          <h3><a href="https://kiosk.shrirangmahajan.in">Kiosk</a></h3>
           <p>
-            A news search and recommendation product over 90K articles: hybrid BM25 + dense
-            retrieval with RRF, cross-encoder rerank, a feed built per reader interest,
-            label-free breaking-news detection, story clustering and cited RAG chat. Serves the
-            feed at 99 ms P95.
+            A live news app that ingests 106 sources every 15 minutes (100K+ articles): hybrid
+            BM25 + dense search in Qdrant with cross-encoder rerank, a feed built per reader
+            interest with MMR diversity, label-free breaking-news detection, story clustering and
+            cited RAG chat. FastAPI, PostgreSQL, Qdrant and Redis in Docker Compose, self-hosted on
+            a Raspberry Pi 5, with an installable PWA frontend. The production rebuild cut search
+            p95 by 46% (104 &rarr; 56 ms) against the prototype, and moving BM25 into Qdrant cut
+            engine memory by 64% (2.6 &rarr; 0.9 GB) to fit the Pi.
           </p>
         </article>
 
