@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { NavLink, Link, useLocation, useNavigate } from "react-router-dom";
 import styles from "./Nav.module.css";
 import avatar from "../../assets/shrirang-avatar.jpeg";
+import { RESUME_URL } from "../../data/profile";
 
 const links = [
   { to: "/projects", label: "Work" },
@@ -90,6 +91,15 @@ export default function Nav() {
               {l.label}
             </NavLink>
           ))}
+          <a
+            href={RESUME_URL}
+            target="_blank"
+            rel="noreferrer noopener"
+            className={styles.link}
+            title="CV (PDF)"
+          >
+            CV
+          </a>
           <button
             type="button"
             className={styles.chatBtn}

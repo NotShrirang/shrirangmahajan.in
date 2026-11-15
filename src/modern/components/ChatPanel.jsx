@@ -8,6 +8,8 @@ import { fetchChatCompletion } from "../../api/fetchModelInference";
 import { fetchExperience } from "../../data/experiences";
 import { projects } from "../../data/projects";
 import skills from "../../data/skills";
+import publications from "../../data/publications";
+import { education, RESUME_URL } from "../../data/profile";
 import reactElementToString from "../../utils/reactElementToString";
 
 const NAV_DELAY_MS = 1500;
@@ -84,7 +86,7 @@ SOCIAL & ACCOUNTS  (use these when the user asks where to find Shrirang)
   Hugging Face:  https://huggingface.co/NotShrirang
   Kaggle:        https://www.kaggle.com/notshrirang
   PyPI:          https://pypi.org/user/NotShrirang
-  Resume (PDF):  https://drive.google.com/file/d/1gex06Ruc1n8Pwlihg14v8NdQj26uaSck/view
+  CV (PDF):      ${RESUME_URL}
   TinyGPT (Streamlit demo): https://tinygpt.streamlit.app
 
 PROJECTS
@@ -110,6 +112,24 @@ Company: ${e.company}
 Description: ${reactElementToString(e.description)}`
   )
   .join("\n\n")}
+
+PUBLICATIONS
+
+${publications
+  .map(
+    (p) =>
+      `Title: ${p.title}
+Venue: ${p.venue} ${p.year} (${p.role})
+Link: ${p.link}
+Description: ${reactElementToString(p.description)}`
+  )
+  .join("\n\n")}
+
+EDUCATION
+
+${education
+  .map((ed) => `${ed.degree} (${ed.minor}), ${ed.school}, ${ed.grade}`)
+  .join("\n")}
 `;
   }, []);
 

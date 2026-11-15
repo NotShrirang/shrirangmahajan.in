@@ -24,6 +24,12 @@ export default function Projects() {
     });
   }, [domain, query]);
 
+  const groups = [
+    { label: "Selected", items: filtered.filter((p) => p.featured) },
+    { label: "More projects", items: filtered.filter((p) => !p.featured) },
+  ];
+  const showGroupLabels = groups.every((g) => g.items.length > 0);
+
   return (
     <article className={styles.article}>
       <header className={styles.head}>
@@ -36,9 +42,11 @@ export default function Projects() {
           Things <em>I've built.</em>
         </h1>
         <p className={styles.lede}>
-          A complete index of projects — from LLMs and AI agents to multimodal
-          RAG and full-stack ML apps, with a from-scratch tensor library thrown
-          in for the low-level fun. Most are open-source.
+          Selected projects first: a deep learning framework with hand-written
+          CUDA kernels, an LLM serving engine benchmarked against vLLM, an LLM
+          pretrained on one 8 GB GPU, and a search engine running on a
+          Raspberry Pi. Older and smaller projects are further down. Most are
+          open source.
         </p>
       </header>
 
@@ -80,8 +88,31 @@ export default function Projects() {
         Showing <strong>{filtered.length}</strong> of {projects.length}
       </div>
 
+      {groups.map(
+        (g) =>
+          g.items.length > 0 && (
+            <section key={g.label} aria-label={g.label}>
+              {showGroupLabels && (
+                <h2 className={styles.groupLabel}>{g.label}</h2>
+              )}
+              <ProjectList items={g.items} />
+            </section>
+          )
+      )}
+
+      {filtered.length === 0 && (
+        <p className={styles.empty}>
+          Nothing matches that. Try a different tag.
+        </p>
+      )}
+    </article>
+  );
+}
+
+function ProjectList({ items }) {
+  return (
       <ol className={styles.list}>
-        {filtered.map((p, i) => (
+        {items.map((p, i) => (
           <li key={p.title} className={styles.item}>
             <div className={styles.link}>
               <div className={styles.index}>
@@ -133,12 +164,5 @@ export default function Projects() {
           </li>
         ))}
       </ol>
-
-      {filtered.length === 0 && (
-        <p className={styles.empty}>
-          Nothing matches that. Try a different tag.
-        </p>
-      )}
-    </article>
   );
 }

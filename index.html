@@ -189,10 +189,11 @@
         <h1>Shrirang Mahajan</h1>
         <p><em>Machine Learning &amp; LLM Engineer &mdash; "In search of Global Maximum..."</em></p>
         <p>
-          I am a Machine Learning &amp; LLM Engineer from Pune, India. I train language models from
-          scratch, fine-tune them, and build multimodal RAG, AI agents, and production ML systems.
-          I care about understanding models end to end, and I am always eager to learn and take on
-          challenging problems.
+          I am a Machine Learning Engineer from Pune, India, working on ML systems: making models
+          train and run fast on the hardware you actually have. I write GPU kernels, build inference
+          servers, pretrain small LLMs, and ship computer vision to production, from Jetson edge
+          devices to multi-GPU clusters. Co-author of the arXiv paper "Continual Field-Adaptive
+          Models (CFAMs) for Post-Deployment Physical AI" (2026).
         </p>
         <ul>
           <li><a href="https://github.com/NotShrirang">GitHub: NotShrirang</a></li>
@@ -290,7 +291,7 @@
 
         <article>
           <h3>SDE Intern &mdash; <a href="https://atomicloops.com/">Atomic Loops</a></h3>
-          <p><em>April 2023 &mdash; December 2024</em></p>
+          <p><em>April 2023 &mdash; December 2023</em></p>
           <ul>
             <li>
               Engineered backend REST APIs using Django REST Framework for diverse products,
@@ -339,11 +340,12 @@
         <h2>Featured Projects</h2>
 
         <article>
-          <h3>LLM Serving Engine</h3>
+          <h3><a href="https://github.com/NotShrirang/Learning-Inference-Optimization">LLM Serving Engine</a></h3>
           <p>
-            An LLM inference server with continuous batching, KV caching and admission control,
-            load-tested against vLLM on TTFT, TPOT and throughput: 788 tok/s at 64 concurrent
-            requests on one 8 GB GPU.
+            An LLM inference server built from scratch one technique at a time: KV cache, batching,
+            then continuous batching with KV cache splicing and admission control. Benchmarked
+            against vLLM on the same 8 GB GPU: 788 vs 9,370 tok/s at peak, with the ~12&times; gap
+            traced to PagedAttention, fused kernels and CUDA graphs.
           </p>
         </article>
 
@@ -377,7 +379,7 @@
           <h3><a href="https://github.com/NotShrirang/tinygpt">TinyGPT</a></h3>
           <p>
             A 95M-parameter LLM (RoPE, GQA, RMSNorm) pretrained from scratch in PyTorch on
-            ~2.1B tokens on a single RTX 3070 Ti (8 GB VRAM), using mixed precision, gradient
+            ~6B tokens on a single RTX 3070 Ti (8 GB VRAM), using mixed precision, gradient
             accumulation and Liger fused kernels. Instruction-tuned on Alpaca (val perplexity
             7.3) and runs in the browser via ONNX + WebGPU; weights on
             <a href="https://huggingface.co/NotShrirang">Hugging Face</a> and live at

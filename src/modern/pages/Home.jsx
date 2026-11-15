@@ -4,10 +4,63 @@ import styles from "./Home.module.css";
 import blogs from "../../data/blogs";
 import { projects } from "../../data/projects";
 import { fetchExperience } from "../../data/experiences";
+import publications from "../../data/publications";
+import { education, RESUME_URL } from "../../data/profile";
 import ChatPanel from "../components/ChatPanel";
 import LiveDemo from "../components/LiveDemo";
 
-const featuredProjectTitles = ["Kiosk", "LLM Serving Engine", "Tensorax", "TinyGPT"];
+const featuredProjectTitles = ["LLM Serving Engine", "Tensorax", "TinyGPT", "Kiosk"];
+
+// Hand-picked rather than "most recent", so the homepage shows the posts
+// closest to systems and training work.
+const featuredPostSlugs = [
+  "pretraining-95m-llm-consumer-gpu",
+  "writing-cuda-kernels-from-scratch-a-beginner's-guide",
+  "attention-and-the-versions-of-it-layer-by-layer",
+  "llama-2-explained",
+];
+
+// Three Skylark Labs highlights for the homepage. The full list lives in
+// data/experiences.jsx and is shown on /experience.
+const skylarkHighlights = [
+  {
+    title: "Kepler: video analytics at scale",
+    text: (
+      <>
+        Built most of the CCTV and drone analytics (fire and smoke, PPE, ANPR,
+        weapons, intrusion, crowd counting, face recognition), served over gRPC
+        on Triton, Jetson, ONNX and CPU. Scales from{" "}
+        <b>4 cameras on a Jetson AGX Orin to 40 on an A5000 cluster</b> at{" "}
+        <b>400 ms P99</b>.
+      </>
+    ),
+    tags: ["NVIDIA Triton", "TensorRT", "Jetson", "gRPC"],
+  },
+  {
+    title: "Aircraft tracking at a live airfield",
+    text: (
+      <>
+        Owned end to end as the sole engineer. Tracked{" "}
+        <b>1,400+ takeoffs and landings</b> with the aircraft{" "}
+        <b>in frame 90%</b> of the time at <b>22 FPS</b>, using YOLO, visual
+        odometry, SIFT/RANSAC pose correction and predictive PTZ control.
+      </>
+    ),
+    tags: ["YOLO", "Visual Odometry", "PTZ Control"],
+  },
+  {
+    title: "Inference performance on the edge",
+    text: (
+      <>
+        A TensorRT gRPC inference server on Jetson AGX Orin, cutting per-frame
+        time <b>2.7× (65 → 24 ms)</b>, mostly by rewriting preprocessing.
+        Elsewhere, <b>doubled throughput</b> with TensorRT on Triton and cut
+        retrieval latency <b>88% (971 → 113 ms)</b>.
+      </>
+    ),
+    tags: ["TensorRT", "Jetson AGX Orin", "Qdrant"],
+  },
+];
 
 function durationToYears(d) {
   const m = d.match(/(\w+ \d{4}) - (.+)/);
@@ -75,7 +128,9 @@ export default function Home() {
     .map((t) => projects.find((p) => p.title === t))
     .filter(Boolean);
 
-  const recentPosts = blogs.slice(0, 4);
+  const featuredPosts = featuredPostSlugs
+    .map((s) => blogs.find((b) => b.slug === s))
+    .filter(Boolean);
   const experiences = fetchExperience();
 
   return (
@@ -97,10 +152,10 @@ export default function Home() {
           </h1>
 
           <p className={styles.lede}>
-            I train language models from scratch, fine-tune them for the real
-            world, and ship the production ML systems that put them to work —
-            from an LLM that runs in your browser to models serving users at
-            scale.
+            I work on ML systems: making models train and run fast on the
+            hardware you actually have. I write GPU kernels, build inference
+            servers, pretrain small LLMs, and ship computer vision to
+            production, from Jetson edge devices to multi-GPU clusters.
           </p>
 
           <p className={styles.currently}>
@@ -113,16 +168,33 @@ export default function Home() {
             >
               Skylark Labs
             </a>
-            .
+            , where I'm the sole ML engineer. Co-author of{" "}
+            <a
+              href={publications[0].link}
+              target="_blank"
+              rel="noreferrer noopener"
+              className={styles.currentlyLink}
+            >
+              CFAMs
+            </a>{" "}
+            (arXiv, 2026).
           </p>
 
           <div className={styles.cta}>
-            <Link to="/projects" className={styles.ctaPrimary}>
-              <span className={styles.ctaLabel}>See selected work</span>
+            <a href="#research" className={styles.ctaPrimary}>
+              <span className={styles.ctaLabel}>See my work</span>
               <span className={styles.ctaArr} aria-hidden="true">
                 ›
               </span>
-            </Link>
+            </a>
+            <a
+              href={RESUME_URL}
+              target="_blank"
+              rel="noreferrer noopener"
+              className={styles.ctaSecondary}
+            >
+              CV (PDF)
+            </a>
             <Link to="/contact" className={styles.ctaSecondary}>
               Get in touch
             </Link>
@@ -139,7 +211,7 @@ export default function Home() {
         </aside>
 
         <a
-          href="#approach"
+          href="#research"
           className={styles.heroScroll}
           aria-label="Scroll to next section"
         >
@@ -158,121 +230,122 @@ export default function Home() {
         </a>
       </header>
 
-      {/* ─────────────────────────  APPROACH  ───────────────────────── */}
-      <section id="approach" className={styles.section}>
+      {/* ─────────────────────────  RESEARCH  ───────────────────────── */}
+      <section id="research" className={styles.section}>
         <div className={styles.sectionHead}>
           <div className={styles.sectionLabel}>
             <span className={styles.sectionNum}>01</span>
-            <span className={styles.sectionLabelText}>Approach</span>
+            <span className={styles.sectionLabelText}>Research</span>
           </div>
           <h2 className={styles.sectionTitle}>
-            I'd rather <em>train the model</em>
-            <br /> than just prompt one.
+            Models that keep <em>learning after deployment.</em>
+          </h2>
+        </div>
+
+        <ol className={styles.workList}>
+          {publications.map((p) => (
+            <li key={p.id} className={styles.workItem}>
+              <div className={styles.workLink}>
+                <div className={styles.workIndex}>
+                  <span>{p.year}</span>
+                </div>
+                <div className={styles.workBody}>
+                  <h3 className={styles.workTitle}>
+                    <a
+                      href={p.link}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className={styles.workTitleLink}
+                    >
+                      {p.title}
+                    </a>
+                  </h3>
+                  <div className={styles.workDesc}>
+                    <ul>
+                      {p.description.map((d, j) => (
+                        <li key={j}>{d}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className={styles.workTags}>
+                    <span className={styles.tag}>{p.venue}</span>
+                    <span className={styles.tag}>{p.role}</span>
+                    <span className={styles.tag}>Continual Learning</span>
+                  </div>
+                </div>
+                <a
+                  href={p.link}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className={styles.workArrow}
+                  aria-label={`Open ${p.title}`}
+                >
+                  ›
+                </a>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      {/* ─────────────────────────  AT SKYLARK  ───────────────────────── */}
+      <section id="industry" className={styles.section}>
+        <div className={styles.sectionHead}>
+          <div className={styles.sectionLabel}>
+            <span className={styles.sectionNum}>02</span>
+            <span className={styles.sectionLabelText}>At Skylark Labs</span>
+          </div>
+          <h2 className={styles.sectionTitle}>
+            Computer vision <em>in production.</em>
           </h2>
           <p className={styles.sectionLede}>
-            Three things I've come to believe about building ML and LLM
-            systems — the kind of engineer I'm trying to be.
+            As the sole ML engineer on a small team, I build and deploy the
+            models, and make them fast enough to run on the hardware we have.
           </p>
         </div>
 
-        <ol className={styles.manifesto}>
-          <li className={styles.belief}>
-            <div className={styles.beliefNum} aria-hidden="true">
-              I
-            </div>
-            <div className={styles.beliefBody}>
-              <h3 className={styles.beliefTitle}>
-                Provider, <em>not consumer.</em>
-              </h3>
-              <p className={styles.beliefText}>
-                Most "AI engineering" today means orchestrating APIs that
-                someone else built — wrapping endpoints, chaining prompts,
-                paying for inference. I'd rather understand the model end to
-                end: pretrain it, fine-tune it, and serve it.{" "}
-                <a
-                  href="https://github.com/NotShrirang/tinygpt"
-                  target="_blank"
-                  rel="noreferrer noopener"
-                >
-                  <strong>TinyGPT</strong>
-                </a>{" "}
-                is a 95M-parameter LLM I pretrained from scratch on 8 GB of
-                VRAM — and when I wanted to know what really happens under{" "}
-                <code>.cuda()</code>, I wrote{" "}
-                <a
-                  href="https://pypi.org/project/tensorax/"
-                  target="_blank"
-                  rel="noreferrer noopener"
-                >
-                  <strong>Tensorax</strong>
-                </a>
-                , a tensor library from scratch. <em>Depth, not just
-                glue.</em>
-              </p>
-            </div>
-          </li>
-
-          <li className={styles.belief}>
-            <div className={styles.beliefNum} aria-hidden="true">
-              II
-            </div>
-            <div className={styles.beliefBody}>
-              <h3 className={styles.beliefTitle}>
-                Proof of work <em>over pedigree.</em>
-              </h3>
-              <p className={styles.beliefText}>
-                A degree describes potential. Code describes what you've
-                actually shipped. The bar I hold myself to is whether someone
-                can <code>pip install</code> my work — or talk to a model I
-                trained — and have it just run. What I can build, train, and
-                ship matters more than where I studied it.
-              </p>
-            </div>
-          </li>
-
-          <li className={styles.belief}>
-            <div className={styles.beliefNum} aria-hidden="true">
-              III
-            </div>
-            <div className={styles.beliefBody}>
-              <h3 className={styles.beliefTitle}>
-                The <em>right</em> hard path.
-              </h3>
-              <p className={styles.beliefText}>
-                I use AI to learn faster. I do not use it to write code I
-                can't read. When I pretrained{" "}
-                <a
-                  href="https://github.com/NotShrirang/tinygpt"
-                  target="_blank"
-                  rel="noreferrer noopener"
-                >
-                  <strong>TinyGPT</strong>
-                </a>{" "}
-                on a single 8 GB GPU, I learned attention internals, mixed
-                precision, and gradient accumulation by hand — not by
-                autocomplete. Going one layer deeper than I strictly need to
-                is the whole point. A shortcut that skips the part where you
-                become better isn't a shortcut.
-              </p>
-            </div>
-          </li>
+        <ol className={styles.workList}>
+          {skylarkHighlights.map((h, i) => (
+            <li key={h.title} className={styles.workItem}>
+              <div className={styles.workLink}>
+                <div className={styles.workIndex}>
+                  <span>{String(i + 1).padStart(2, "0")}</span>
+                </div>
+                <div className={styles.workBody}>
+                  <h3 className={styles.workTitle}>{h.title}</h3>
+                  <div className={styles.workDesc}>{h.text}</div>
+                  <div className={styles.workTags}>
+                    {h.tags.map((t) => (
+                      <span key={t} className={styles.tag}>
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </li>
+          ))}
         </ol>
+
+        <Link to="/experience" className={styles.sectionMore}>
+          Full work history <span aria-hidden="true">›</span>
+        </Link>
       </section>
 
       {/* ─────────────────────  SELECTED WORK  ───────────────────── */}
       <section id="work" className={styles.section}>
         <div className={styles.sectionHead}>
           <div className={styles.sectionLabel}>
-            <span className={styles.sectionNum}>02</span>
-            <span className={styles.sectionLabelText}>Selected Work</span>
+            <span className={styles.sectionNum}>03</span>
+            <span className={styles.sectionLabelText}>Selected Projects</span>
           </div>
           <h2 className={styles.sectionTitle}>
-            A few things <em>I've built</em> recently.
+            Built from scratch, <em>then measured.</em>
           </h2>
           <p className={styles.sectionLede}>
-            From hand-written CUDA kernels and an LLM inference server to
-            hybrid search and an LLM trained on a single 8 GB GPU. I build
-            things to understand how they work underneath.
+            Side projects where I build the layer underneath myself, then
+            benchmark it against the real thing: a serving engine against
+            vLLM, an attention kernel against cuDNN.
           </p>
         </div>
 
@@ -298,7 +371,9 @@ export default function Home() {
                       p.title
                     )}
                   </h3>
-                  <div className={styles.workDesc}>{p.description}</div>
+                  <div className={styles.workDesc}>
+                    {p.summary ?? p.description}
+                  </div>
                   <div className={styles.workTags}>
                     {p.tags.slice(0, 5).map((t) => (
                       <span key={t} className={styles.tag}>
@@ -334,7 +409,7 @@ export default function Home() {
         <div className={styles.demoTop}>
           <div className={styles.sectionHead}>
             <div className={styles.sectionLabel}>
-              <span className={styles.sectionNum}>03</span>
+              <span className={styles.sectionNum}>04</span>
               <span className={styles.sectionLabelText}>
                 TinyGPT{" "}
                 <span className={styles.sectionLabelTag}>· my model · local</span>
@@ -345,7 +420,7 @@ export default function Home() {
             </h2>
             <p className={styles.sectionLede}>
               The model I pretrained from scratch on{" "}
-              <strong>~2.1B tokens of OpenWebText</strong> using a single RTX
+              <strong>~6B tokens of OpenWebText</strong> using a single RTX
               3070 Ti, then instruction-tuned on Stanford Alpaca. Click to
               download the ONNX weights (~536 MB) — inference then runs
               locally via WebGPU (or WASM fallback). Fluent English, often
@@ -368,7 +443,7 @@ export default function Home() {
                 ["Positional", "RoPE + RMSNorm"],
                 ["Vocab", "50,257 (GPT-2 BPE)"],
                 ["Context", "512 tokens"],
-                ["Pretrain", "~2.1B tokens · OpenWebText"],
+                ["Pretrain", "~6B tokens · OpenWebText"],
                 ["Hardware", "1× RTX 3070 Ti (8 GB)"],
                 ["SFT", "Stanford Alpaca · 52K"],
               ].map(([k, v]) => (
@@ -387,20 +462,20 @@ export default function Home() {
       <section id="writing" className={styles.section}>
         <div className={styles.sectionHead}>
           <div className={styles.sectionLabel}>
-            <span className={styles.sectionNum}>04</span>
+            <span className={styles.sectionNum}>05</span>
             <span className={styles.sectionLabelText}>Writing</span>
           </div>
           <h2 className={styles.sectionTitle}>
             Essays, with <em>illustrations.</em>
           </h2>
           <p className={styles.sectionLede}>
-            Long-form posts on attention, embeddings, and pre-training LLMs on
-            consumer hardware — with the occasional dive under the hood.
+            Long-form posts on pre-training LLMs on consumer hardware, writing
+            CUDA kernels, and how attention works inside.
           </p>
         </div>
 
         <ul className={styles.postList}>
-          {recentPosts.map((b) => {
+          {featuredPosts.map((b) => {
             const d = new Date(b.date);
             return (
               <li key={b.slug} className={styles.postItem}>
@@ -435,8 +510,10 @@ export default function Home() {
       <section id="experience" className={styles.section}>
         <div className={styles.sectionHead}>
           <div className={styles.sectionLabel}>
-            <span className={styles.sectionNum}>05</span>
-            <span className={styles.sectionLabelText}>Experience</span>
+            <span className={styles.sectionNum}>06</span>
+            <span className={styles.sectionLabelText}>
+              Experience &amp; Education
+            </span>
           </div>
           <h2 className={styles.sectionTitle}>
             A short <em>résumé.</em>
@@ -469,11 +546,141 @@ export default function Home() {
               </a>
             );
           })}
+          {education.map((ed) => (
+            <a
+              href={ed.link}
+              target="_blank"
+              rel="noreferrer noopener"
+              className={styles.expRow}
+              key={`edu-${ed.id}`}
+            >
+              <div className={styles.expYear}>
+                <span>{ed.grade}</span>
+              </div>
+              <div className={styles.expRole}>
+                {ed.degree} ({ed.minor})
+              </div>
+              <div className={styles.expCompany}>
+                <span>{ed.school}</span>
+                <span className={styles.expArr} aria-hidden="true">
+                  ›
+                </span>
+              </div>
+            </a>
+          ))}
         </div>
 
-        <Link to="/experience" className={styles.sectionMore}>
-          Full work history <span aria-hidden="true">›</span>
-        </Link>
+        <div className={styles.cta}>
+          <Link to="/experience" className={styles.sectionMore}>
+            Full work history <span aria-hidden="true">›</span>
+          </Link>
+          <a
+            href={RESUME_URL}
+            target="_blank"
+            rel="noreferrer noopener"
+            className={styles.sectionMore}
+          >
+            CV (PDF) <span aria-hidden="true">›</span>
+          </a>
+        </div>
+      </section>
+
+      {/* ─────────────────────────  APPROACH  ───────────────────────── */}
+      <section id="approach" className={styles.section}>
+        <div className={styles.sectionHead}>
+          <div className={styles.sectionLabel}>
+            <span className={styles.sectionNum}>07</span>
+            <span className={styles.sectionLabelText}>Approach</span>
+          </div>
+          <h2 className={styles.sectionTitle}>
+            One layer deeper
+            <br /> <em>than I strictly need.</em>
+          </h2>
+          <p className={styles.sectionLede}>
+            Three habits I try to keep when I build ML systems.
+          </p>
+        </div>
+
+        <ol className={styles.manifesto}>
+          <li className={styles.belief}>
+            <div className={styles.beliefNum} aria-hidden="true">
+              I
+            </div>
+            <div className={styles.beliefBody}>
+              <h3 className={styles.beliefTitle}>
+                Build the layer <em>underneath, once.</em>
+              </h3>
+              <p className={styles.beliefText}>
+                Most of the time I use models, libraries and servers that
+                other people built, and that's how it should be. But I
+                understand a tool best after I've built a small version of
+                what's under it.{" "}
+                <a
+                  href="https://github.com/NotShrirang/tinygpt"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  <strong>TinyGPT</strong>
+                </a>{" "}
+                taught me what pretraining costs on 8 GB of VRAM. When I wanted
+                to know what happens under <code>.cuda()</code>, I wrote{" "}
+                <a
+                  href="https://pypi.org/project/tensorax/"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  <strong>Tensorax</strong>
+                </a>
+                . When I wanted to know why vLLM is fast, I built a serving
+                engine without its tricks and measured the difference.
+              </p>
+            </div>
+          </li>
+
+          <li className={styles.belief}>
+            <div className={styles.beliefNum} aria-hidden="true">
+              II
+            </div>
+            <div className={styles.beliefBody}>
+              <h3 className={styles.beliefTitle}>
+                Measure <em>against the real thing.</em>
+              </h3>
+              <p className={styles.beliefText}>
+                A number with no baseline says very little. I compare my work
+                against the strongest system I can find, such as cuDNN for my
+                attention kernel and vLLM for my serving engine, and I report
+                the gap even when it's 12×. Working out where the gap comes
+                from is the part I learn the most from.
+              </p>
+            </div>
+          </li>
+
+          <li className={styles.belief}>
+            <div className={styles.beliefNum} aria-hidden="true">
+              III
+            </div>
+            <div className={styles.beliefBody}>
+              <h3 className={styles.beliefTitle}>
+                The <em>right</em> hard path.
+              </h3>
+              <p className={styles.beliefText}>
+                I use AI to learn faster. I do not use it to write code I
+                can't read. When I pretrained{" "}
+                <a
+                  href="https://github.com/NotShrirang/tinygpt"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  <strong>TinyGPT</strong>
+                </a>{" "}
+                on a single 8 GB GPU, I learned attention internals, mixed
+                precision and gradient accumulation by working through them
+                myself. A shortcut that skips the part where you get better
+                isn't really a shortcut.
+              </p>
+            </div>
+          </li>
+        </ol>
       </section>
 
       {/* ─────────────────────  SITE ASSISTANT (CHAT)  ────────────────── */}
@@ -481,7 +688,7 @@ export default function Home() {
         <div className={styles.askTop}>
           <div className={styles.sectionHead}>
             <div className={styles.sectionLabel}>
-              <span className={styles.sectionNum}>06</span>
+              <span className={styles.sectionNum}>08</span>
               <span className={styles.sectionLabelText}>
                 Site Assistant{" "}
                 <span className={styles.sectionLabelTag}>

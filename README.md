@@ -9,7 +9,7 @@ It's a React + Vite SPA that runs in two modes from the same codebase:
 
 A few things that aren't typical for a portfolio:
 
-- **In-browser TinyGPT demo** at `/tinygpt` — a 95M-parameter LLM I trained from scratch on a single RTX 3070 Ti (OpenWebText, ~6.5B tokens) and instruction-tuned on Stanford Alpaca, converted to ONNX, running locally via `onnxruntime-web` (WebGPU primary, WASM fallback). No API call — the weights stream from HuggingFace on first click and stay in the browser cache.
+- **In-browser TinyGPT demo** at `/tinygpt` — a 95M-parameter LLM I trained from scratch on a single RTX 3070 Ti (OpenWebText, ~6B tokens) and instruction-tuned on Stanford Alpaca, converted to ONNX, running locally via `onnxruntime-web` (WebGPU primary, WASM fallback). No API call — the weights stream from HuggingFace on first click and stay in the browser cache.
 - **Site assistant chatbot** (section 06 on `/`, plus an "Ask" button in the nav). Grounded in this site's content + connects to GitHub via tool calls. It can fetch repos, search across them, read READMEs, and redirect visitors to the right page when asked. Per-tab cooldown + SFW guardrails baked in.
 - **Animated causal-attention matrix** in the hero — a 16×16 row-by-row decoding wave in pure CSS.
 - **Static-HTML fallback** for crawlers — every route renders identical SPA shell at runtime, but `index.html` ships a `<noscript>` block with the full bio + Person/WebSite JSON-LD so non-JS crawlers (GPTBot, ClaudeBot, PerplexityBot, etc.) get real content.

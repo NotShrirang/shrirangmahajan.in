@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import styles from "./Experience.module.css";
 import { fetchExperience } from "../../data/experiences";
 import publications from "../../data/publications";
+import { education, RESUME_URL } from "../../data/profile";
 
 function durationToYears(d) {
   const m = d.match(/(\w+ \d{4}) - (.+)/);
@@ -118,11 +119,46 @@ export default function Experience() {
         </ol>
       </section>
 
+      <section className={styles.pubs} aria-labelledby="education">
+        <div className={styles.kicker}>
+          <span className={styles.kickerRule} />
+          <span id="education">Education</span>
+        </div>
+        <ol className={styles.timeline}>
+          {education.map((ed) => (
+            <li key={ed.id} className={styles.row}>
+              <aside className={styles.gutter}>
+                <div className={styles.gutterPin} aria-hidden="true">
+                  <span />
+                </div>
+              </aside>
+
+              <div className={styles.body}>
+                <h2 className={styles.pubTitle}>{ed.degree}</h2>
+                <a
+                  href={ed.link}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className={styles.company}
+                >
+                  {ed.school}
+                  <span aria-hidden="true">›</span>
+                </a>
+                <ul className={styles.bullets}>
+                  <li>{ed.minor}</li>
+                  <li>{ed.grade}</li>
+                </ul>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+
       <footer className={styles.footer}>
         <p>
           Want the <em>formal</em> version?{" "}
           <a
-            href="https://drive.google.com/file/d/1gex06Ruc1n8Pwlihg14v8NdQj26uaSck/view"
+            href={RESUME_URL}
             target="_blank"
             rel="noreferrer noopener"
             className={styles.resumeLink}

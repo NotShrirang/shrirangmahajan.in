@@ -264,7 +264,7 @@ def collate_fn(batch):
     <p>With everything set up, here's what the actual training looked like:</p>
     <ul>
       <li>
-        <b>Dataset</b>: OpenWebText (~6.7B tokens)
+        <b>Dataset</b>: OpenWebText (~9B tokens, 8M documents)
       </li>
       <li>
         <b>Hardware</b>: Single NVIDIA RTX 3070 Ti (8GB VRAM)
@@ -273,7 +273,9 @@ def collate_fn(batch):
         <b>Training time</b>: ~5 days for 25,000 optimizer steps
       </li>
       <li>
-        <b>Tokens processed</b>: 6.5B+ tokens (multiple epochs)
+        <b>Tokens processed</b>: ~6.7B token slots (25,000+ steps × 262K),
+        of which ~6B are real tokens. The rest is padding, because each
+        document is cut to 512 tokens and short ones are padded.
       </li>
       <li>
         <b>Throughput</b>: ~15,000-18,000 tokens/second
@@ -320,7 +322,8 @@ scheduler = lr_scheduler.OneCycleLR(
     </ul>
     <p>
       Validation loss tracked training loss closely, indicating we weren't
-      overfitting. The model saw each token only 1-2 times on average over the
+      overfitting. The model saw each token only 1-2 times on average (about
+      1.6 passes over the first 512 tokens of each document) over the
       full training run.
     </p>
 

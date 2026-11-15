@@ -7,9 +7,24 @@ import Tensorax from "../assets/images/blogs/TensoraxExplained/cover.png";
 import getTheme from "../utils/theme";
 import { fetchPinnedRepos } from "../api/fetchData";
 
+/*
+ * `featured: true` puts a project in the "Selected" list on /projects; the
+ * rest go under "More projects". `summary` is the short version shown on the
+ * homepage; the full `description` is shown on /projects.
+ */
 const projects = [
   {
     title: "Kiosk",
+    featured: true,
+    summary: (
+      <>
+        A live news search and recommendation app, self-hosted on a{" "}
+        <b>Raspberry Pi 5</b>: 106 sources, 100K+ articles, hybrid BM25 + dense
+        retrieval with a cross-encoder rerank. Moving BM25 into Qdrant cut the
+        engine's memory <b>64%</b> so it fits the Pi, where the feed is served
+        in <b>70 ms p50</b>.
+      </>
+    ),
     description: (
       <ul>
         <li>
@@ -58,6 +73,15 @@ const projects = [
   },
   {
     title: "Tensorax",
+    featured: true,
+    summary: (
+      <>
+        A deep learning framework written from scratch in <b>C++/CUDA</b>, with
+        autograd and a PyTorch-like API, and no NumPy, PyTorch or cuBLAS
+        underneath. Its hand-written Tensor Core flash attention kernel (inline
+        PTX) reaches <b>24.7 TFLOPS, 0.79× cuDNN</b>.
+      </>
+    ),
     description: (
       <ul>
         <li>
@@ -108,12 +132,21 @@ const projects = [
   },
   {
     title: "TinyGPT",
+    featured: true,
+    summary: (
+      <>
+        A <b>95M-parameter GPT</b> (RoPE, GQA, RMSNorm) pretrained from scratch
+        on one <b>8 GB RTX 3070 Ti</b>, using mixed precision, gradient
+        accumulation and fused kernels to fit. Instruction-tuned on Alpaca and
+        served <b>in your browser</b> through ONNX and WebGPU.
+      </>
+    ),
     description: (
       <ul>
         <li>
           Pretrained <strong>TinyGPT</strong>, a <strong>95M-parameter</strong>{" "}
           GPT (RoPE, GQA, RMSNorm), from scratch in PyTorch on{" "}
-          <strong>~2.1B tokens</strong> on one{" "}
+          <strong>~6B tokens</strong> of OpenWebText on one{" "}
           <strong>RTX 3070 Ti (8GB VRAM)</strong>, using mixed precision,
           gradient accumulation and <strong>Liger fused kernels</strong>.
         </li>
@@ -147,23 +180,44 @@ const projects = [
   },
   {
     title: "LLM Serving Engine",
+    featured: true,
+    summary: (
+      <>
+        An LLM inference server built from scratch, one technique at a time:
+        KV cache, batching, then a <b>continuous-batching engine</b> with
+        admission control. Benchmarked against vLLM (<b>788 vs 9,370 tok/s</b>),
+        with the 12× gap traced to PagedAttention, fused kernels and CUDA
+        graphs.
+      </>
+    ),
     description: (
       <ul>
         <li>
-          Designed an LLM inference server with{" "}
-          <b>continuous batching</b>, KV caching and admission control, serving
-          Qwen2.5-0.5B over <b>FastAPI</b>.
+          Built an LLM inference server from scratch in steps, benchmarking
+          each one: a KV cache, static batching, then a{" "}
+          <b>continuous-batching engine</b> that merges live requests into a
+          rolling batch, with <b>admission control</b> that sheds load as HTTP
+          429 past capacity. Serves Qwen2.5-0.5B over FastAPI on one 8 GB GPU.
         </li>
         <li>
-          Load-tested it against <b>vLLM</b> on TTFT, TPOT and throughput,
-          sustaining <b>788 tok/s at 64 concurrent requests</b> on one 8 GB
-          GPU, and shedding load with HTTP 429 past capacity.
+          Replaced recompute-on-rebatch with <b>KV cache surgery</b> (prefill
+          only new requests and splice their KV in; slice finished rows out),
+          and found an autograd memory leak in the serving path. Together these
+          took peak throughput from <b>389 to 788 tok/s</b> with zero errors up
+          to 64 concurrent requests.
+        </li>
+        <li>
+          Benchmarked against <b>vLLM</b> on the same GPU, model and prompts:{" "}
+          <b>788 vs 9,370 tok/s</b> at peak, 2.4× slower per token, 13× slower
+          to first token. Traced each part of the gap to a specific technique:{" "}
+          <b>PagedAttention</b> for capacity, <b>fused kernels and CUDA
+          graphs</b> for per-token latency, a faster prefill for TTFT.
         </li>
       </ul>
     ),
     tags: ["PyTorch", "FastAPI", "vLLM", "Continuous Batching", "LLM Inference"],
     domain: "ML",
-    link: "",
+    link: "https://github.com/NotShrirang/Learning-Inference-Optimization",
   },
   {
     title: "AgentFlow",
@@ -175,9 +229,9 @@ const projects = [
           automated tool execution.
         </li>
         <li>
-          Built a <b>scalable workflow engine</b> with custom scheduling{" "}
-          (cron/interval) and <b>JWT authentication</b>, deployed via{" "}
-          <b>Docker</b> for enterprise-grade reliability.
+          Built a <b>workflow engine</b> with custom scheduling (cron and
+          interval) and <b>JWT authentication</b>, deployed with{" "}
+          <b>Docker</b>.
         </li>
       </ul>
     ),
@@ -211,6 +265,7 @@ const projects = [
   },
   {
     title: "QuillGPT",
+    featured: true,
     description: (
       <ul>
         <li>
@@ -247,12 +302,12 @@ const projects = [
   },
   {
     title: "LoomRAG: A Multimodal RAG",
+    featured: true,
     description: (
       <ul>
         <li>
           Developed a <b>Multimodal Retrieval-Augmented Generation (RAG)</b>{" "}
-          system integrating <b>OpenAI’s CLIP and Whisper</b> models for
-          seamless{" "}
+          system using <b>OpenAI’s CLIP and Whisper</b> for{" "}
           <b>
             cross-modal retrieval and semantic search across text, images, and
             audio
@@ -270,8 +325,8 @@ const projects = [
           enhanced interaction.
         </li>
         <li>
-          Enabled <b>URL-based image indexing and website content scraping</b>{" "}
-          for seamless integration and retrieval of web data.
+          Added <b>URL-based image indexing and website scraping</b>, so web
+          content can be indexed and searched too.
         </li>
         <li>
           Utilized <b>FAISS</b> for efficient similarity search by aligning
@@ -337,26 +392,20 @@ const projects = [
           consultations with the nearest dermatologists.
         </li>
         <li>
-          Created a comprehensive solution featuring both a web platform and a
-          mobile application. Designed an intuitive user interface with{" "}
-          <b>Figma</b>, implemented the web frontend using <b>ReactJS</b>, and
-          built the mobile app with <b>Flutter</b>. The backend architecture was
-          robustly developed using <b>Django REST Framework</b>.
+          Built both a web platform and a mobile app: UI in <b>Figma</b>, web
+          frontend in <b>ReactJS</b>, mobile app in <b>Flutter</b>, and a{" "}
+          <b>Django REST Framework</b> backend.
         </li>
         <li>
-          Trained a sophisticated computer vision model for skin disease
-          detection utilizing <b>TensorFlow</b>, deployed via <b>FastAPI</b>,
-          with image uploads managed through an <b>S3 bucket</b>.
+          Trained a skin-disease classifier in <b>TensorFlow</b>, served it with{" "}
+          <b>FastAPI</b>, and stored image uploads in <b>S3</b>.
         </li>
         <li>
-          Enabled offline inference capabilities within the mobile application
-          by integrating a <b>Tflite</b> model, ensuring accessibility in
-          low-connectivity areas.
+          Shipped a <b>TFLite</b> version inside the mobile app so it works
+          offline in low-connectivity areas.
         </li>
         <li>
-          Successfully executed the entire project within a{" "}
-          <b>24-hour timeframe</b> during a hackathon, demonstrating rapid
-          development and deployment skills.
+          Built the whole project in <b>24 hours</b> at a hackathon.
         </li>
       </ul>
     ),
@@ -378,26 +427,22 @@ const projects = [
     description: (
       <ul>
         <li>
-          Orchestrated the complete architecture of <b>M2ConneX</b>, a
-          comprehensive platform empowering MMCOE alumni to connect, network,
-          and collaborate seamlessly.
+          Designed and built <b>M2ConneX</b>, a platform for MMCOE alumni to
+          connect and network.
         </li>
         <li>
-          Designed and orchestrated the backend with the{" "}
-          <b>Django REST framework</b>, fashioning an elegant frontend with{" "}
-          <b>React JS</b> with <b>Tailwind CSS</b> and <b>Docker</b> for
-          containerization, ensuring scalable and consistent deployment.
+          Built the backend with <b>Django REST Framework</b> and the frontend
+          with <b>React</b> and <b>Tailwind CSS</b>, containerized with{" "}
+          <b>Docker</b>.
         </li>
         <li>
-          Fortified the platform’s integrity with real-time checks, implementing{" "}
-          <b>image classification</b> and a robust <b>profanity checker</b> with{" "}
-          <b>95% accuracy</b> to swiftly <b>neutralize NSFW content</b> in just{" "}
-          <b>6-7 seconds</b>.
+          Added content moderation: an <b>image classifier</b> for NSFW images
+          and a <b>profanity checker</b> (<b>95% accuracy</b>), flagging posts
+          within <b>6-7 seconds</b>.
         </li>
         <li>
-          Engineered a sophisticated <b>recommendation system</b> using{" "}
-          <b>Scikit-learn</b> to deliver personalized suggestions for
-          connections, posts, and job opportunities, tailored to user skills and
+          Built a <b>recommendation system</b> with <b>Scikit-learn</b> that
+          suggests connections, posts and jobs based on a user's skills and
           experience.
         </li>
         <li>
@@ -424,8 +469,8 @@ const projects = [
     description: (
       <ul>
         <li>
-          Developed a <b>chatbot</b> that suggests songs based on user input by
-          leveraging <b>advanced language models</b> and <b>lyrics analysis</b>.
+          Developed a <b>chatbot</b> that suggests songs from a user's message
+          by searching song <b>lyrics</b> with an LLM.
         </li>
         <li>
           Implemented <b>LangChain</b> for efficient natural language processing
@@ -452,23 +497,20 @@ const projects = [
     description: (
       <ul>
         <li>
-          Empowered college students and developers through an innovative social
-          platform featuring <b>AI-powered recommendations</b> and{" "}
-          <b>real-time messaging</b>.
+          A social platform for college students and developers, with{" "}
+          <b>recommendations</b> and <b>real-time messaging</b>.
         </li>
         <li>
-          Spearheaded full-cycle mobile app development using <b>Figma</b> and{" "}
-          <b>Flutter</b>, integrating advanced APIs and infinite scrolling for a
-          buttery-smooth UX.
+          Built the mobile app in <b>Flutter</b> (designed in <b>Figma</b>),
+          with infinite scrolling.
         </li>
         <li>
-          Architected a powerful backend with <b>Django REST Framework</b>,
-          paired with a polished <b>ReactJS</b> frontend for enterprise-grade
-          scalability.
+          Built the backend with <b>Django REST Framework</b> and a{" "}
+          <b>ReactJS</b> web frontend.
         </li>
         <li>
-          Pioneered dynamic content loading and <b>RESTful API</b>{" "}
-          optimizations, slashing latency by 65% during peak usage.
+          Added lazy content loading and API optimizations that cut latency by
+          65% at peak usage.
         </li>
       </ul>
     ),
@@ -483,8 +525,8 @@ const projects = [
     description: (
       <ul>
         <li>
-          Developed an <b>email and text spam filter</b> utilizing "ALBERT" an{" "}
-          <b>Encoder-Decoder model</b>.
+          Developed an <b>email and text spam filter</b> using{" "}
+          <b>ALBERT</b>, an encoder-only transformer.
         </li>
         <li>
           Fine-tuned the ALBERT model on a spam detection dataset and deployed
@@ -503,11 +545,13 @@ const projects = [
   },
   {
     title: "OpenNN",
+    featured: true,
     description: (
       <ul>
         <li>
-          Developed a comprehensive <b>Neural Network Training library</b>{" "}
-          similar to TensorFlow 2 from scratch in Python.
+          Developed a <b>neural network training library</b> in the style of
+          TensorFlow 2, from scratch in Python and NumPy. It came before
+          Tensorax.
         </li>
         <li>
           Implemented core neural network components including{" "}
@@ -525,9 +569,9 @@ const projects = [
               cursor: "pointer",
               borderRadius: "0.5rem",
             }}
-            onClick={(e) => {
-              navigator.clipboard.writeText("pip install open-nn-python");
-              alert("Copied to clipboard!");
+            title="Click to copy"
+            onClick={() => {
+              navigator.clipboard?.writeText("pip install open-nn-python");
             }}
           >
             pip install open-nn-python
