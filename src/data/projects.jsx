@@ -44,6 +44,12 @@ const projects = [
           memory by <b>64% (2.6 → 0.9 GB)</b> so it fits the Pi, trading some
           latency for RAM. (In-process measurements on a laptop.)
         </li>
+        <li>
+          <b>On the Raspberry Pi 5</b> (109K articles, measured over HTTP on
+          the local network): the feed is served in <b>70 ms p50</b>, or{" "}
+          <b>22 ms</b> from the Redis cache, and the engine uses{" "}
+          <b>0.72 GB</b> of RAM.
+        </li>
       </ul>
     ),
     tags: ["Qdrant", "FastAPI", "PostgreSQL", "Redis", "React", "Hybrid Search", "RAG", "Raspberry Pi"],

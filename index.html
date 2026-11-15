@@ -368,7 +368,8 @@
             cited RAG chat. FastAPI, PostgreSQL, Qdrant and Redis in Docker Compose, self-hosted on
             a Raspberry Pi 5, with an installable PWA frontend. The production rebuild cut search
             p95 by 46% (104 &rarr; 56 ms) against the prototype, and moving BM25 into Qdrant cut
-            engine memory by 64% (2.6 &rarr; 0.9 GB) to fit the Pi.
+            engine memory by 64% (2.6 &rarr; 0.9 GB) to fit the Pi. On the Pi it serves the feed in
+            70 ms p50 (22 ms from cache) with a 0.72 GB engine.
           </p>
         </article>
 
