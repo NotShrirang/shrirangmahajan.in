@@ -9,7 +9,7 @@ const fetchExperience = () => [
         product manager.
       </>,
       <>
-        <b>Video analytics platform (Kepler):</b> built most of the CCTV and
+        <b>Video analytics platform (Kepler):</b> built the entire stack of the CCTV and
         drone analytics (fire/smoke, PPE, ANPR, weapons, intrusion, crowd
         counting) and face recognition, served over gRPC on multiple hardware
         backends (Triton, Jetson, ONNX, CPU). Scales from{" "}
@@ -20,14 +20,14 @@ const fetchExperience = () => [
         <b>Inference performance:</b> cut retrieval latency{" "}
         <b>88% (971 → 113 ms)</b> by searching Qdrant embeddings only around
         detected objects and caching features to skip <b>87%</b> of repeat
-        model calls. <b>Doubled throughput (3 → 7 FPS)</b> with TensorRT on
+        model calls. <b>Doubled throughput (6 → 12 FPS)</b> with TensorRT on
         NVIDIA Triton, at <b>120+ inferences/s under 50 ms P95</b>.
       </>,
       <>
         <b>Aircraft tracking system:</b> owned end to end as sole engineer, live
         at an operational airfield. Tracked{" "}
         <b>1,400+ takeoffs and landings</b> with the aircraft{" "}
-        <b>in frame 90%</b> of the time, at <b>22 FPS</b>, using YOLO, visual
+        <b>in frame 90%</b> of the time, at <b>23 FPS</b> (up from 14 with TensorRT FP16 and threaded rendering), using YOLO, visual
         odometry, SIFT/RANSAC pose correction and predictive PTZ control.
       </>,
       <>
@@ -38,8 +38,8 @@ const fetchExperience = () => [
       </>,
       <>
         <b>FrameSeek (prototype):</b> natural-language CCTV search where any LLM
-        (Claude, GPT, Gemini, Groq) queries an offline video index through{" "}
-        <b>19 MCP tools</b>. Index built with YOLO26, ByteTrack, SigLIP2 and
+        (Claude, GPT, Gemini, Groq) queries an online / offline video index through{" "}
+        <b>20 MCP tools</b>. Index built with YOLO26, ByteTrack, SigLIP2 and
         DINOv2.
       </>,
       <>
@@ -60,7 +60,8 @@ const fetchExperience = () => [
       <>
         Led development of an <b>LLM agent for BI analytics</b> that turns
         plain-English questions into SQL and charts,{" "}
-        <b>cutting query turnaround 90%</b> to under 5 s. Deployed to multiple
+        <b>cutting query turnaround 90%</b> to under 5 s, and scaled it into a
+        product generating <b>$300k in revenue</b>. Deployed to multiple
         enterprise clients as a <b>core revenue product</b>.
       </>,
       <>

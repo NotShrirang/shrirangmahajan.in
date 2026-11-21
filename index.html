@@ -104,7 +104,8 @@
       "https://x.com/notshrirang",
       "https://huggingface.co/NotShrirang",
       "https://www.kaggle.com/notshrirang",
-      "https://pypi.org/user/NotShrirang/"
+      "https://pypi.org/user/NotShrirang/",
+      "https://www.imdb.com/name/nm6294932/"
     ],
     "hasOccupation": [
       {
@@ -236,7 +237,7 @@
               Sole ML engineer since September 2026, working with 3 SDEs and a product manager.
             </li>
             <li>
-              Video analytics platform (Kepler): built most of the CCTV and drone analytics
+              Video analytics platform (Kepler): built the entire stack of the CCTV and drone analytics
               (fire/smoke, PPE, ANPR, weapons, intrusion, crowd counting) and face recognition,
               served over gRPC on multiple hardware backends (Triton, Jetson, ONNX, CPU). Scales
               from 4 cameras on a Jetson AGX Orin to 40 on an A5000 cluster at 400 ms P99.
@@ -244,13 +245,13 @@
             <li>
               Inference performance: cut retrieval latency 88% (971 &rarr; 113 ms) by searching
               Qdrant embeddings only around detected objects and caching features to skip 87% of
-              repeat model calls. Doubled throughput (3 &rarr; 7 FPS) with TensorRT on NVIDIA
+              repeat model calls. Doubled throughput (6 &rarr; 12 FPS) with TensorRT on NVIDIA
               Triton, at 120+ inferences/s under 50 ms P95.
             </li>
             <li>
               Aircraft tracking system: owned end to end as sole engineer, live at an operational
               airfield. Tracked 1,400+ takeoffs and landings with the aircraft in frame 90% of
-              the time, at 22 FPS, using YOLO, visual odometry, SIFT/RANSAC pose correction and
+              the time, at 23 FPS (up from 14 with TensorRT FP16 and threaded rendering), using YOLO, visual odometry, SIFT/RANSAC pose correction and
               predictive PTZ control.
             </li>
             <li>
@@ -260,7 +261,7 @@
             </li>
             <li>
               FrameSeek (prototype): natural-language CCTV search where any LLM (Claude, GPT,
-              Gemini, Groq) queries an offline video index through 19 MCP tools.
+              Gemini, Groq) queries an online / offline video index through 20 MCP tools.
             </li>
             <li>
               Drishti: built the team's annotation platform with GPU pre-labelling on Celery
@@ -275,7 +276,8 @@
           <ul>
             <li>
               Led development of an LLM agent for BI analytics that turns plain-English
-              questions into SQL and charts, cutting query turnaround 90% to under 5 s. Deployed
+              questions into SQL and charts, cutting query turnaround 90% to under 5 s, and scaled it into a
+              product generating $300k in revenue. Deployed
               to multiple enterprise clients as a core revenue product.
             </li>
             <li>
@@ -379,7 +381,7 @@
           <h3><a href="https://github.com/NotShrirang/tinygpt">TinyGPT</a></h3>
           <p>
             A 95M-parameter LLM (RoPE, GQA, RMSNorm) pretrained from scratch in PyTorch on
-            ~6B tokens on a single RTX 3070 Ti (8 GB VRAM), using mixed precision, gradient
+            2.1B tokens on a single RTX 3070 Ti (8 GB VRAM), using mixed precision, gradient
             accumulation and Liger fused kernels. Instruction-tuned on Alpaca (val perplexity
             7.3) and runs in the browser via ONNX + WebGPU; weights on
             <a href="https://huggingface.co/NotShrirang">Hugging Face</a> and live at
@@ -530,7 +532,7 @@
             &mdash; an accessible explanation of the attention mechanism that powers modern LLMs.
           </li>
           <li>
-            <a href="https://www.shrirangmahajan.in/blogs/from-words-to-meaning:-the-journey-from-word-vectors-to-learnable-embeddings">
+            <a href="https://www.shrirangmahajan.in/blogs/from-words-to-meaning-the-journey-from-word-vectors-to-learnable-embeddings">
               From Words to Meaning: The Journey from Word Vectors to Learnable Embeddings
             </a>
             &mdash; from one-hot encoding and Word2Vec to learnable embeddings inside modern

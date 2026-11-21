@@ -146,7 +146,7 @@ const projects = [
         <li>
           Pretrained <strong>TinyGPT</strong>, a <strong>95M-parameter</strong>{" "}
           GPT (RoPE, GQA, RMSNorm), from scratch in PyTorch on{" "}
-          <strong>~6B tokens</strong> of OpenWebText on one{" "}
+          <strong>2.1B tokens</strong> of OpenWebText on one{" "}
           <strong>RTX 3070 Ti (8GB VRAM)</strong>, using mixed precision,
           gradient accumulation and <strong>Liger fused kernels</strong>.
         </li>

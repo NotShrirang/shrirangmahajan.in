@@ -98,11 +98,11 @@ export const blogPath = (slug) => `/blogs/${slug}`;
  * Percent-encode a route path for use in a URL (canonical tag, og:url,
  * sitemap <loc>).
  *
- * Two of the slugs carry characters that are legal in a path segment but must
+ * Some slugs carry characters that are legal in a path segment but must
  * not appear raw in XML or in a canonical URL:
  *
  *   writing-cuda-kernels-from-scratch-a-beginner's-guide          →  %27
- *   from-words-to-meaning:-the-journey-from-word-vectors-…        →  %3A
+ *   (a colon slug was renamed; colons cannot be folder names on Windows)
  *
  * encodeURIComponent() is applied per segment so the "/" separators survive.
  * On its own it is not enough: it deliberately leaves ! ' ( ) * unescaped,

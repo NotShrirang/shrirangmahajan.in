@@ -27,7 +27,7 @@ const skylarkHighlights = [
     title: "Kepler: video analytics at scale",
     text: (
       <>
-        Built most of the CCTV and drone analytics (fire and smoke, PPE, ANPR,
+        Built the entire stack of the CCTV and drone analytics (fire and smoke, PPE, ANPR,
         weapons, intrusion, crowd counting, face recognition), served over gRPC
         on Triton, Jetson, ONNX and CPU. Scales from{" "}
         <b>4 cameras on a Jetson AGX Orin to 40 on an A5000 cluster</b> at{" "}
@@ -42,7 +42,7 @@ const skylarkHighlights = [
       <>
         Owned end to end as the sole engineer. Tracked{" "}
         <b>1,400+ takeoffs and landings</b> with the aircraft{" "}
-        <b>in frame 90%</b> of the time at <b>22 FPS</b>, using YOLO, visual
+        <b>in frame 90%</b> of the time at <b>23 FPS</b> (up from 14 with TensorRT FP16 and threaded rendering), using YOLO, visual
         odometry, SIFT/RANSAC pose correction and predictive PTZ control.
       </>
     ),
@@ -420,7 +420,7 @@ export default function Home() {
             </h2>
             <p className={styles.sectionLede}>
               The model I pretrained from scratch on{" "}
-              <strong>~6B tokens of OpenWebText</strong> using a single RTX
+              <strong>2.1B tokens of OpenWebText</strong> using a single RTX
               3070 Ti, then instruction-tuned on Stanford Alpaca. Click to
               download the ONNX weights (~536 MB) — inference then runs
               locally via WebGPU (or WASM fallback). Fluent English, often
@@ -443,7 +443,7 @@ export default function Home() {
                 ["Positional", "RoPE + RMSNorm"],
                 ["Vocab", "50,257 (GPT-2 BPE)"],
                 ["Context", "512 tokens"],
-                ["Pretrain", "~6B tokens · OpenWebText"],
+                ["Pretrain", "2.1B tokens · OpenWebText"],
                 ["Hardware", "1× RTX 3070 Ti (8 GB)"],
                 ["SFT", "Stanford Alpaca · 52K"],
               ].map(([k, v]) => (

@@ -14,7 +14,7 @@ import TinyGPTCover from "../../assets/images/blogs/TinyGPT/cover.png";
 const blogs = [
   {
     title: "From Words to Meaning: The Journey From Word Vectors to Learnable Embeddings",
-    slug: "from-words-to-meaning:-the-journey-from-word-vectors-to-learnable-embeddings",
+    slug: "from-words-to-meaning-the-journey-from-word-vectors-to-learnable-embeddings",
     description:
       "Why one-hot encoding falls short, how Word2Vec-style vectors capture meaning, and how learnable input embeddings feed a transformer's context window.",
     image: VectorEmbeddingsCover,

@@ -23,7 +23,7 @@
  */
 
 import { createServer } from "node:http";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import path from "node:path";
 import fs from "node:fs/promises";
 import { existsSync } from "node:fs";
@@ -359,7 +359,7 @@ function rewriteHead(html, { url, isHome, title, description }) {
 
 async function main() {
   const { staticRoutes, blogPath, absoluteUrl, encodePath, SITE_ORIGIN } =
-    await import(path.join(ROOT, "src/data/routes.js"));
+    await import(pathToFileURL(path.join(ROOT, "src/data/routes.js")).href);
 
   const blogs = await loadBlogSlugs();
   const routes = [

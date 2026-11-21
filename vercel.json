@@ -1,6 +1,28 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/blogs/from-words-to-meaning\\:-the-journey-from-word-vectors-to-learnable-embeddings",
+      "destination": "/blogs/from-words-to-meaning-the-journey-from-word-vectors-to-learnable-embeddings",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/from-words-to-meaning%3A-the-journey-from-word-vectors-to-learnable-embeddings",
+      "destination": "/blogs/from-words-to-meaning-the-journey-from-word-vectors-to-learnable-embeddings",
+      "permanent": true
+    },
+    {
+      "source": "/jupyter/blogs/from-words-to-meaning\\:-the-journey-from-word-vectors-to-learnable-embeddings",
+      "destination": "/jupyter/blogs/from-words-to-meaning-the-journey-from-word-vectors-to-learnable-embeddings",
+      "permanent": true
+    },
+    {
+      "source": "/jupyter/blogs/from-words-to-meaning%3A-the-journey-from-word-vectors-to-learnable-embeddings",
+      "destination": "/jupyter/blogs/from-words-to-meaning-the-journey-from-word-vectors-to-learnable-embeddings",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/((?!assets/|_app/|.*\\.[a-zA-Z0-9]+$).*)",

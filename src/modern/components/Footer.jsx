@@ -9,6 +9,7 @@ const social = [
   { label: "X", href: "https://x.com/notshrirang" },
   { label: "Hugging Face", href: "https://huggingface.co/NotShrirang" },
   { label: "Kaggle", href: "https://www.kaggle.com/notshrirang" },
+  { label: "IMDb (acting, earlier)", href: "https://www.imdb.com/name/nm6294932/" },
   { label: "Email", href: "mailto:shrirangmahajan123@gmail.com" },
 ];
 
