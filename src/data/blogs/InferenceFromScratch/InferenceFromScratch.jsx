@@ -728,7 +728,7 @@ const JOURNEY = [
   { label: "2 · KV cache", single: 59, peak: 83 },
   { label: "3 · Static batch*", single: 98, peak: 1204 },
   { label: "4 · Cont. batch v1", single: 47, peak: 389 },
-  { label: "8 · Admission ctrl", single: 75, peak: 602 },
+  { label: "5 · Admission ctrl", single: 75, peak: 602 },
   { label: "Final engine", single: 90, peak: 788, highlight: true },
   { label: "vLLM (reference)", single: 270, peak: 9370, ref: true },
 ];
@@ -1305,8 +1305,8 @@ def forward(self, input_ids, **kwargs):
       of 16, extra load adds only waiting time — TTFT grows linearly.
     </p>
 
-    {/* ───────────── STEP 8 ───────────── */}
-    <h2>Step 8: Admission Control</h2>
+    {/* ───────────── STEP 5 ───────────── */}
+    <h2>Step 5: Admission Control</h2>
     <p>
       Past 64 concurrent requests, the batch is full and the waiting queue
       grows. Without a limit, memory creeps up and latency becomes unbounded.
@@ -1341,7 +1341,7 @@ def forward(self, input_ids, **kwargs):
         { conc: 128, tokS: 481, color: "var(--viz-orange)" },
         { conc: 256, tokS: 468, color: "var(--viz-orange)" },
       ]}
-      title="Step 8: Admission Control — Throughput (orange = 429s)"
+      title="Step 5: Admission Control — Throughput (orange = 429s)"
       xLabel="concurrent requests"
       xKey="conc"
       yMax={700}
@@ -1515,8 +1515,8 @@ def forward(self, input_ids, **kwargs):
             ["2 · KV cache", "Reuse past keys and values", "59 tok/s", ["83 tok/s", "at 16 req"], "23 ms", "12 ms", ["12.5 s p99", "at 16 req"]],
             ["3 · Static batching*", "N prompts in one forward pass", "98 tok/s", ["1,204 tok/s", "at batch 16"], "—", "—", ["Out of memory", "at batch 32"]],
             ["4 · Continuous batching v1", "Engine loop; requests join and leave", "47 tok/s", ["389 tok/s", "at 16 req"], "127 ms", "16 ms", ["32 s p99 at 256", "queue has no limit"]],
-            ["8 · Admission control", "Bounded queue, HTTP 429 when full", "75 tok/s", ["602 tok/s", "at 16 req"], "117 ms", "9 ms", ["21 s p99 at 256", "extra requests get 429"]],
-            ["Final engine", "Steps 4 + 8 with KV cache editing and no_grad", "90 tok/s", ["788 tok/s", "at 64 req"], "114 ms", "7 ms", ["17 s p99 at 256", "0 errors up to 64"]],
+            ["5 · Admission control", "Bounded queue, HTTP 429 when full", "75 tok/s", ["602 tok/s", "at 16 req"], "117 ms", "9 ms", ["21 s p99 at 256", "extra requests get 429"]],
+            ["Final engine", "Steps 4 + 5 with KV cache editing and no_grad", "90 tok/s", ["788 tok/s", "at 64 req"], "114 ms", "7 ms", ["17 s p99 at 256", "0 errors up to 64"]],
             ["vLLM (reference)", "PagedAttention, fused kernels, CUDA graphs", "270 tok/s", ["9,370 tok/s", "at 256 req"], "9 ms", "3.6 ms", ["2.1 s p99 at 256", "0 errors"]],
           ].map(([stage, what, single, peak, ttft, tpot, load]) => {
             const final = stage === "Final engine";
@@ -1575,7 +1575,7 @@ def forward(self, input_ids, **kwargs):
           points: [[1, 47], [2, 80], [4, 145], [8, 286], [16, 389], [32, 383], [64, 382], [128, 382], [256, 377]],
         },
         {
-          label: "8 · Admission ctrl",
+          label: "5 · Admission ctrl",
           color: "var(--viz-blue)",
           points: [[1, 75], [2, 130], [4, 243], [8, 400], [16, 602], [32, 546], [64, 550], [128, 481], [256, 468]],
         },
@@ -1713,7 +1713,7 @@ cp bench_endpoint_results.json benchmarks/step8_admission_control.json
 python scripts/plot_endpoint.py \\
     --results benchmarks/step8_admission_control.json \\
     --out benchmarks/step8_admission_control.png \\
-    --title "Step 8: Admission Control (Qwen2.5-0.5B)"
+    --title "Step 5: Admission Control (Qwen2.5-0.5B)"
 
 # Compare all steps on one plot
 python scripts/board.py compare --out benchmarks/step_comparison.png`}
