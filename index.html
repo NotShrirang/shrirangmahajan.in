@@ -346,8 +346,8 @@
           <p>
             An LLM inference server built from scratch one technique at a time: KV cache, batching,
             then continuous batching with KV cache splicing and admission control. Benchmarked
-            against vLLM on the same 8 GB GPU: 788 vs 9,370 tok/s at peak, with the ~12&times; gap
-            traced to PagedAttention, fused kernels and CUDA graphs.
+            against vLLM on the same 8 GB GPU: 788 vs 9,370 tok/s at peak, with the main sources of
+            the ~12&times; gap identified: batch capacity (PagedAttention), fused kernels and CUDA graphs.
           </p>
         </article>
 

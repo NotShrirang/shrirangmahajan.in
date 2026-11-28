@@ -2,12 +2,23 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import styles from "./Post.module.css";
 import blogs, { loadBlogContent } from "../../data/blogs";
+import { absoluteUrl, blogPath } from "../../data/routes";
 
 export default function Post() {
   const { slug } = useParams();
   const [scroll, setScroll] = useState(0);
   const [content, setContent] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [copied, setCopied] = useState(false);
+  // Not window.location: the prerender would bake its localhost URL into the static HTML.
+  const shareUrl = absoluteUrl(blogPath(slug));
+
+  const copyLink = () => {
+    navigator.clipboard?.writeText(shareUrl).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  };
 
   const blog = useMemo(() => blogs.find((b) => b.slug === slug), [slug]);
 
@@ -144,7 +155,7 @@ export default function Post() {
             rel="noreferrer noopener"
             href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
               `Reading "${blog.title}" by @notshrirang`
-            )}&url=${encodeURIComponent(window.location.href)}`}
+            )}&url=${encodeURIComponent(shareUrl)}`}
           >
             Share on X ›
           </a>
@@ -152,7 +163,7 @@ export default function Post() {
             target="_blank"
             rel="noreferrer noopener"
             href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-              window.location.href
+              shareUrl
             )}`}
           >
             Share on LinkedIn ›
@@ -161,11 +172,14 @@ export default function Post() {
             target="_blank"
             rel="noreferrer noopener"
             href={`https://news.ycombinator.com/submitlink?u=${encodeURIComponent(
-              window.location.href
+              shareUrl
             )}&t=${encodeURIComponent(blog.title)}`}
           >
             Submit to HN ›
           </a>
+          <button type="button" className={styles.shareButton} onClick={copyLink}>
+            {copied ? "Link copied ✓" : "Copy link ›"}
+          </button>
         </div>
       </div>
 

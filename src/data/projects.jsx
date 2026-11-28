@@ -186,8 +186,8 @@ const projects = [
         An LLM inference server built from scratch, one technique at a time:
         KV cache, batching, then a <b>continuous-batching engine</b> with
         admission control. Benchmarked against vLLM (<b>788 vs 9,370 tok/s</b>),
-        with the 12× gap traced to PagedAttention, fused kernels and CUDA
-        graphs.
+        with the main sources of the 12× gap identified: batch capacity
+        (PagedAttention), fused kernels and CUDA graphs.
       </>
     ),
     description: (
@@ -208,10 +208,11 @@ const projects = [
         </li>
         <li>
           Benchmarked against <b>vLLM</b> on the same GPU, model and prompts:{" "}
-          <b>788 vs 9,370 tok/s</b> at peak, 2.4× slower per token, 13× slower
-          to first token. Traced each part of the gap to a specific technique:{" "}
-          <b>PagedAttention</b> for capacity, <b>fused kernels and CUDA
-          graphs</b> for per-token latency, a faster prefill for TTFT.
+          <b>788 vs 9,370 tok/s</b> at peak (3× at 1 request), 2.4× slower per
+          token. Main sources: <b>PagedAttention</b> for batch capacity and{" "}
+          <b>fused kernels and CUDA graphs</b> for per-token latency. Found the
+          time-to-first-token gap was my own engine's polling loop, not prefill:
+          fixing it cut TTFT from <b>116 to 30 ms</b>.
         </li>
         <li>
           Full write-up with every benchmark:{" "}

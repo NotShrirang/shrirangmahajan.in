@@ -838,9 +838,9 @@ const content = (
     <style>{VIZ_CSS}</style>
     <p>
       vLLM serves 9,370 tokens per second on an 8 GB GPU. My server, built from
-      scratch, manages 788. That's a 12× gap — and I can tell you exactly where
-      every bit of it comes from, because I built each piece myself and
-      benchmarked it along the way.
+      scratch, manages 788. That's a 12× gap at peak load (3× with a single
+      request). Because I built each piece myself and benchmarked it along the
+      way, I can point to the main sources of that gap.
     </p>
     <p>
       This post walks through building an LLM inference server one optimization
@@ -1308,9 +1308,10 @@ def forward(self, input_ids, **kwargs):
     {/* ───────────── STEP 5 ───────────── */}
     <h2>Step 5: Admission Control</h2>
     <p>
-      Past 64 concurrent requests, the batch is full and the waiting queue
-      grows. Without a limit, memory creeps up and latency becomes unbounded.
-      The fix: a bounded queue that rejects excess requests with HTTP 429:
+      The batch holds 16 requests. Past that, new requests wait in a queue,
+      and in Step 4 that queue had no limit: at 256 concurrent requests the
+      server still answered everything, but p99 latency reached 32 seconds.
+      The fix is a bounded queue that rejects extra requests with HTTP 429:
     </p>
     <Code
       language="python"
@@ -1348,13 +1349,13 @@ def forward(self, input_ids, **kwargs):
     />
 
     <p>
-      This doesn't increase throughput — it protects it. Without admission
-      control, the engine crashed at 32 concurrent requests. With it, the server
-      runs cleanly to 256, rejecting what it can't serve. At 128 requests,
-      2,323 get a 429; at 256, 1,294 do. The requests that <em>are</em> served
-      maintain stable TPOT (~30 ms). The value isn't speed — it's a clear
-      contract: the server tells you when it's full instead of silently
-      degrading.
+      This doesn't increase throughput. With 16 running and 64 waiting, the
+      server holds 80 requests; anything beyond that gets a 429 right away
+      instead of waiting. At 128 concurrent requests, 2,323 requests were
+      rejected; at 256, 1,294 were. The requests that <em>are</em> accepted
+      keep a steady TPOT (22–30 ms), and p99 latency at 256 drops from 32 s to
+      21 s. The value isn't speed. It's a clear contract: the server tells you
+      when it's full instead of making everyone wait.
     </p>
 
     {/* ───────────── CAPSTONE ───────────── */}
@@ -1398,7 +1399,7 @@ def forward(self, input_ids, **kwargs):
         {[
           ["Throughput (1 req)", "90 tok/s", "270 tok/s", "3.0×"],
           ["Peak throughput", "788 tok/s (at 64)", "9,370 tok/s (at 256)", "~12×", true],
-          ["TTFT p50 (1 req)", "114 ms", "9 ms", "13×"],
+          ["TTFT p50 (1 req)", "114 ms → 30 ms*", "9 ms", "13× → ~3×"],
           ["TPOT p95 (1 req)", "8.8 ms", "3.7 ms", "2.4×"],
           ["Errors at 256 req", "902 (429s)", "0", "—"],
         ].map(([metric, mine, vllm, gap, bold]) => (
@@ -1411,17 +1412,25 @@ def forward(self, input_ids, **kwargs):
         ))}
       </tbody>
     </table>
-
-    <p>
-      The 12× throughput gap, the 13× TTFT gap, and the 2.4× TPOT gap each
-      come from a different place. Let me trace each one.
+    <p style={{ ...captionStyle, textAlign: "left", marginTop: "-0.8em" }}>
+      * 114 ms in the capstone run. After the polling fix described below,
+      TTFT is 30 ms; that number comes from a separate run, so the ~3× is
+      approximate.
     </p>
 
-    <h3>Throughput (~12×): PagedAttention</h3>
+    <p>
+      These gaps are not independent, so they don't add up neatly. The 12×
+      peak gap includes everything vLLM does better, and with a single request
+      the throughput gap is only 3×. Here are the main sources as far as my
+      measurements can show.
+    </p>
+
+    <h3>Peak throughput (~12×): mostly batch capacity</h3>
     <p>
       My engine stores the KV cache as one contiguous tensor per layer. Each
       request gets a row, left-padded to the length of the longest sequence.
-      At batch size 16, the cache fills the GPU and new requests are rejected.
+      I cap the batch at 16, because with this layout batch 32 already ran out
+      of memory on this GPU (Step 3). Past that, requests wait or get a 429.
     </p>
     <p>
       vLLM uses{" "}
@@ -1430,11 +1439,12 @@ def forward(self, input_ids, **kwargs):
       </a>
       : the KV cache is split into fixed-size blocks allocated from a free-block
       list, like virtual memory pages. No padding, no fragmentation. This lets
-      vLLM pack hundreds of sequences into the same 8 GB — its batch saturates
-      at 256+ requests where mine caps at 16.
+      vLLM pack hundreds of sequences into the same 8 GB: its throughput is
+      still climbing at 256 requests, while mine flattens after 16. Its faster
+      kernels (next section) add to this gap too.
     </p>
 
-    <h3>TPOT (~2.4×): Fused Kernels and CUDA Graphs</h3>
+    <h3>Per-token latency (~2.4×): fused kernels and CUDA graphs</h3>
     <p>
       I profiled the engine with cProfile. The forward pass alone is 85% of wall
       time — but a large chunk is Python overhead: HuggingFace's module
@@ -1449,11 +1459,44 @@ def forward(self, input_ids, **kwargs):
       which continuous batching breaks by design.
     </p>
 
-    <h3>TTFT (~13×): Prefill Speed</h3>
+    <h3>Time to first token: engine overhead, not prefill</h3>
     <p>
-      My prefill runs through standard PyTorch with Python request handling.
-      vLLM uses FlashAttention and a C++ server path. The 114 ms vs 9 ms gap is
-      the cost of doing everything in Python.
+      I first blamed slow prefill for the 13× TTFT gap. My own numbers say
+      otherwise. The Step 2 server, on the same Python and PyTorch stack, had a
+      23 ms TTFT. It jumped above 100 ms only once requests went through the
+      engine loop (127 ms in Step 4, 117 ms in Step 5, 114 ms in the capstone).
+    </p>
+    <p>
+      The cause was the streaming loop. It checked each request's token queue
+      and slept for 0.1 s whenever the queue was empty, so the first token
+      could sit waiting for up to 100 ms:
+    </p>
+    <Code
+      language="python"
+      content={`# Before: poll the queue, sleep 0.1 s when it is empty
+while not req.finished:
+    if not req.queue.empty():
+        token = await req.queue.get()
+        if token is None:
+            break
+        yield decode(token)
+    else:
+        await asyncio.sleep(0.1)
+
+# After: wait on the queue until the end-of-stream marker
+while (token := await req.queue.get()) is not None:
+    yield decode(token)`}
+      expander={false}
+      copy={true}
+    />
+    <p>
+      In before-and-after runs on the same day, TTFT at 1 request dropped from
+      116 ms to <b>30 ms</b>, and it stays between 37 and 55 ms from 2 to 16
+      requests. The fix also stopped the loop from dropping the last few tokens
+      of a request. That brings the gap to vLLM's 9 ms down to roughly 3×.
+      I haven't broken down the remaining ~20 ms yet. Likely candidates are
+      the engine loop's 5 ms idle sleep, prefilling each new request on its
+      own and splicing its cache into the batch, and Python request handling.
     </p>
 
     {/* ───────────── PROFILE ───────────── */}
@@ -1516,7 +1559,7 @@ def forward(self, input_ids, **kwargs):
             ["3 · Static batching*", "N prompts in one forward pass", "98 tok/s", ["1,204 tok/s", "at batch 16"], "—", "—", ["Out of memory", "at batch 32"]],
             ["4 · Continuous batching v1", "Engine loop; requests join and leave", "47 tok/s", ["389 tok/s", "at 16 req"], "127 ms", "16 ms", ["32 s p99 at 256", "queue has no limit"]],
             ["5 · Admission control", "Bounded queue, HTTP 429 when full", "75 tok/s", ["602 tok/s", "at 16 req"], "117 ms", "9 ms", ["21 s p99 at 256", "extra requests get 429"]],
-            ["Final engine", "Steps 4 + 5 with KV cache editing and no_grad", "90 tok/s", ["788 tok/s", "at 64 req"], "114 ms", "7 ms", ["17 s p99 at 256", "0 errors up to 64"]],
+            ["Final engine", "Steps 4 + 5 with KV cache editing and no_grad", "90 tok/s", ["788 tok/s", "at 64 req"], "30 ms†", "7 ms", ["17 s p99 at 256", "0 errors up to 64"]],
             ["vLLM (reference)", "PagedAttention, fused kernels, CUDA graphs", "270 tok/s", ["9,370 tok/s", "at 256 req"], "9 ms", "3.6 ms", ["2.1 s p99 at 256", "0 errors"]],
           ].map(([stage, what, single, peak, ttft, tpot, load]) => {
             const final = stage === "Final engine";
@@ -1554,7 +1597,8 @@ def forward(self, input_ids, **kwargs):
       </table>
       <p style={{ ...captionStyle, textAlign: "left" }}>
         TTFT and TPOT are measured at 1 request; "at 16 req" means 16
-        concurrent requests. * Static batching receives every
+        concurrent requests. † After the polling fix (114 ms before it, in the
+        capstone run). * Static batching receives every
         prompt in one call, so it is an upper bound rather than a server
         handling separate requests.
       </p>
@@ -1602,10 +1646,11 @@ def forward(self, input_ids, **kwargs):
     </div>
 
     <p>
-      One number went the wrong way. TTFT for a single request rose from 23 ms
-      to 114 ms once requests went through the engine loop. Under real load it
-      recovers: from 2 to 16 concurrent requests the final engine's TTFT stays
-      between 34 and 60 ms, while Step 2's grows to 379 ms at 16.
+      One number went the wrong way for a while. TTFT for a single request
+      rose from 23 ms to 114 ms once requests went through the engine loop,
+      because of the 0.1 s polling sleep. After the fix it is 30 ms, close to
+      Step 2 again, and it stays under 55 ms up to 16 concurrent requests,
+      while Step 2's grows to 379 ms at 16.
     </p>
 
     {/* ───────────── LESSONS ───────────── */}
@@ -1627,30 +1672,34 @@ def forward(self, input_ids, **kwargs):
       decides your throughput.
     </p>
 
-    <h3>3. The vLLM gap is three separate problems</h3>
+    <h3>3. Measure before you explain a gap</h3>
 
     <div style={{ ...chartCard, display: "flex", justifyContent: "space-around", flexWrap: "wrap", textAlign: "center", gap: "1em" }}>
       <div>
         <div style={{ fontSize: "1.8em", fontWeight: 700, color: "var(--viz-purple)" }}>~12×</div>
-        <div style={{ fontSize: "0.85em", color: "var(--viz-text)", fontWeight: 600 }}>PagedAttention</div>
-        <div style={{ fontSize: "0.75em", color: "var(--viz-muted)" }}>larger batches → throughput</div>
+        <div style={{ fontSize: "0.85em", color: "var(--viz-text)", fontWeight: 600 }}>Peak throughput</div>
+        <div style={{ fontSize: "0.75em", color: "var(--viz-muted)" }}>mostly batch capacity (PagedAttention)</div>
       </div>
       <div>
         <div style={{ fontSize: "1.8em", fontWeight: 700, color: "var(--viz-orange)" }}>2.4×</div>
-        <div style={{ fontSize: "0.85em", color: "var(--viz-text)", fontWeight: 600 }}>Fused Kernels</div>
-        <div style={{ fontSize: "0.75em", color: "var(--viz-muted)" }}>less Python → per-token speed</div>
+        <div style={{ fontSize: "0.85em", color: "var(--viz-text)", fontWeight: 600 }}>Per-token latency</div>
+        <div style={{ fontSize: "0.75em", color: "var(--viz-muted)" }}>fused kernels, CUDA graphs</div>
       </div>
       <div>
-        <div style={{ fontSize: "1.8em", fontWeight: 700, color: "var(--viz-blue)" }}>13×</div>
-        <div style={{ fontSize: "0.85em", color: "var(--viz-text)", fontWeight: 600 }}>FlashAttention</div>
-        <div style={{ fontSize: "0.75em", color: "var(--viz-muted)" }}>faster prefill → TTFT</div>
+        <div style={{ fontSize: "1.8em", fontWeight: 700, color: "var(--viz-blue)" }}>13× → ~3×</div>
+        <div style={{ fontSize: "0.85em", color: "var(--viz-text)", fontWeight: 600 }}>Time to first token</div>
+        <div style={{ fontSize: "0.75em", color: "var(--viz-muted)" }}>mostly my own engine's overhead</div>
       </div>
     </div>
 
     <p>
-      Each requires custom GPU kernels. That's why I stopped at pure
-      Python/PyTorch — the goal was to understand what each technique does, not
-      to close the gap.
+      These are the main sources of the vLLM gap, not a complete breakdown;
+      they overlap, and the peak number includes everything vLLM does better.
+      My first explanation for the TTFT gap (slow prefill) was wrong. Comparing
+      against my own Step 2 numbers pointed at the engine loop, and one line of
+      code removed most of it. The other two gaps need custom GPU kernels,
+      which is where I stopped: the goal was to understand what each technique
+      does, not to close the gap.
     </p>
 
     <h3>4. eval() ≠ no_grad()</h3>
@@ -1682,9 +1731,9 @@ def forward(self, input_ids, **kwargs):
     </p>
     <p>
       Out of scope by design: custom GPU kernels (PagedAttention kernel, fused
-      attention, FlashAttention) and multi-GPU. The vLLM comparison showed that
-      these account for most of the remaining gap, and they don't fit a "build
-      it in Python to understand it" project.
+      attention, FlashAttention) and multi-GPU. The vLLM comparison suggests
+      these are behind most of the remaining throughput and per-token gap, and
+      they don't fit a "build it in Python to understand it" project.
     </p>
 
     {/* ───────────── TRY IT ───────────── */}

@@ -243,7 +243,14 @@
   flex-wrap: wrap;
   gap: 1.5rem;
 }
-.shareLinks a {
+.shareButton {
+  background: none;
+  border: 0;
+  border-radius: 0;
+  cursor: pointer;
+}
+.shareLinks a,
+.shareButton {
   font-family: var(--font-mono);
   font-size: 0.74rem;
   letter-spacing: 0.12em;
@@ -254,7 +261,8 @@
   transition: color var(--fast) var(--ease),
     border-color var(--fast) var(--ease);
 }
-.shareLinks a:hover {
+.shareLinks a:hover,
+.shareButton:hover {
   color: var(--accent);
   border-bottom-color: var(--accent);
 }
@@ -390,7 +398,8 @@
   .shareLinks {
     gap: 1rem;
   }
-  .shareLinks a {
+  .shareLinks a,
+  .shareButton {
     font-size: 0.7rem;
   }
   .relatedTitle {

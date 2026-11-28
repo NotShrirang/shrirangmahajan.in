@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import styles from "./Blog.module.css";
 import blogs from "../../data/blogs-jupyter";
+import { absoluteUrl, blogPath } from "../../data/routes";
 import Footer from "../../components/Footer/Footer";
 import BlogCard from "../../components/BlogCard/BlogCard";
 
@@ -47,6 +48,8 @@ const Blog = () => {
     );
   }
   document.title = `${blog.title} | Shrirang Mahajan`;
+  // Share the canonical post, not the /jupyter copy.
+  const shareUrl = absoluteUrl(blogPath(blog.slug));
   return (
     <div className={styles.Blog}>
       <div className={styles.BlogContainer}>
@@ -98,12 +101,9 @@ const Blog = () => {
             <div>Share it on:</div>
             <div className={styles.BlogShareButtons}>
               <a
-                href={`https://twitter.com/intent/tweet?text=Read%20this%20amazing%20blog%20"${blog.title
-                  .toString()
-                  .split(" ")
-                  .join("%20")}"%20by%20@notshrirang!&url=${
-                  window.location.href
-                }`}
+                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                  `Reading "${blog.title}" by @notshrirang`
+                )}&url=${encodeURIComponent(shareUrl)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.BlogShareButton}
@@ -117,18 +117,11 @@ const Blog = () => {
                 X
               </a>
               <a
-                href={`https://www.linkedin.com/shareArticle?mini=true&url=${window.location.href.replace(
-                  " ",
-                  "-"
-                )}&title=${blog.title}source=${window.location.href}`}
-                onClick={() => {
-                  window.open(
-                    this.href,
-                    "mywin",
-                    "left=20,top=20,width=500,height=500,toolbar=1,resizable=0"
-                  );
-                  return false;
-                }}
+                href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+                  shareUrl
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
                 className={styles.BlogShareButton}
               >
                 <img
@@ -140,20 +133,11 @@ const Blog = () => {
                 LinkedIn
               </a>
               <a
-                href={`https://www.reddit.com/r/${blog.tags[0].replace(
-                  " ",
-                  ""
-                )}/submit?url=${window.location.href.replace(" ", "-")}&title=${
-                  blog.title
-                }source=${window.location.href}`}
-                onClick={() => {
-                  window.open(
-                    this.href,
-                    "mywin",
-                    "left=20,top=20,width=500,height=500,toolbar=1,resizable=0"
-                  );
-                  return false;
-                }}
+                href={`https://www.reddit.com/submit?url=${encodeURIComponent(
+                  shareUrl
+                )}&title=${encodeURIComponent(blog.title)}`}
+                target="_blank"
+                rel="noopener noreferrer"
                 className={styles.BlogShareButton}
               >
                 <img
