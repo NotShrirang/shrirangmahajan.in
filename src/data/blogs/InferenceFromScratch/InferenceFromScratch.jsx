@@ -729,7 +729,7 @@ const JOURNEY = [
   { label: "3 · Static batch*", single: 98, peak: 1204 },
   { label: "4 · Cont. batch v1", single: 47, peak: 389 },
   { label: "5 · Admission ctrl", single: 75, peak: 602 },
-  { label: "Final engine", single: 90, peak: 788, highlight: true },
+  { label: "Final engine", single: 66, peak: 788, highlight: true },
   { label: "vLLM (reference)", single: 270, peak: 9370, ref: true },
 ];
 
@@ -838,8 +838,8 @@ const content = (
     <style>{VIZ_CSS}</style>
     <p>
       vLLM serves 9,370 tokens per second on an 8 GB GPU. My server, built from
-      scratch, manages 788. That's a 12× gap at peak load (3× with a single
-      request). Because I built each piece myself and benchmarked it along the
+      scratch, manages 788. That's a 12× gap at peak load (about 4× with a
+      single request). Because I built each piece myself and benchmarked it along the
       way, I can point to the main sources of that gap.
     </p>
     <p>
@@ -927,15 +927,39 @@ const content = (
     />
     <p>
       This is deliberately terrible. At step 50, the model processes all 50
-      previous tokens just to produce token 51. The cost grows quadratically
-      with sequence length. No streaming either — the user waits for the full
-      response.
+      previous tokens just to produce token 51. No streaming either: the user
+      waits for the full response.
     </p>
     <p>
-      I didn't benchmark this step under load because there's nothing to
-      benchmark: it doesn't stream, doesn't batch, and doesn't cache. TTFT and
-      TPOT both equal total time divided by token count. It exists only to
-      establish the floor.
+      How bad is it? Take one forward pass over <i>L</i> tokens, with hidden
+      size <i>d</i>. Each layer does two kinds of work:
+    </p>
+    <ul>
+      <li>
+        <b>Projections and MLP</b> (the matrix multiplies with the weights):
+        about <i>L·d²</i>, linear in <i>L</i>.
+      </li>
+      <li>
+        <b>Attention scores</b> (every token attends to every token): about{" "}
+        <i>L²·d</i>, quadratic in <i>L</i>.
+      </li>
+    </ul>
+    <p>
+      The baseline runs that full pass again for every new token, with{" "}
+      <i>L</i> = 1, 2, …, <i>N</i>. Summing over all steps, the weight work
+      grows as <i>N²·d²</i> and the attention work as <i>N³·d</i>: quadratic
+      and cubic in sequence length. A KV cache (Step 2) processes only the new
+      token at each step, which brings these down to <i>N·d²</i> and{" "}
+      <i>N²·d</i>. At the lengths in this post (around 100 tokens, while
+      Qwen2.5-0.5B has <i>d</i> = 896), <i>L</i> stays well below <i>d</i>,
+      so the weight work dominates and the waste you'd actually see is closer
+      to the quadratic term. The cubic attention term takes over for long
+      sequences.
+    </p>
+    <p>
+      I didn't benchmark this step: it has no streaming endpoint, so there is
+      no TTFT or TPOT to measure. The first token arrives only with the whole
+      response. It exists only to establish the floor.
     </p>
 
     {/* ───────────── STEP 2 ───────────── */}
@@ -1397,10 +1421,10 @@ def forward(self, input_ids, **kwargs):
       </thead>
       <tbody>
         {[
-          ["Throughput (1 req)", "90 tok/s", "270 tok/s", "3.0×"],
+          ["Throughput (1 req)", "66 tok/s*", "270 tok/s", "~4×"],
           ["Peak throughput", "788 tok/s (at 64)", "9,370 tok/s (at 256)", "~12×", true],
-          ["TTFT p50 (1 req)", "114 ms → 30 ms*", "9 ms", "13× → ~3×"],
-          ["TPOT p95 (1 req)", "8.8 ms", "3.7 ms", "2.4×"],
+          ["TTFT p50 (1 req)", "30 ms*", "9 ms", "~3×"],
+          ["TPOT p50 (1 req)", "13.6 ms*", "3.6 ms", "~4×"],
           ["Errors at 256 req", "902 (429s)", "0", "—"],
         ].map(([metric, mine, vllm, gap, bold]) => (
           <tr key={metric} style={{ borderBottom: "1px solid var(--viz-border)" }}>
@@ -1413,15 +1437,17 @@ def forward(self, input_ids, **kwargs):
       </tbody>
     </table>
     <p style={{ ...captionStyle, textAlign: "left", marginTop: "-0.8em" }}>
-      * 114 ms in the capstone run. After the polling fix described below,
-      TTFT is 30 ms; that number comes from a separate run, so the ~3× is
-      approximate.
+      * Measured after the streaming fix described below, in a separate run, so
+      these gaps are approximate. The capstone run itself showed 90 tok/s,
+      114 ms and 7.2 ms at 1 request, but its stream loop dropped tokens, which
+      distorted all three. Peak throughput was not affected (see "Why the
+      1-request numbers differ").
     </p>
 
     <p>
       These gaps are not independent, so they don't add up neatly. The 12×
       peak gap includes everything vLLM does better, and with a single request
-      the throughput gap is only 3×. Here are the main sources as far as my
+      the throughput gap is about 4×. Here are the main sources as far as my
       measurements can show.
     </p>
 
@@ -1444,7 +1470,7 @@ def forward(self, input_ids, **kwargs):
       kernels (next section) add to this gap too.
     </p>
 
-    <h3>Per-token latency (~2.4×): fused kernels and CUDA graphs</h3>
+    <h3>Per-token latency (~4×): fused kernels and CUDA graphs</h3>
     <p>
       I profiled the engine with cProfile. The forward pass alone is 85% of wall
       time — but a large chunk is Python overhead: HuggingFace's module
@@ -1559,7 +1585,7 @@ while (token := await req.queue.get()) is not None:
             ["3 · Static batching*", "N prompts in one forward pass", "98 tok/s", ["1,204 tok/s", "at batch 16"], "—", "—", ["Out of memory", "at batch 32"]],
             ["4 · Continuous batching v1", "Engine loop; requests join and leave", "47 tok/s", ["389 tok/s", "at 16 req"], "127 ms", "16 ms", ["32 s p99 at 256", "queue has no limit"]],
             ["5 · Admission control", "Bounded queue, HTTP 429 when full", "75 tok/s", ["602 tok/s", "at 16 req"], "117 ms", "9 ms", ["21 s p99 at 256", "extra requests get 429"]],
-            ["Final engine", "Steps 4 + 5 with KV cache editing and no_grad", "90 tok/s", ["788 tok/s", "at 64 req"], "30 ms†", "7 ms", ["17 s p99 at 256", "0 errors up to 64"]],
+            ["Final engine", "Steps 4 + 5 with KV cache editing and no_grad", "66 tok/s†", ["788 tok/s", "at 64 req"], "30 ms†", "14 ms†", ["17 s p99 at 256", "0 errors up to 64"]],
             ["vLLM (reference)", "PagedAttention, fused kernels, CUDA graphs", "270 tok/s", ["9,370 tok/s", "at 256 req"], "9 ms", "3.6 ms", ["2.1 s p99 at 256", "0 errors"]],
           ].map(([stage, what, single, peak, ttft, tpot, load]) => {
             const final = stage === "Final engine";
@@ -1597,8 +1623,9 @@ while (token := await req.queue.get()) is not None:
       </table>
       <p style={{ ...captionStyle, textAlign: "left" }}>
         TTFT and TPOT are measured at 1 request; "at 16 req" means 16
-        concurrent requests. † After the polling fix (114 ms before it, in the
-        capstone run). * Static batching receives every
+        concurrent requests. † From the run after the streaming fix; the peak
+        and heavy-load numbers are from the capstone run. * Static batching
+        receives every
         prompt in one call, so it is an upper bound rather than a server
         handling separate requests.
       </p>
@@ -1641,7 +1668,7 @@ while (token := await req.queue.get()) is not None:
     <div style={{ ...chartCard, display: "flex", flexWrap: "wrap", gap: "1.2em", justifyContent: "space-between" }}>
       <StatCard value="9.4×" label="Peak throughput" detail="83 → 788 tok/s" color="var(--viz-green)" />
       <StatCard value="8.4×" label="Lower p99 at 16 req" detail="12.5 s → 1.5 s" color="var(--viz-blue)" />
-      <StatCard value="1.6×" label="Faster per token" detail="TPOT 11.7 → 7.2 ms at 1 req" color="var(--viz-purple)" />
+      <StatCard value="6.9×" label="Lower TTFT at 16 req" detail="379 → 55 ms" color="var(--viz-purple)" />
       <StatCard value="12×" label="Gap left to vLLM" detail="788 vs 9,370 tok/s" color="var(--viz-orange)" />
     </div>
 
@@ -1651,6 +1678,69 @@ while (token := await req.queue.get()) is not None:
       because of the 0.1 s polling sleep. After the fix it is 30 ms, close to
       Step 2 again, and it stays under 55 ms up to 16 concurrent requests,
       while Step 2's grows to 379 ms at 16.
+    </p>
+
+    <h3>Why the 1-request numbers differ</h3>
+    <p>
+      The single-request throughput jumps around between stages: 59, 98, 47,
+      75, 90 tok/s. Those numbers don't all measure the same thing. Some come
+      from different benchmark scripts, and some from runs with a bug in the
+      streaming loop:
+    </p>
+
+    <div style={{ overflowX: "auto", margin: "1.2em 0" }}>
+      <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 520 }}>
+        <thead>
+          <tr style={{ borderBottom: "2px solid var(--viz-border)" }}>
+            <th style={{ ...th, textAlign: "left" }}>Run</th>
+            <th style={th}>1 req</th>
+            <th style={{ ...th, textAlign: "left" }}>How it was measured</th>
+          </tr>
+        </thead>
+        <tbody>
+          {[
+            ["2 · KV cache", "Simple loop, no engine", "59 tok/s", "Streaming endpoint, all 64 tokens delivered. Clean."],
+            ["3 · Static batching", "Batch of one prompt", "98 tok/s", "A different script: one non-streaming call, median of 3, tokens assumed to be 64. No per-token streaming, so it isn't comparable with the other rows."],
+            ["4 · Continuous batching v1", "Recomputed the batch when it changed", "47 tok/s", "Streaming, with the stream bug."],
+            ["5 · Admission control", "Engine before the no_grad fix", "75 tok/s", "Streaming, with the stream bug."],
+            ["Final engine (capstone run)", "KV cache editing and no_grad", "90 tok/s", "Streaming, with the stream bug."],
+            ["Final engine (after fix)", "Same engine, stream loop fixed", "66 tok/s", "Streaming, about 62 of 64 tokens delivered. Clean."],
+          ].map(([run, what, tps, how]) => {
+            const clean = how.endsWith("Clean.");
+            return (
+              <tr key={run} style={{ borderBottom: "1px solid var(--viz-border)", background: clean ? tint("var(--viz-green)", 8) : undefined }}>
+                <td style={{ ...td, textAlign: "left", minWidth: 150 }}>
+                  <div style={{ fontWeight: 600 }}>{run}</div>
+                  <div style={{ fontSize: "0.88em", color: "var(--viz-muted)" }}>{what}</div>
+                </td>
+                <td style={{ ...td, whiteSpace: "nowrap", fontWeight: 600 }}>{tps}</td>
+                <td style={{ ...td, textAlign: "left" }}>{how}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      <b>The stream bug.</b> Until the fix, the streaming loop could exit while
+      tokens were still in the queue, so those runs delivered only 49 to 54 of
+      the 64 tokens per request. The 0.1 s polling also delivered tokens in
+      bursts. Shorter streams and bursty arrivals make requests look faster
+      and the gaps between tokens look smaller, and the next request could
+      start while the engine was still finishing the previous one. So the 47,
+      75 and 90 tok/s results can't be compared cleanly with Step 2, and the
+      7.2 ms per-token time from the capstone run was an artifact: the same
+      engine measures 13.6 ms after the fix.
+    </p>
+    <p>
+      <b>The clean comparison.</b> With one request, the fixed engine does 66
+      tok/s against Step 2's 59, but its time per token is slightly worse
+      (13.6 vs 11.7 ms). With nothing to batch, the engine's extra
+      bookkeeping doesn't pay for itself; its advantage only shows with
+      concurrency. Under load the bug barely mattered: same-day runs before
+      and after the fix peak at 738 and 744 tok/s, with about 20 ms per token
+      in both, which is why the peak numbers in this post stand.
     </p>
 
     {/* ───────────── LESSONS ───────────── */}
@@ -1681,7 +1771,7 @@ while (token := await req.queue.get()) is not None:
         <div style={{ fontSize: "0.75em", color: "var(--viz-muted)" }}>mostly batch capacity (PagedAttention)</div>
       </div>
       <div>
-        <div style={{ fontSize: "1.8em", fontWeight: 700, color: "var(--viz-orange)" }}>2.4×</div>
+        <div style={{ fontSize: "1.8em", fontWeight: 700, color: "var(--viz-orange)" }}>~4×</div>
         <div style={{ fontSize: "0.85em", color: "var(--viz-text)", fontWeight: 600 }}>Per-token latency</div>
         <div style={{ fontSize: "0.75em", color: "var(--viz-muted)" }}>fused kernels, CUDA graphs</div>
       </div>

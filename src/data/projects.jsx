@@ -208,8 +208,8 @@ const projects = [
         </li>
         <li>
           Benchmarked against <b>vLLM</b> on the same GPU, model and prompts:{" "}
-          <b>788 vs 9,370 tok/s</b> at peak (3× at 1 request), 2.4× slower per
-          token. Main sources: <b>PagedAttention</b> for batch capacity and{" "}
+          <b>788 vs 9,370 tok/s</b> at peak (about 4× at 1 request), about 4×
+          slower per token. Main sources: <b>PagedAttention</b> for batch capacity and{" "}
           <b>fused kernels and CUDA graphs</b> for per-token latency. Found the
           time-to-first-token gap was my own engine's polling loop, not prefill:
           fixing it cut TTFT from <b>116 to 30 ms</b>.
