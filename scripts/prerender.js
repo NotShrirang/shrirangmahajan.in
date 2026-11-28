@@ -355,6 +355,74 @@ function rewriteHead(html, { url, isHome, title, description }) {
   return { html: out, problems };
 }
 
+/* ───────────────────────── article markup ───────────────────────── */
+
+const AUTHOR = {
+  "@type": "Person",
+  name: "Shrirang Mahajan",
+  url: "https://www.shrirangmahajan.in/",
+  sameAs: ["https://github.com/NotShrirang", "https://www.linkedin.com/in/shrirang-mahajan"],
+};
+
+/* JSON inside <script> must not be able to close the tag early. */
+const jsonLd = (obj) =>
+  `<script type="application/ld+json">${JSON.stringify(obj).replace(/</g, "\\u003c")}</script>`;
+
+/**
+ * Turn a post page from "homepage profile" markup into an article: og:type,
+ * the post's cover as the share image, article:* tags, per-post keywords, and
+ * BlogPosting + BreadcrumbList structured data for rich results.
+ */
+function addArticleMarkup(html, { url, route, image, wordCount, origin }) {
+  let out = html;
+  [out] = setTagAttr(out, /<meta[^>]*property="og:type"[^>]*>/i, "content", "article");
+  out = out.replace(/\s*<meta[^>]*property="profile:[^"]*"[^>]*>/gi, "");
+  if (image) {
+    [out] = setTagAttr(out, /<meta[^>]*property="og:image"[^>]*>/i, "content", image);
+    [out] = setTagAttr(out, /<meta[^>]*name="twitter:image"[^>]*>/i, "content", image);
+  }
+  [out] = setTagAttr(out, /<meta[^>]*name="keywords"[^>]*>/i, "content", route.tags.join(", "));
+
+  const date = new Date(route.date).toISOString();
+  const meta = [
+    `<meta property="article:published_time" content="${date}">`,
+    `<meta property="article:modified_time" content="${date}">`,
+    `<meta property="article:author" content="${AUTHOR.url}">`,
+    ...route.tags.map((t) => `<meta property="article:tag" content="${escapeAttr(t)}">`),
+  ];
+
+  const posting = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: route.title,
+    description: route.description,
+    url,
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
+    datePublished: date,
+    dateModified: date,
+    author: AUTHOR,
+    publisher: AUTHOR,
+    keywords: route.tags.join(", "),
+    articleSection: "Machine Learning",
+    inLanguage: "en",
+    wordCount,
+    ...(image && { image: [image] }),
+    ...(route.about && { about: route.about.map((name) => ({ "@type": "Thing", name })) }),
+  };
+  const crumbs = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: `${origin}/` },
+      { "@type": "ListItem", position: 2, name: "Writing", item: `${origin}/blogs` },
+      { "@type": "ListItem", position: 3, name: route.title, item: url },
+    ],
+  };
+
+  const block = [...meta, jsonLd(posting), jsonLd(crumbs)].map((l) => `  ${l}`).join("\n");
+  return out.replace(/<\/head>/i, `${block}\n</head>`);
+}
+
 /* ───────────────────────── main ───────────────────────── */
 
 async function main() {
@@ -371,6 +439,9 @@ async function main() {
       kind: "post",
       title: b.title,
       description: b.description,
+      date: b.date,
+      tags: b.tags,
+      about: b.about,
     })),
   ];
 
@@ -437,12 +508,28 @@ async function main() {
 
         const url = absoluteUrl(route.path);
         const withPreloads = injectFontPreloads(rendered, preloadFonts);
-        const { html, problems } = rewriteHead(withPreloads, {
+        let { html, problems } = rewriteHead(withPreloads, {
           url,
           isHome,
           title: pageTitle,
           description: route.description,
         });
+
+        if (route.kind === "post") {
+          // The cover's hashed asset path only exists in the built page, so
+          // read it back from the DOM and re-root it on the public origin.
+          const cover = await page
+            .$eval("article figure img", (img) => new URL(img.src).pathname)
+            .catch(() => null);
+          html = addArticleMarkup(html, {
+            url,
+            route,
+            image: cover ? `${SITE_ORIGIN}${cover}` : null,
+            wordCount: bodyText.split(/\s+/).length,
+            origin: SITE_ORIGIN,
+          });
+          if (!cover) problems.push("no cover image found for og:image");
+        }
 
         /* A route that fell through to the wrong component would still render
            fine and still be written to disk — this is the check that catches
@@ -485,6 +572,7 @@ async function main() {
         [
           "  <url>",
           `    <loc>${absoluteUrl(r.path)}</loc>`,
+          ...(r.date ? [`    <lastmod>${r.date}</lastmod>`] : []),
           `    <changefreq>${r.changefreq}</changefreq>`,
           `    <priority>${r.priority}</priority>`,
           "  </url>",

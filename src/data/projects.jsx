@@ -213,11 +213,18 @@ const projects = [
           <b>PagedAttention</b> for capacity, <b>fused kernels and CUDA
           graphs</b> for per-token latency, a faster prefill for TTFT.
         </li>
+        <li>
+          Full write-up with every benchmark:{" "}
+          <a href="/blogs/building-an-llm-inference-server-from-scratch">
+            Building an LLM Inference Server from Scratch
+          </a>
+          .
+        </li>
       </ul>
     ),
     tags: ["PyTorch", "FastAPI", "vLLM", "Continuous Batching", "LLM Inference"],
     domain: "ML",
-    link: "https://github.com/NotShrirang/Learning-Inference-Optimization",
+    link: "https://github.com/NotShrirang/inference-from-scratch",
   },
   {
     title: "AgentFlow",

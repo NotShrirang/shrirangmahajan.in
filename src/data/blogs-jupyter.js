@@ -5,6 +5,7 @@ import Llama4NativelyMultimodalAI from "./blogs/Llama4NativelyMultimodalAI";
 import Llama2Blog from "./blogs/Llama2Explained/Llama2Explained";
 import TensoraxBlog from "./blogs/TensoraxExplained/TensoraxExplained";
 import TinyGPTBlog from "./blogs/TinyGPTPretraining/TinyGPTPretraining";
+import InferenceFromScratchBlog from "./blogs/InferenceFromScratch/InferenceFromScratch";
 
 const blogs = [
     {
@@ -69,6 +70,15 @@ const blogs = [
         tags: TinyGPTBlog.tags,
         date: TinyGPTBlog.date,
         readTime: TinyGPTBlog.readTime,
+    },
+    {
+        title: InferenceFromScratchBlog.title,
+        content: InferenceFromScratchBlog.content,
+        slug: InferenceFromScratchBlog.slug,
+        image: InferenceFromScratchBlog.image,
+        tags: InferenceFromScratchBlog.tags,
+        date: InferenceFromScratchBlog.date,
+        readTime: InferenceFromScratchBlog.readTime,
     },
 ];
 

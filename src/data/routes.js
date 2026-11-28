@@ -45,7 +45,7 @@ export const staticRoutes = [
     changefreq: "weekly",
     priority: "0.9",
     description:
-      "Long-form, illustrated essays on attention, embeddings, CUDA kernels and pre-training language models on consumer hardware.",
+      "Long-form, illustrated essays on LLM inference and serving, attention, embeddings, CUDA kernels and pre-training language models on consumer hardware.",
   },
   {
     path: "/experience",
