@@ -581,7 +581,8 @@ function ContinuousBatchingAnimation() {
 
 /* ───────────────────────── ThroughputChart ───────────────────────── */
 
-function ThroughputChart({ data, title, xLabel, xKey, yMax, width = 640, height = 280 }) {
+function ThroughputChart({ data, title, xLabel, xKey, yMax, unit = "tok/s", width = 640, height = 280 }) {
+  const pct = unit === "%";
   const pad = { top: 30, right: 20, bottom: 45, left: 65 };
   const cw = width - pad.left - pad.right;
   const ch = height - pad.top - pad.bottom;
@@ -603,13 +604,13 @@ function ThroughputChart({ data, title, xLabel, xKey, yMax, width = 640, height 
             <g key={f}>
               <line x1={pad.left} y1={y} x2={pad.left + cw} y2={y} stroke="var(--viz-grid)" strokeWidth={1} />
               <text x={pad.left - 8} y={y + 4} textAnchor="end" fill="var(--viz-faint)" fontSize={11} fontFamily="monospace">
-                {val >= 1000 ? `${(val / 1000).toFixed(val >= 10000 ? 0 : 1)}k` : val}
+                {pct ? `${val}%` : val >= 1000 ? `${(val / 1000).toFixed(val >= 10000 ? 0 : 1)}k` : val}
               </text>
             </g>
           );
         })}
         <text x={pad.left - 8} y={pad.top - 10} textAnchor="end" fill="var(--viz-faint)" fontSize={10} fontFamily="monospace">
-          tok/s
+          {pct ? "% of time" : unit}
         </text>
 
         {/* Bars */}
@@ -621,7 +622,7 @@ function ThroughputChart({ data, title, xLabel, xKey, yMax, width = 640, height 
             <g key={i}>
               <rect x={x} y={y} width={barW} height={barH} rx={3} fill={d.color || "var(--viz-blue)"} opacity={0.85} />
               <text x={x + barW / 2} y={y - 5} textAnchor="middle" fill={d.color || "var(--viz-blue)"} fontSize={10} fontFamily="monospace" fontWeight={600}>
-                {d.tokS >= 1000 ? `${(d.tokS / 1000).toFixed(1)}k` : Math.round(d.tokS)}
+                {pct ? `${d.tokS}%` : d.tokS >= 1000 ? `${(d.tokS / 1000).toFixed(1)}k` : Math.round(d.tokS)}
               </text>
               <text x={x + barW / 2} y={pad.top + ch + 16} textAnchor="middle" fill="var(--viz-faint)" fontSize={10} fontFamily="monospace">
                 {d[xKey]}
@@ -1546,6 +1547,7 @@ while (token := await req.queue.get()) is not None:
       xLabel=""
       xKey="component"
       yMax={100}
+      unit="%"
       height={240}
     />
 
